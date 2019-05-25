@@ -1,0 +1,20 @@
+﻿#signinform
+{
+	background-color:#FFFFFF;
+}
+
+.navTop{
+width:100%;
+border:1px solid black;
+float:left;
+}
+.container{
+width:100%;
+float:left;
+overflow:scroll;
+}
+.bottomFooter{
+float:left;
+border:1px solid black;
+width:100%;
+}
