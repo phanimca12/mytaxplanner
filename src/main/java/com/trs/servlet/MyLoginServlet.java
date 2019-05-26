@@ -31,10 +31,11 @@ public class MyLoginServlet extends HttpServlet {
 		try {
 			jObj = new JSONObject(sb.toString());
 		    String name = jObj.getString("name");
+		    String pass = jObj.getString("pass");
 		    
 	        response.setContentType("text/plain");
 	        response.setCharacterEncoding("UTF-8");
-	        response.getWriter().write("hello from java. you entered : " + name);
+	        response.getWriter().write("hello from java. you entered : " + name +"Password="+pass);
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
