@@ -23,8 +23,9 @@ import com.trs.controller.FilingRequestController;
 import com.trs.controller.UserController;
 import com.trs.exception.GlobalExceptionMapper;
 import com.trs.exception.UserCreationrExceptionMapper;
+import com.trs.servlet.MyLoginServlet;
 
-@ApplicationPath( "/*" )
+//@ApplicationPath( "/*" )
 public class ITRApplications extends Application
 {
   @Override
@@ -44,6 +45,7 @@ public class ITRApplications extends Application
     classes.add( new UserController() );
     classes.add( new AgentController() );
     classes.add( new FilingRequestController() );
+    classes.add( new MyLoginServlet() );
     final JacksonJaxbJsonProvider provider = getJacksonJaxbJsonProvider();
 
     if ( provider != null )

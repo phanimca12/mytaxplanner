@@ -10,7 +10,7 @@
  <link rel="stylesheet" href="css/global.css">
  <link rel="stylesheet" href="css/loginform.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/X.Y.Z/angular-route.js"></script>
+
 <script src="js/angularexternalJS/angular.min.js"></script>
  <script src="js/jqueryexternalJS/jquery.min.js"></script>
  <script src="js/jqueryexternalJS/popper.min.js"></script>
@@ -26,27 +26,27 @@
 <div class="container-fluid"  >
 <div class="row">
 <div class="col-sm-3"></div>
-<div class="col-sm-6"  id="signinform" >
-<form action="" class="was-validated" >
+<div class="col-sm-6"  id="signinform" ng-app="signonApp" ng-controller="signonController" >
+<form  class="was-validated" >
 <div style="border-radius:15px;padding-bottom:40px">
 	<h2 style="background-color:#454545;text-align:center;width:100%;border-radius: 15px;color:white">Sign In</h2>
 	</div>
   <div class="form-group">
     <p>Username: 
-	<input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname" required  ></p>
+	<input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname" required   ng-model="username" ></p>
        <div class="valid-feedback">Valid.</div>
     <div class="invalid-feedback">Please fill out this field.</div>
   </div>
   <div class="form-group">
     <p><label for="pwd">Password:</label>
-    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required  ></p>
+    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required ng-model="userpass" ></p>
     <div class="valid-feedback">Valid.</div>
     <div class="invalid-feedback">Please fill out this field.</div>
   </div>
  
 <div class="form-group" >
    
-  <button type="submit" >Submit</button>
+  <button ng-click="sendPost()" >Submit</button>
   </div>
   
   <div class="form-group" >
@@ -59,7 +59,7 @@
     <a href="">Username / Password?</a></p>
 
   </div>
-<p>You have entered {{ username }}</p>
+<p>{{ message }}</p>
 </form>
 </div>
 <div class="col-sm-3"></div>
