@@ -20,12 +20,13 @@ import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
 
 import com.trs.controller.AgentController;
 import com.trs.controller.FilingRequestController;
+import com.trs.controller.HttpSessionController;
 import com.trs.controller.UserController;
 import com.trs.exception.GlobalExceptionMapper;
 import com.trs.exception.UserCreationrExceptionMapper;
 import com.trs.servlet.MyLoginServlet;
 
-//@ApplicationPath( "/*" )
+@ApplicationPath( "/rest/*" )
 public class ITRApplications extends Application
 {
   @Override
@@ -45,7 +46,7 @@ public class ITRApplications extends Application
     classes.add( new UserController() );
     classes.add( new AgentController() );
     classes.add( new FilingRequestController() );
-    classes.add( new MyLoginServlet() );
+    classes.add( new HttpSessionController() );
     final JacksonJaxbJsonProvider provider = getJacksonJaxbJsonProvider();
 
     if ( provider != null )

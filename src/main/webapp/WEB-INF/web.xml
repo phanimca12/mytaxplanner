@@ -3,9 +3,13 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
+ <welcome-file-list>  
+   <welcome-file>login.html</welcome-file>  
+   <welcome-file>default.html</welcome-file>  
+  </welcome-file-list> 
   <display-name>Archetype Created Web Application</display-name>
   
-  <servlet>
+  	<servlet>
 		<servlet-name>RESTServices</servlet-name>
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<init-param>
@@ -17,14 +21,13 @@
 	<servlet-mapping>
 		<servlet-name>RESTServices</servlet-name>
 		<url-pattern>/v1/*</url-pattern>
-	</servlet-mapping> 
+	</servlet-mapping>
 	<servlet>
-	<servlet-name>MyLoginServlet</servlet-name>
+	<servlet-name>LoginServlet</servlet-name>
 	<servlet-class>com.trs.servlet.MyLoginServlet</servlet-class>
-	<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>MyLoginServlet</servlet-name>
-		<url-pattern>/MyLoginServlet</url-pattern>
+	<servlet-name>LoginServlet</servlet-name>
+	<url-pattern>/home</url-pattern>
 	</servlet-mapping>
 </web-app>

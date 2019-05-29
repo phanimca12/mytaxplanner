@@ -11,9 +11,9 @@ app.controller("signonController", [ '$scope', '$http', function($scope, $http) 
                 'pass' :$scope.userpass
 
     			};
-    alert($scope.username);
+ 
         $http({
-            url : '\MyLoginServlet',
+            url : '\home',
             method : "POST",
             data :JSON.stringify(data)
         }).then(function(response) {
