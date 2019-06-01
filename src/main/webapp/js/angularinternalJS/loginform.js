@@ -15,6 +15,7 @@ app.controller("signonController", [ '$scope', '$http', function($scope, $http) 
         $http({
             url : '\home',
             method : "POST",
+            headers: { 'Content-Type': 'application/json' },
             data :JSON.stringify(data)
         }).then(function(response) {
             console.log(response.data);

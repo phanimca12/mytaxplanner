@@ -1,6 +1,9 @@
 ﻿var app=angular.module("myhomeapp",[]);
-app.controller("myhomectrl", function($scope, $http)
+app.controller("myhomectrl", function($scope, $http,$window)
 {
+$window.onload = function()
+{
+
 $http({
     method : "GET",
       url : "/MyTaxReturn/v1/HTTPSession"
@@ -9,5 +12,6 @@ $http({
   }, function myError(response) {
     $scope.username = response.statusText;
   }); 
-            
+        
+};   
             });
