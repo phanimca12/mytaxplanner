@@ -9,11 +9,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.trs.constant.MyTaxReturnConstants;
+import com.trs.dao.IReturnFilingRequest;
+import com.trs.dao.ReturnFilingService;
 import com.trs.exception.UserCreationException;
 import com.trs.model.ResponseModel;
 import com.trs.model.ReturnFilingRequest;
-import com.trs.service.IReturnFilingRequest;
-import com.trs.service.ReturnFilingService;
 
 @Path( "/returnfilingrequest" )
 public class FilingRequestController

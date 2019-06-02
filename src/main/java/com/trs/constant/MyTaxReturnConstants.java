@@ -8,6 +8,10 @@ public class MyTaxReturnConstants
 
   // SQL QUERIES
 
+  public static final String AUTHORIZEDUSER_SQL            = "select * from UserTable where emailID= :email and password= :password";
+  public static final String PARAMETER_EMAILID             = "email";
+  public static final String PARAMETER_PASSWORD            = "password";
+
   public static final String USEREXISTS_SQL                = "select * from UserTable where emailID= :email or mobile= :mobile";
   public static final String PARAMETER_EMAIL               = "email";
   public static final String PARAMETER_MOBILE              = "mobile";

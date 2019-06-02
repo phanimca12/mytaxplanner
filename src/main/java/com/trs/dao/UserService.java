@@ -1,4 +1,4 @@
-package com.trs.service;
+package com.trs.dao;
 
 import java.util.List;
 
@@ -67,6 +67,19 @@ public class UserService implements IUserService
                                .setParameter( MyTaxReturnConstants.PARAMETER_MOBILE, mobile );
 
     return query.getResultList().size() > 0 ? true : false;
+  }
+
+  public boolean isAuthorizedUser( final String emailID, final String password )
+  {
+    final Session session = dbConfig.getSessionFactory().openSession();
+
+    final Query query = session.createSQLQuery( MyTaxReturnConstants.AUTHORIZEDUSER_SQL )
+                               .addEntity( User.class )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_EMAILID, emailID )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_PASSWORD, password );
+
+    return query.getResultList().size() > 0 ? true : false;
+
   }
 
 }

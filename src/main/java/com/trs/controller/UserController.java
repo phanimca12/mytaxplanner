@@ -10,12 +10,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.trs.constant.MyTaxReturnConstants;
+import com.trs.dao.IUserService;
+import com.trs.dao.UserService;
 import com.trs.exception.UserCreationException;
 import com.trs.model.ResponseModel;
 import com.trs.model.User;
 import com.trs.model.Users;
-import com.trs.service.IUserService;
-import com.trs.service.UserService;
 
 @Path( "/user" )
 public class UserController

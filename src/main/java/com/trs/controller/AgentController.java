@@ -9,11 +9,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.trs.constant.MyTaxReturnConstants;
+import com.trs.dao.AgentService;
+import com.trs.dao.IAgentService;
 import com.trs.exception.UserCreationException;
 import com.trs.model.Agent;
 import com.trs.model.ResponseModel;
-import com.trs.service.AgentService;
-import com.trs.service.IAgentService;
 
 @Path( "/agent" )
 public class AgentController

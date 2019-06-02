@@ -1,4 +1,4 @@
-package com.trs.service;
+package com.trs.dao;
 
 import java.util.List;
 
@@ -13,5 +13,7 @@ public interface IUserService
   public ResponseModel createNewUser( final User user ) throws Exception;
 
   public boolean isUserExist( String email, String mobile );
+
+  public boolean isAuthorizedUser( String emailID, String password );
 
 }

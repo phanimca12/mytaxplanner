@@ -1,4 +1,4 @@
-package com.trs.service;
+package com.trs.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
