@@ -55,8 +55,9 @@ public class FilingRequest extends HttpServlet
 
     request.setAttribute( "message", "ITR Filing Request Submitted SuccessFully" );
 
-    final javax.servlet.RequestDispatcher dispatcher = getServletContext().getRequestDispatcher( "/home.jsp" );
-    dispatcher.forward( request, response );
+    /*final javax.servlet.RequestDispatcher dispatcher = getServletContext().getRequestDispatcher( "/home.jsp" );
+    dispatcher.forward( request, response );*/
+    response.sendRedirect( "home.jsp" );
 
   }
 

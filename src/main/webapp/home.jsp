@@ -78,7 +78,7 @@ session.getAttribute("customerName")
 
 <div class="col-sm-12" id="rightblock">
 
- <ul class="nav nav-tabs" id="mytab">
+ <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
     <li><a data-toggle="tab" href="#menu1">ITR-Request</a></li>
     <li><a data-toggle="tab" href="#menu2">Uploads/Downloads</a></li>
