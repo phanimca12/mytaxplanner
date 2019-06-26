@@ -16,4 +16,6 @@ public interface IUserService
 
   public boolean isAuthorizedUser( String emailID, String password );
 
+  public int getUserID( String emailID );
+
 }

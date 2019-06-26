@@ -40,6 +40,14 @@
 	<servlet-name>Logout</servlet-name>
 	<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
+	<servlet>
+	<servlet-name>ITRFilingRequest</servlet-name>
+	<servlet-class>com.trs.servlet.FilingRequest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	<servlet-name>ITRFilingRequest</servlet-name>
+	<url-pattern>/returnfilingreq</url-pattern>
+	</servlet-mapping>
 	<context-param>
 	<param-name>Cache-Control</param-name>
 	<param-value>no-cache,no-store,must-revalidate</param-value>

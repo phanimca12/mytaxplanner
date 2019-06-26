@@ -13,14 +13,14 @@ public class ReturnFilingList
 {
 
   @XmlElement( name = "ReturnFiling" )
-  private List<ReturnFilingRequest> returnFilingList;
+  private List<ReturnFiling> returnFilingList;
 
-  public List<ReturnFilingRequest> getReturnFilingList()
+  public List<ReturnFiling> getReturnFilingList()
   {
     return returnFilingList;
   }
 
-  public void setReturnFilingList( final List<ReturnFilingRequest> returnFilingList )
+  public void setReturnFilingList( final List<ReturnFiling> returnFilingList )
   {
     this.returnFilingList = returnFilingList;
   }

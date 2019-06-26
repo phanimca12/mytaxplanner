@@ -1,8 +1,6 @@
 package com.trs.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,11 +14,12 @@ import org.codehaus.jackson.annotate.JsonProperty;
 @XmlAccessorType( XmlAccessType.NONE )
 @Entity
 @Table( name = "ReturnFilingRequestTable" )
-public class ReturnFilingRequest
+public class ReturnFiling
 {
   @Id
-  @GeneratedValue( strategy = GenerationType.AUTO )
-  private int    request_ID;
+  @XmlAttribute
+  @JsonProperty
+  private long   requestID;
 
   @XmlAttribute
   @JsonProperty
@@ -28,15 +27,25 @@ public class ReturnFilingRequest
 
   @XmlAttribute
   @JsonProperty
-  private String user_ID;
+  private int    userID;
 
   @XmlAttribute
   @JsonProperty
-  private String agent_Code;
+  private String agentCode;
+
+  public String getAgentCode()
+  {
+    return agentCode;
+  }
+
+  public void setAgentCode( final String agentCode )
+  {
+    this.agentCode = agentCode;
+  }
 
   @XmlAttribute
   @JsonProperty
-  private String filing_Year;
+  private String filingYear;
 
   @XmlAttribute
   @JsonProperty
@@ -44,11 +53,21 @@ public class ReturnFilingRequest
 
   @XmlAttribute
   @JsonProperty
-  private String agent_Comments;
+  private String agentComments;
 
   public String getReq_Date()
   {
     return req_Date;
+  }
+
+  public long getRequestID()
+  {
+    return requestID;
+  }
+
+  public void setRequestID( final long rEQID )
+  {
+    this.requestID = rEQID;
   }
 
   public void setReq_Date( final String req_Date )
@@ -56,34 +75,24 @@ public class ReturnFilingRequest
     this.req_Date = req_Date;
   }
 
-  public String getUser_ID()
+  public int getUserID()
   {
-    return user_ID;
+    return userID;
   }
 
-  public void setUser_ID( final String user_ID )
+  public void setUserID( final int userID )
   {
-    this.user_ID = user_ID;
+    this.userID = userID;
   }
 
-  public String getAgent_Code()
+  public String getFilingYear()
   {
-    return agent_Code;
+    return filingYear;
   }
 
-  public void setAgent_Code( final String agent_Code )
+  public void setFilingYear( final String filingYear )
   {
-    this.agent_Code = agent_Code;
-  }
-
-  public String getFiling_Year()
-  {
-    return filing_Year;
-  }
-
-  public void setFiling_Year( final String filing_Year )
-  {
-    this.filing_Year = filing_Year;
+    this.filingYear = filingYear;
   }
 
   public String getStatus()
@@ -96,14 +105,14 @@ public class ReturnFilingRequest
     this.status = status;
   }
 
-  public String getAgent_Comments()
+  public String getAgentComments()
   {
-    return agent_Comments;
+    return agentComments;
   }
 
-  public void setAgent_Comments( final String agent_Comments )
+  public void setAgentComments( final String agentComments )
   {
-    this.agent_Comments = agent_Comments;
+    this.agentComments = agentComments;
   }
 
 }

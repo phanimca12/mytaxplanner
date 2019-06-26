@@ -20,7 +20,20 @@ public class User
 {
   @Id
   @GeneratedValue( strategy = GenerationType.AUTO )
+  @XmlAttribute
+  @JsonProperty
   private int    id;
+
+  public int getId()
+  {
+    return id;
+  }
+
+  public void setId( int id )
+  {
+    this.id = id;
+  }
+
   @XmlAttribute
   @JsonProperty
   private String name;
@@ -28,9 +41,11 @@ public class User
   @XmlAttribute
   @JsonProperty
   private String emailID;
+
   @XmlAttribute
   @JsonProperty
   private String mobile;
+
   @XmlAttribute
   @JsonProperty
   private String password;

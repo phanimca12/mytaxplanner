@@ -24,7 +24,6 @@ import com.trs.controller.HttpSessionController;
 import com.trs.controller.UserController;
 import com.trs.exception.GlobalExceptionMapper;
 import com.trs.exception.UserCreationrExceptionMapper;
-import com.trs.servlet.MyLoginServlet;
 
 @ApplicationPath( "/rest/*" )
 public class ITRApplications extends Application

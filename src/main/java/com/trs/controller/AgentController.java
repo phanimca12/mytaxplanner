@@ -1,6 +1,9 @@
 package com.trs.controller;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -13,11 +16,28 @@ import com.trs.dao.AgentService;
 import com.trs.dao.IAgentService;
 import com.trs.exception.UserCreationException;
 import com.trs.model.Agent;
+import com.trs.model.Agents;
 import com.trs.model.ResponseModel;
 
 @Path( "/agent" )
 public class AgentController
 {
+
+  @GET
+  @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON } )
+  @Path( "/agentdetails" )
+  public List<Agent> getResponse()
+  {
+
+    final IAgentService agentrService = new AgentService();
+
+    final Agents agents = new Agents();
+    agents.setAgentList( agentrService.getAllAgents() );
+
+    return agents.getAgentList();
+
+  }
+
   @POST
   @Consumes( { MediaType.APPLICATION_XML, MediaType.TEXT_XML } )
   @Produces( { MediaType.APPLICATION_XML, MediaType.TEXT_XML } )

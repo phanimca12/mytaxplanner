@@ -8,6 +8,16 @@ public class MyTaxReturnConstants
 
   // SQL QUERIES
 
+  public static final String GETUSERID_SQL                 = "select * from UserTable  where emailID= :email ";
+  public static final String PARAMETER_USEREMAILID         = "email";
+
+  public static final String FILINGREQUEST_SQLDELETE_REQID = "delete from ReturnFilingRequestTable where requestID= :requestID ";
+  public static final String PARAMETER_DELETEREQUESTID     = "requestID";
+
+  public static final String FILINGREQUEST_SQL             = "select * from ReturnFilingRequestTable where userID= :userID ";
+  public static final String PARAMETER_REQUESTID           = "userID";
+  public static final String PARAMETER_AGENTCODE           = "agentCode";
+
   public static final String AUTHORIZEDUSER_SQL            = "select * from UserTable where emailID= :email and password= :password";
   public static final String PARAMETER_EMAILID             = "email";
   public static final String PARAMETER_PASSWORD            = "password";

@@ -10,18 +10,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ResponseModel
 {
   @XmlElement
-  private String              successMessage;
+  private String       successMessage;
   @XmlElement
-  private User                user;
-  private Agent               agent;
-  private ReturnFilingRequest returnFilingRequest;
+  private User         user;
+  private Agent        agent;
+  private ReturnFiling returnFilingRequest;
 
-  public ReturnFilingRequest getReturnFilingRequest()
+  public ReturnFiling getReturnFilingRequest()
   {
     return returnFilingRequest;
   }
 
-  public void setReturnFilingRequest( final ReturnFilingRequest returnFilingRequest )
+  public void setReturnFilingRequest( final ReturnFiling returnFilingRequest )
   {
     this.returnFilingRequest = returnFilingRequest;
   }

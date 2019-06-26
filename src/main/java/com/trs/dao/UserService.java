@@ -1,5 +1,6 @@
 package com.trs.dao;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -48,10 +49,10 @@ public class UserService implements IUserService
     final Transaction t = session.beginTransaction();
     session.save( createUser );
     t.commit();
-    System.out.println( isUserExist( "aphani@dstws.com", "94410540522" ) );
+
     final ResponseModel model = new ResponseModel();
     model.setUser( createUser );
-    model.setSuccessMessage( "User Created Successfully" );
+    model.setSuccessMessage( "created" );
     return model;
 
   }
@@ -80,6 +81,27 @@ public class UserService implements IUserService
 
     return query.getResultList().size() > 0 ? true : false;
 
+  }
+
+  public int getUserID( final String emailID )
+  {
+    final Session session = dbConfig.getSessionFactory().openSession();
+
+    final Query query = session.createSQLQuery( MyTaxReturnConstants.GETUSERID_SQL )
+                               .addEntity( User.class )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_USEREMAILID, emailID );
+    final List list = query.list();
+    int UID = 0;
+    final Iterator it = list.iterator();
+
+    while ( it.hasNext() )
+    {
+      final Object object = it.next();
+      final User user = (User)object;
+      UID = user.getId();
+    }
+    session.close();
+    return UID;
   }
 
 }

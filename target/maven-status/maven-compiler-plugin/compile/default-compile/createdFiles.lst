@@ -7,6 +7,7 @@ com\trs\servlet\HomeServ.class
 com\trs\model\ErrorModel.class
 com\trs\util\Utility.class
 com\trs\controller\HttpSessionController.class
+com\trs\model\ReturnFiling.class
 com\trs\dao\IUserService.class
 com\trs\logger\SysOutputStreamHandler.class
 com\trs\model\SessionData.class
@@ -27,6 +28,7 @@ com\trs\dao\IReturnFilingRequest.class
 com\trs\constant\MyTaxReturnConstants.class
 com\trs\model\User.class
 com\trs\config\ITRApplications.class
+com\trs\servlet\FilingRequest.class
 com\trs\model\Users.class
 com\trs\servlet\LogoutServlet.class
 com\trs\exception\BaseExceptionBaseMapper.class
