@@ -1,10 +1,11 @@
 var app = angular.module('homeApp', []);
 app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $http,$window) {
 	
-	$scope.getUser=function()
+	$scope.getUser=function(customerName)
 	{
+	        
 	
-		alert("Hii");
+		alert("Hii"+customerName);
 		
 	};
 	$scope.Agents = [];

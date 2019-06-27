@@ -83,7 +83,7 @@ session.getAttribute("customerName")
     <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
     <li><a data-toggle="tab" href="#menu1">ITR-Request</a></li>
     <li><a data-toggle="tab" href="#menu2">Uploads/Downloads</a></li>
-    <li><a data-toggle="tab" href="#menu3" ng-click="getUser()">ITR-Details</a></li>
+    <li><a data-toggle="tab" href="#menu3" ng-click="getUser('<%= session.getAttribute("customerName")%>')">ITR-Details</a></li>
   </ul>
 
   <div class="tab-content">
@@ -114,7 +114,7 @@ session.getAttribute("customerName")
    
    </div>
    </p>
-      <p><input type="hidden"  ng-model="userID" name="userID" id="userID" value="Phani"
+      <p><input type="hidden"   name="userID" id="userID" value="<%= session.getAttribute("customerName")%>"   > 
     <input type="submit" value="Submit"  onclick="submitRequest()"  />            
                 
       </form> 
