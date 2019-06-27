@@ -11,11 +11,6 @@ import javax.servlet.http.HttpSession;
 public class MyLoginServlet extends HttpServlet
 {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
-
   @Override
   public void doPost( final HttpServletRequest request, final HttpServletResponse response ) throws IOException,
                                                                                              ServletException

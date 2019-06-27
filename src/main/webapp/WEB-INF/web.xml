@@ -23,7 +23,7 @@
 	<servlet-mapping>
 		<servlet-name>RESTServices</servlet-name>
 		<url-pattern>/v1/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> 
 	<servlet>
 	<servlet-name>LoginServlet</servlet-name>
 	<servlet-class>com.trs.servlet.MyLoginServlet</servlet-class>

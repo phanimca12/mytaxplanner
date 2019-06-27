@@ -1,6 +1,12 @@
 var app = angular.module('homeApp', []);
 app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $http,$window) {
 	
+	$scope.getUser=function()
+	{
+	
+		alert("Hii");
+		
+	};
 	$scope.Agents = [];
 	$scope.Requests = [];
 	 $scope.Years = ["2015-2016", "2016-2017","2017-2018", "2018-2019"];

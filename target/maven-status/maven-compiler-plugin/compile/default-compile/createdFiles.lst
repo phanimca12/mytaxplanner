@@ -17,7 +17,6 @@ com\trs\controller\UserController.class
 com\trs\logger\LogFormatter.class
 com\trs\servlet\MyLoginServlet.class
 com\trs\dao\UserService.class
-com\trs\model\ReturnFilingRequest.class
 com\trs\config\JaxbJsonCompatibleNamingStrategy.class
 com\trs\model\Agents.class
 com\trs\model\ResponseModel.class

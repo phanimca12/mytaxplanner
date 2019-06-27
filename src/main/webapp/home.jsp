@@ -18,7 +18,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
  <script src="js/angularinternalJS/home.js"></script>
- <script src="js/jqueryinternalJS/logoutJS.js"></script>
+ <script src="js/jqueryinternalJS/logout.js"></script>
  <script src="js/jqueryinternalJS/screensize.js"></script>
   <script src="js/jqueryinternalJS/fileupload.js"></script>
 <script src="js/jqueryinternalJS/PageLoad.js"></script>
@@ -43,6 +43,7 @@ if(session.getAttribute("customerName")==null)
 
 %>
 <body  ng-app="homeApp" ng-controller="homeCTRL">
+
 <div class="jumbotron-fluid" >
 <div>
 <a class="mytaxplanner-logo" href="">mytaxplanner<span class="dotcom">.com</span></a>
@@ -64,7 +65,7 @@ if(session.getAttribute("customerName")==null)
 session.getAttribute("customerName")
 %><span class="caret"></span></a>
       <ul class="dropdown-menu" role="menu">
-        <li><a href="#"  onclick="callServlet();">logout</a></li>
+        <li><a href="#"  onclick="doLogout();">logout</a></li>
        <!--  <li><a href="#">CSS</a></li>
         <li><a href="#">JavaScript</a></li>  -->                       
       </ul>
@@ -82,7 +83,7 @@ session.getAttribute("customerName")
     <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
     <li><a data-toggle="tab" href="#menu1">ITR-Request</a></li>
     <li><a data-toggle="tab" href="#menu2">Uploads/Downloads</a></li>
-    <li><a data-toggle="tab" href="#menu3">ITR-Details</a></li>
+    <li><a data-toggle="tab" href="#menu3" ng-click="getUser()">ITR-Details</a></li>
   </ul>
 
   <div class="tab-content">
@@ -113,8 +114,7 @@ session.getAttribute("customerName")
    
    </div>
    </p>
-      <p><input type="hidden"   name="userID" id="userID" value="<%= session.getAttribute("customerName")%>"   >  
-   
+      <p><input type="hidden"  ng-model="userID" name="userID" id="userID" value="Phani"
     <input type="submit" value="Submit"  onclick="submitRequest()"  />            
                 
       </form> 
