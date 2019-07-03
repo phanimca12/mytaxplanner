@@ -19,6 +19,7 @@ import org.codehaus.jackson.map.introspect.JacksonAnnotationIntrospector;
 import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
 
 import com.trs.controller.AgentController;
+import com.trs.controller.AttachmentDetailsController;
 import com.trs.controller.FilingRequestController;
 import com.trs.controller.HttpSessionController;
 import com.trs.controller.UserController;
@@ -45,6 +46,7 @@ public class ITRApplications extends Application
     classes.add( new UserController() );
     classes.add( new AgentController() );
     classes.add( new FilingRequestController() );
+    classes.add( new AttachmentDetailsController() );
     classes.add( new HttpSessionController() );
     final JacksonJaxbJsonProvider provider = getJacksonJaxbJsonProvider();
 

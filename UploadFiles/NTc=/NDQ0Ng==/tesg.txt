@@ -1,0 +1,45 @@
+var app=angular.module("usercreationAPP",[]);
+app.controller("usercreationCTRL",[ '$scope', '$http','$window',function($scope, $http,$window)
+{
+
+
+	$scope.postData = function() {
+		$scope.user = {
+						
+						"name": $scope.user.name,
+						  "emailID":$scope.user.emailID,
+						  "password": $scope.user.password,
+						   "mobile":$scope.user.mobile			
+		};
+		
+	    $http({
+	        url : '/MyTaxReturn/v1/user',
+	        method : "POST",
+	        headers: { 'Content-Type': 'application/json' ,'Accept':'application/json'},
+	        data :$scope.user
+	    }).then(function mySuccess(response) {
+	    	alert(response.data);
+	    	//$scope.message = response.data;
+	    }, function myError(response) {
+	   //   $scope.message = response.statusText;
+	    }); 
+	};	
+	
+
+	
+	
+$scope.checkpassword=function()
+{
+if(!angular.equals($scope.user.password,$scope.user.cpassword) )
+	{
+
+	alert("Password & Confirm Password  Not Matching ");
+	//$scope.user.password="";
+//	$scope.user.cpassword="";
+		
+	}
+		
+}
+
+
+} ]);

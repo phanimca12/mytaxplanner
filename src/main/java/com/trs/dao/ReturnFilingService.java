@@ -17,11 +17,12 @@ import com.trs.util.Utility;
 public class ReturnFilingService implements IReturnFilingRequest
 {
 
+  @Override
   public ResponseModel createNewReturnRequest( final ReturnFiling returnFiling ) throws Exception
   {
     final IUtility util = new Utility();
     final ReturnFiling returnFilingRequest = new ReturnFiling();
-    returnFilingRequest.setRequestID(returnFiling.getUserID() + util.getRandomNumber() );
+    returnFilingRequest.setRequestID( returnFiling.getUserID() + util.getRandomNumber() );
     returnFilingRequest.setUserID( returnFiling.getUserID() );
     returnFilingRequest.setAgentCode( returnFiling.getAgentCode() );
     returnFilingRequest.setReq_Date( util.getCurrentDateTime() );
@@ -35,13 +36,14 @@ public class ReturnFilingService implements IReturnFilingRequest
     t.commit();
 
     final ResponseModel model = new ResponseModel();
-    //model.setReturnFilingRequest( returnFilingRequest );
+    // model.setReturnFilingRequest( returnFilingRequest );
 
     model.setSuccessMessage( "Request Created Successfully" );
     return model;
   }
 
-  public List<ReturnFiling> getAllRequest( final String userID )
+  @Override
+  public List<ReturnFiling> getAllRequest( final int userID )
   {
     final Utility util = new Utility();
     final Session session = util.getHibernateSessionObj();

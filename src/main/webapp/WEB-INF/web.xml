@@ -40,6 +40,14 @@
 	<servlet-name>Logout</servlet-name>
 	<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
+		<servlet>
+	<servlet-name>DownloadServlet</servlet-name>
+	<servlet-class>com.trs.servlet.DownloadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	<servlet-name>DownloadServlet</servlet-name>
+	<url-pattern>/download</url-pattern>
+	</servlet-mapping>
 	<servlet>
 	<servlet-name>ITRFilingRequest</servlet-name>
 	<servlet-class>com.trs.servlet.FilingRequest</servlet-class>

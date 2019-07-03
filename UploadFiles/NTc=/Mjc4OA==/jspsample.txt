@@ -1,9 +1,0 @@
-<%! String username=(String)session.getAttribute("username"); %>
-form action="editinfo" method="post">
-
-    <table>
-        <tr>
-            <td>Username: </td><td> <input type="text" value="<%=username %>" /> </td>
-        </tr>
-
-    </table>

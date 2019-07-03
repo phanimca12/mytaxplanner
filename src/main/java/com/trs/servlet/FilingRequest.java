@@ -17,6 +17,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.trs.dao.UserService;
+import com.trs.model.AttachmentDetails;
 import com.trs.model.ReturnFiling;
 import com.trs.util.IUtility;
 import com.trs.util.Utility;
@@ -47,11 +48,11 @@ public class FilingRequest extends HttpServlet
 
     final long REQID = saveRecord( AgentCode, FilingYear, UserID );
 
-    final String ENCODE_USERID = encodeString( String.valueOf( UserID ) );
-    final String ENCODE_REQID = encodeString( String.valueOf( REQID ) );
-    final String DOCUMENT_PATH = createFolder( ENCODE_USERID, ENCODE_REQID, SAVE_DIR, appPath );
+    /*final String ENCODE_USERID = encodeString( String.valueOf( UserID ) );
+    final String ENCODE_REQID = encodeString( String.valueOf( REQID ) );*/
+    final String DOCUMENT_PATH = createFolder( String.valueOf( UserID ), String.valueOf( REQID ), SAVE_DIR, appPath );
 
-    storeDocument( request, response, DOCUMENT_PATH );
+    storeDocument( request, response, DOCUMENT_PATH, REQID, UserID );
 
     request.setAttribute( "message", "ITR Filing Request Submitted SuccessFully" );
 
@@ -150,10 +151,34 @@ public class FilingRequest extends HttpServlet
 
   }
 
+  public void saveAttachment( String DOCUMENT_PATH,
+                              final String filename,
+                              final long ReqID,
+                              final int UserID,
+                              final AttachmentDetails attachmentDetails )
+  {
+    DOCUMENT_PATH = DOCUMENT_PATH.replace( "\\", "/" );
+    final IUtility util = new Utility();
+    attachmentDetails.setRequestID( ReqID );
+    attachmentDetails.setUserID( UserID );
+    attachmentDetails.setReq_Date( util.getCurrentDateTime() );
+    attachmentDetails.setFile_name( filename );
+    attachmentDetails.setFile_type( "file_type" );
+    attachmentDetails.setFile_path( DOCUMENT_PATH );
+
+    final Session session = util.getHibernateSessionObj();
+    final Transaction t = session.beginTransaction();
+    session.save( attachmentDetails );
+    t.commit();
+  }
+
   public void storeDocument( final HttpServletRequest request,
                              final HttpServletResponse response,
-                             final String DOCUMENT_PATH ) throws IOException, ServletException
+                             final String DOCUMENT_PATH,
+                             final long ReqID,
+                             final int UserID ) throws IOException, ServletException
   {
+    AttachmentDetails attachmentDetails = null;
     for ( final Part part : request.getParts() )
     {
       String fileName = extractFileName( part );
@@ -161,7 +186,9 @@ public class FilingRequest extends HttpServlet
       fileName = new File( fileName ).getName();
       if ( !fileName.isEmpty() )
       {
+        attachmentDetails = new AttachmentDetails();
         part.write( DOCUMENT_PATH + File.separator + fileName );
+        saveAttachment( DOCUMENT_PATH, fileName, ReqID, UserID, attachmentDetails );
       }
     }
   }

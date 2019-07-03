@@ -1,19 +1,57 @@
 var app = angular.module('homeApp', []);
 app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $http,$window) {
 	
+	$scope.Agents = [];
+	$scope.Requests = [];
+	$scope.Attachments = [];
+	 $scope.Years = ["2015-2016", "2016-2017","2017-2018", "2018-2019"];
+	 _refreshAgentData();
+	
 	$scope.getUser=function(customerName)
 	{
 	        
-	
-		alert("Hii"+customerName);
-		
+		 $http({
+             url : '/MyTaxReturn/v1/returnfilingrequest/requestdetails/'+ customerName,
+             method : "GET",
+             	 headers: {
+             	        "Content-Type": "application/json",
+             	        "Accept": "application/json"
+             	    }
+         }).then(function mySuccess(response) {
+         	
+       	
+         	$scope.Requests=response.data;
+         	
+         
+         }, function myError(response) {
+           $scope.message = response.statusText;
+         });
 	};
-	$scope.Agents = [];
-	$scope.Requests = [];
-	 $scope.Years = ["2015-2016", "2016-2017","2017-2018", "2018-2019"];
-	 _refreshAgentData();
+	
+	
+	$scope.getAttachment=function(customerName)
+	{
+	        
+		 $http({
+             url : '/MyTaxReturn/v1/attachments/download/'+ customerName,
+             method : "GET",
+             	 headers: {
+             	        "Content-Type": "application/json",
+             	        "Accept": "application/json"
+             	    }
+         }).then(function mySuccess(response) {
+         	
+       	
+         	$scope.Attachments=response.data;
+         	
+         
+         }, function myError(response) {
+           $scope.message = response.statusText;
+         });
+	};
+	
  
-	 _refreshFilingRequestData();
+	 /*_refreshFilingRequestData();*/
 	
     /* Private Methods */
     //HTTP GET- get all countries collection
@@ -39,7 +77,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
     
     /* Private Methods */
     //HTTP GET- get all countries collection
-    function _refreshFilingRequestData() {
+  /*  function _refreshFilingRequestData() {
     	  $http({
               url : '/MyTaxReturn/v1/returnfilingrequest/requestdetails',
               method : "GET",
@@ -56,7 +94,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
           }, function myError(response) {
             $scope.message = response.statusText;
           });
-    }
+    }*/
     
     //----
     
@@ -83,6 +121,20 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
         
       
     };
+    
+    $scope.GetAttachDownload= function (index) {
+    	
+        var reqID = $scope.Attachments[index].requestID;
+        $scope.attachlink.href="www.google.com";
+        $http({
+            method : "GET",
+            url : "/MyTaxReturn/download",
+            data : angular.toJson(reqID)
+          });
+        
+      
+    };
+    
     
     //---------------------
  //----

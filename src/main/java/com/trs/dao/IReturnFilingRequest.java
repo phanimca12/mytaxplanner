@@ -11,7 +11,7 @@ public interface IReturnFilingRequest
 
   public ResponseModel createNewReturnRequest( final ReturnFiling returnFiling ) throws Exception;
 
-  public List<ReturnFiling> getAllRequest( final String userID );
+  public List<ReturnFiling> getAllRequest( final int userID );
 
   // public boolean isAgentrExist( String email, String mobile );
 }

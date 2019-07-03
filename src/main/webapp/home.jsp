@@ -82,7 +82,7 @@ session.getAttribute("customerName")
  <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
     <li><a data-toggle="tab" href="#menu1">ITR-Request</a></li>
-    <li><a data-toggle="tab" href="#menu2">Uploads/Downloads</a></li>
+    <li><a data-toggle="tab" href="#menu2" ng-click="getAttachment('<%= session.getAttribute("customerName")%>')">Uploads/Downloads</a></li>
     <li><a data-toggle="tab" href="#menu3" ng-click="getUser('<%= session.getAttribute("customerName")%>')">ITR-Details</a></li>
   </ul>
 
@@ -124,7 +124,29 @@ session.getAttribute("customerName")
     
     <div id="menu2" class="tab-pane fade">
       <h3>Menu 2</h3>
-         <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+       
+       <table class="table">
+<thead class="thead-dark">
+      <tr>
+        <th>RequestID</th>
+        <th>File Name</th>
+        <th>Document Type</th>
+        <th>Upload Date</th>
+               
+      </tr>
+    </thead>
+    <tbody>
+  <tr ng-repeat="attachment in Attachments">
+    <td>{{ attachment.requestID}}</td>
+    <td>{{ attachment.file_name }}</td>
+    <td>{{ attachment.file_type }}</td>
+    <td>{{ attachment.req_Date }}</td>
+    
+       <td><input type="button" value="Download" ng-click="GetAttachDownload($index)" /></td>
+  <td><a ng-click="GetAttachDownload($index)" ng-href="download?filename={{attachment.file_name }}&filepath={{attachment.file_path}}" download >click</a></td>
+  </tr>
+  </tbody>
+</table>
    
     </div>
     

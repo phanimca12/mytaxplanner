@@ -15,6 +15,6 @@
         <mapping class="com.trs.model.User"/>
         <mapping class="com.trs.model.Agent"/>
         <mapping class="com.trs.model.ReturnFiling"/>
-        
+        <mapping class="com.trs.model.AttachmentDetails"/>
     </session-factory>
 </hibernate-configuration>

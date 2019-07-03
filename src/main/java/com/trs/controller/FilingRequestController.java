@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -14,6 +15,7 @@ import javax.ws.rs.core.Response;
 import com.trs.constant.MyTaxReturnConstants;
 import com.trs.dao.IReturnFilingRequest;
 import com.trs.dao.ReturnFilingService;
+import com.trs.dao.UserService;
 import com.trs.exception.UserCreationException;
 import com.trs.model.ResponseModel;
 import com.trs.model.ReturnFiling;
@@ -24,14 +26,17 @@ public class FilingRequestController
 {
   @GET
   @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON } )
-  @Path( "/requestdetails" )
-  public List<ReturnFiling> getResponse()
+  @Path( "/requestdetails/{param}" )
+  public List<ReturnFiling> getResponse( @PathParam( "param" ) final String uid )
   {
 
     final IReturnFilingRequest requestService = new ReturnFilingService();
 
     final ReturnFilingList filingList = new ReturnFilingList();
-    filingList.setReturnFilingList( requestService.getAllRequest( "57" ) );
+    final UserService service = new UserService();
+    final int UserID = service.getUserID( uid );
+
+    filingList.setReturnFilingList( requestService.getAllRequest( UserID ) );
     return filingList.getReturnFilingList();
 
   }

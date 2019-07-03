@@ -7,6 +7,7 @@ public class MyTaxReturnConstants
   public static final String HIBERNATE_CONFIG_FILE         = "hibernate.cfg.xml";
 
   // SQL QUERIES
+  public static final String ATTACHMENT_SQL                = "select * from AttachmentTable where userID= :userID ";
 
   public static final String GETUSERID_SQL                 = "select * from UserTable  where emailID= :email ";
   public static final String PARAMETER_USEREMAILID         = "email";
