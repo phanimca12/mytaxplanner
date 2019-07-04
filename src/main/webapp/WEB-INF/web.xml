@@ -25,6 +25,16 @@
 		<url-pattern>/v1/*</url-pattern>
 	</servlet-mapping> 
 	<servlet>
+	<servlet-name>CreateUserServlet</servlet-name>
+	<servlet-class>com.trs.servlet.CreateUserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	<servlet-name>CreateUserServlet</servlet-name>
+	<url-pattern>/createuser</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
 	<servlet-name>LoginServlet</servlet-name>
 	<servlet-class>com.trs.servlet.MyLoginServlet</servlet-class>
 	</servlet>

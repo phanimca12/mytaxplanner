@@ -9,6 +9,7 @@
  <link rel="stylesheet" href="js/bootstrapexternalJS/bootstrap.min.css">
  <link rel="stylesheet" href="css/global.css">
  <link rel="stylesheet" href="css/loginform.css">
+ <link rel="stylesheet" href="css/signup.css">
 
 
 <script src="js/angularexternalJS/angular.min.js"></script>
@@ -16,52 +17,96 @@
  <script src="js/jqueryexternalJS/popper.min.js"></script>
  <script src="js/bootstrapexternalJS/bootstrap.min.js"></script>
  <script src="js/jqueryinternalJS/screensize.js"></script>
+ <script src="js/jqueryinternalJS/signup.js"></script>
  <script src="js/angularinternalJS/loginform.js"></script>
+ 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
 </head>
 
-<body>
+<body ng-app="signonApp" ng-controller="signonController">
 <div class="jumbotron-fluid" ><h1>Header</h1>
 
 </div>
 <div class="container-fluid"  >
 <div class="row">
 <div class="col-sm-3"></div>
-<div class="col-sm-6"  id="signinform" ng-app="signonApp" ng-controller="signonController" >
-<form   action="login" method="Post" >
+<div class="col-sm-6"  id="signinform"  >
+<form   ng-submit="submitForm(user)" >
 <div style="border-radius:15px;padding-bottom:40px">
 	<h2 style="background-color:#454545;text-align:center;width:100%;border-radius: 15px;color:white">Sign In</h2>
 	</div>
   <div class="form-group">
-    <p>Username: 
-	<input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname" required   ng-model="username" ></p>
-       <div class="valid-feedback">Valid.</div>
-    <div class="invalid-feedback">Please fill out this field.</div>
-  </div>
+      <label for="usrname"><span class="glyphicon glyphicon-envelope"></span> Email Id:</label> 
+	<input type="email" class="form-control" id="uname" placeholder="Enter Email ID" name="uname" required   ng-model="user.name" ></p>
+      </div>
   <div class="form-group">
-    <p><label for="pwd">Password:</label>
-    <input type="password" class="form-control" id="pswd" placeholder="Enter password" name="pswd" required ng-model="userpass" ></p>
-    <div class="valid-feedback">Valid.</div>
-    <div class="invalid-feedback">Please fill out this field.</div>
+     <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password:</label>
+    <input type="password" class="form-control" id="pswd" placeholder="Enter password" name="pswd" required ng-model="user.pass" ></p>
+   
   </div>
  
 <div class="form-group" >
-   <input type="submit" value="Submit">
-  <!-- <button ng-click="sendPost()" >Submit</button> -->
+    <button type="submit" ><span class="glyphicon glyphicon-off"></span> Sign-in</button>
+  
   </div>
   
   <div class="form-group" >
    
   <p style="float:left"> <label for="noaccount">Don’t have an account?</label>
     
-   <a href="">SIGN UP NOW</a></p>
+   <button type="button" class="btn btn-default btn-lg" id="myBtn">Sign-Up</button></p>
 <p style="float:right"> <label for="forgotPassword">Forgot</label>
     
     <a href="">Username / Password?</a></p>
 
   </div>
-<p>{{ message }}</p>
+
 </form>
 </div>
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="padding:35px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span> Sign-Up</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <form role="form" ng-submit="createUser(signup)">
+            <div class="form-group">
+              <label for="username"><span class="glyphicon glyphicon-envelope"></span> Email ID:</label>
+              <input type="email" class="form-control" id="signup.username"  ng-model="signup.username" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="new.mobile"><span class="glyphicon glyphicon-phone"></span> Mobile:</label>
+              <input type="text" class="form-control" id="signup.mobile" ng-model="signup.mobile" placeholder="Enter mobile number">
+            </div>
+             <div class="form-group">
+              <label for="new.name"><span class="glyphicon glyphicon-user"></span> Name:</label>
+              <input type="text" class="form-control" id="signup.name" ng-model="signup.name" placeholder="Enter Name">
+            </div>
+            <div class="form-group">
+              <label for="new.pass"><span class="glyphicon glyphicon-eye-open"></span> Password:</label>
+              <input type="password" class="form-control" id="signup.pass" ng-model="signup.pass"  placeholder="Enter Password">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Confirm Password:</label>
+              <input type="password" class="form-control" id="signup.cpass" ng-model="signup.cpass" placeholder="Enter Confirmed Password">
+            </div>
+              <button type="submit" class="btn btn-success btn-block" ng-click="createUser(signup"><span class="glyphicon glyphicon-off"></span> Sign-Up</button>
+          </form>
+        </div>
+       
+      </div>
+      
+    </div>
+  </div> 
+  <!-- -  Model Close  -->
 <div class="col-sm-3"></div>
 
 

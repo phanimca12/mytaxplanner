@@ -23,6 +23,7 @@ public class UserService implements IUserService
 {
   DBConfig dbConfig = new DBConfig();
 
+  @Override
   public List<User> getAllUsers()
   {
 
@@ -32,6 +33,7 @@ public class UserService implements IUserService
     return query.list();
   }
 
+  @Override
   public ResponseModel createNewUser( final User user ) throws Exception
   {
     final IUtility util = new Utility();
@@ -57,6 +59,7 @@ public class UserService implements IUserService
 
   }
 
+  @Override
   public boolean isUserExist( final String email, final String mobile )
   {
 
@@ -64,12 +67,12 @@ public class UserService implements IUserService
 
     final Query query = session.createSQLQuery( MyTaxReturnConstants.USEREXISTS_SQL )
                                .addEntity( User.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_EMAIL, email )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_MOBILE, mobile );
+                               .setParameter( MyTaxReturnConstants.PARAMETER_EMAIL, email );
 
     return query.getResultList().size() > 0 ? true : false;
   }
 
+  @Override
   public boolean isAuthorizedUser( final String emailID, final String password )
   {
     final Session session = dbConfig.getSessionFactory().openSession();
@@ -83,6 +86,7 @@ public class UserService implements IUserService
 
   }
 
+  @Override
   public int getUserID( final String emailID )
   {
     final Session session = dbConfig.getSessionFactory().openSession();

@@ -13,10 +13,12 @@
 <script src="js/angularexternalJS/angular.min.js"></script>
 
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+  
+  
  <script src="js/angularinternalJS/home.js"></script>
  <script src="js/jqueryinternalJS/logout.js"></script>
  <script src="js/jqueryinternalJS/screensize.js"></script>
@@ -95,7 +97,7 @@ session.getAttribute("customerName")
     <div id="menu1" class="tab-pane fade" >
       <h3>Request Tax-Return Filing</h3>
       
-     <form action="returnfilingreq" method="post" enctype="multipart/form-data">
+     <form  id="ITR_Submit_Form" >
     
     <p><label for="agent">Select Agent:</label>
    <select ng-model="selectedName"  class="form-control" name="agcode" id="agcode">
@@ -115,7 +117,7 @@ session.getAttribute("customerName")
    </div>
    </p>
       <p><input type="hidden"   name="userID" id="userID" value="<%= session.getAttribute("customerName")%>"   > 
-    <input type="submit" value="Submit"  onclick="submitRequest()"  />            
+    <input type="button" value="Submit" id="submitRequest"  onclick="submitRequest()"  />            
                 
       </form> 
       
