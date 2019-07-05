@@ -66,6 +66,14 @@
 	<servlet-name>ITRFilingRequest</servlet-name>
 	<url-pattern>/returnfilingreq</url-pattern>
 	</servlet-mapping>
+	<servlet>
+	<servlet-name>ModifyITRFilingRequest</servlet-name>
+	<servlet-class>com.trs.servlet.ModifyITRReqServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	<servlet-name>ModifyITRFilingRequest</servlet-name>
+	<url-pattern>/modifyITR</url-pattern>
+	</servlet-mapping>
 	<context-param>
 	<param-name>Cache-Control</param-name>
 	<param-value>no-cache,no-store,must-revalidate</param-value>

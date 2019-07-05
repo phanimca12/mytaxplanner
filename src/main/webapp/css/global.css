@@ -1,19 +1,38 @@
-﻿.jumbotron-fluid
+#header
 {
-	background-color:#454545;
-	height:100%;
-	margin-bottom:1px;
+	background-color: #f4511e; /* Orange */
+  color: #ffffff;
+	height:100px;
+	padding-left:25px;
+	padding-top:25px;
 }
-.container-fluid
+#footer
 {
-	
-background-color:#C0C0C0;
-	
+	background-color: #f4511e; /* Orange */
+  color: #ffffff;
+	height:50px;
+	padding-left:25px;
+	padding-top:25px;
+	text-align:center;
 }
-.body
-{
-	
-	
-	height:100%;
-	width:100%;
+.w3schools-logo {
+    font-family: fontawesome;
+    text-decoration: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 37px;
+    letter-spacing: 3px;
+    color: #ffffff;
+    
+   
+}
+.w3schools-logo .dotcom {
+    color: #4CAF50;
+}
+.copyright {
+    display: inline-block;
+    color: #e4e4e4;
+    font-size: 1.3rem;
+    font-family: Lato-Light;
 }

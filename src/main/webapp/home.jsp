@@ -7,11 +7,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <link rel="stylesheet" href="css/global.css">
-<link rel="stylesheet" href="css/mylogo.css">
 <link rel="stylesheet" href="css/home.css">
 
-<script src="js/angularexternalJS/angular.min.js"></script>
 
+<script src="js/angularexternalJS/angular.min.js"></script>
+ <script src="js/jqueryexternalJS/jquery.min.js"></script>
+ <script src="js/jqueryexternalJS/popper.min.js"></script>
+ <script src="js/bootstrapexternalJS/bootstrap.min.js"></script>
 
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -46,17 +48,14 @@ if(session.getAttribute("customerName")==null)
 %>
 <body  ng-app="homeApp" ng-controller="homeCTRL">
 
-<div class="jumbotron-fluid" >
-<div>
-<a class="mytaxplanner-logo" href="">mytaxplanner<span class="dotcom">.com</span></a>
-</div>
+<div class="jumbotron-fluid"  id="header"><h1><a class="w3schools-logo notranslate" href="//www.mytaxplanner.com">mytaxplanner<span class="dotcom">.com</span></a></h1>
+
 </div>
 <div class="container-fluid">
 <div class="row">
 <div class="col-sm-12" id="toprow">
 
 <form id="headerform">
-
 
 <ul class="nav nav-pills" role="tablist" id="user">
            
@@ -82,7 +81,7 @@ session.getAttribute("customerName")
 <div class="col-sm-12" id="rightblock">
 
  <ul class="nav nav-tabs" id="myTab">
-    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+    <li class="active" ><a data-toggle="tab" href="#home">Home</a></li>
     <li><a data-toggle="tab" href="#menu1">ITR-Request</a></li>
     <li><a data-toggle="tab" href="#menu2" ng-click="getAttachment('<%= session.getAttribute("customerName")%>')">Uploads/Downloads</a></li>
     <li><a data-toggle="tab" href="#menu3" ng-click="getUser('<%= session.getAttribute("customerName")%>')">ITR-Details</a></li>
@@ -125,14 +124,14 @@ session.getAttribute("customerName")
     </div>
     
     <div id="menu2" class="tab-pane fade">
-      <h3>Menu 2</h3>
+      
        
        <table class="table">
 <thead class="thead-dark">
       <tr>
         <th>RequestID</th>
         <th>File Name</th>
-        <th>Document Type</th>
+       <!--  <th>Document Type</th> -->
         <th>Upload Date</th>
                
       </tr>
@@ -141,11 +140,11 @@ session.getAttribute("customerName")
   <tr ng-repeat="attachment in Attachments">
     <td>{{ attachment.requestID}}</td>
     <td>{{ attachment.file_name }}</td>
-    <td>{{ attachment.file_type }}</td>
+    <!-- <td>{{ attachment.file_type }}</td> -->
     <td>{{ attachment.req_Date }}</td>
     
-       <td><input type="button" value="Download" ng-click="GetAttachDownload($index)" /></td>
-  <td><a ng-click="GetAttachDownload($index)" ng-href="download?filename={{attachment.file_name }}&filepath={{attachment.file_path}}" download >click</a></td>
+     
+  <td><a title="download" class="glyphicon glyphicon-download-alt" ng-click="GetAttachDownload($index)" ng-href="download?filename={{attachment.file_name }}&filepath={{attachment.file_path}}" ></a></td>
   </tr>
   </tbody>
 </table>
@@ -173,8 +172,8 @@ session.getAttribute("customerName")
     <td>{{ request.filingYear }}</td>
     <td>{{ request.status }}</td>
     <td>{{ request.agentComments }}</td>
-    <td><input type="button" value="delete" ng-click="GetDetails($index)" /></td>
-    <td><input type="button" value="Edit" class="btn btn-info btn" data-toggle="modal" data-target="#myModal" ng-click="getReqestID($index)" /></td>
+    <td><span class="glyphicon glyphicon-trash"></span> <input type="button" class="btn btn-danger" value="Delete" ng-click="GetDetails($index)" /></td>
+    <td><input type="button" value="Edit" class="btn btn-info btn" data-toggle="modal" data-target="#myModal" ng-click="getReqestID($index)" /><span class="glyphicon glyphicon-edit"></span></td>
   </tr>
   </tbody>
 </table>
@@ -197,16 +196,16 @@ session.getAttribute("customerName")
           </p>
         </div>
         <div class="modal-body">
-          
+          <form id="modifyITRForm">
            <div class="form-group">
     <p><label for="agent">RequestID:</label>
-   <input type="text" ng-model="requestID">
+   <input type="text" ng-model="requestID" id="requestID" name="requestID">
       </p>
    
   </div><div class="form-group">
-    <p><label for="agent">Assessment Year:</label>
-   <select ng-model="selectedYear"   ng-options="year for year in Years" class="form-control">
-  
+   <p><label for="agent">Assessment Year:</label>
+   <select ng-model="selectedYear"  class="form-control" name="mfileyear" id="mfileyear" >
+   <option ng-repeat="year  in Years" value="{{year}}">{{year}}</option>
 </select></p>
    
   </div>
@@ -221,9 +220,9 @@ session.getAttribute("customerName")
 
   </div>
               
-   
-    <input type="submit" value="Submit"  class="btn btn-primary/>   
-  
+   <p><input type="hidden"   name="userID" id="userID" value="<%= session.getAttribute("customerName")%>"   >
+    <input type="submit" value="Submit"  class="btn btn-primary" id="modifyRequest" />   
+  </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -244,10 +243,7 @@ session.getAttribute("customerName")
 
 
 
-<div class="jumbotron-fluid" >
-<div>
-<a class="mytaxplanner-logo" href="//www.w3schools.com">mytaxplanner<span class="dotcom">.com</span></a>
-</div>
+<div class="jumbotron-fluid"  id="footer"><p class="copyright">Copyright © 2019 mytaxplanner.com</p>
 </div>
 
 </body>

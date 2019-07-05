@@ -75,26 +75,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
     
     //----
     
-    /* Private Methods */
-    //HTTP GET- get all countries collection
-  /*  function _refreshFilingRequestData() {
-    	  $http({
-              url : '/MyTaxReturn/v1/returnfilingrequest/requestdetails',
-              method : "GET",
-              	 headers: {
-              	        "Content-Type": "application/json",
-              	        "Accept": "application/json"
-              	    }
-          }).then(function mySuccess(response) {
-          	
-        	
-          	$scope.Requests=response.data;
-          	
-          
-          }, function myError(response) {
-            $scope.message = response.statusText;
-          });
-    }*/
+  
     
     //----
     
@@ -105,18 +86,14 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
             url : "/MyTaxReturn/v1/returnfilingrequest/request/" + reqID,
             data : angular.toJson(reqID),
            headers: {
-              	        "Content-Type": "application/xml"
+              	        "Content-Type": "application/json",
+              	        "Accept":"text/plain"
               	      
               	    }
-        }).then(function mySuccess(response) {
-          	
-        	
-          	//$scope.Requests=response.data;
-        	_refreshFilingRequestData();
-            $window.alert("RequestID: " +response.data);
+        }).then(function(response) {
+          	        	
+            $window.alert(response.data);
             $window.location.reload();
-          }, function myError(response) {
-            $scope.message = response.statusText;
           });
         
       

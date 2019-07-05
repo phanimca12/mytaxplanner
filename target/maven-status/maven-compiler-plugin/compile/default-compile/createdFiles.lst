@@ -12,6 +12,7 @@ com\trs\model\ReturnFiling.class
 com\trs\dao\IUserService.class
 com\trs\logger\SysOutputStreamHandler.class
 com\trs\model\SessionData.class
+com\trs\servlet\ModifyITRReqServlet.class
 com\trs\dao\IAgentService.class
 com\trs\controller\FilingRequestController.class
 com\trs\controller\UserController.class

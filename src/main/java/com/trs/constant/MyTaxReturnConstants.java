@@ -7,11 +7,22 @@ public class MyTaxReturnConstants
   public static final String HIBERNATE_CONFIG_FILE         = "hibernate.cfg.xml";
 
   // SQL QUERIES
+  
+  public static final String MODIFYITR_SQL = "update ReturnFilingRequestTable set filingYear=:year where requestID= :requestID ";
+  public static final String PARAMETER_UPDATEYEAR    = "year";
+  public static final String PARAMETER_FORREQID    = "requestID";
+  
+  public static final String ASSESMENTYEAR_SQL                = "select * from ReturnFilingRequestTable where filingYear= :year and userID=:uid";
+  public static final String PARAMETER_YEAR              = "year";
+  public static final String PARAMETER_UID              = "uid";
+  
+  
   public static final String ATTACHMENT_SQL                = "select * from AttachmentTable where userID= :userID ";
 
   public static final String GETUSERID_SQL                 = "select * from UserTable  where emailID= :email ";
   public static final String PARAMETER_USEREMAILID         = "email";
 
+  public static final String ATTACHMENT_SQLDELETE_REQID = "delete from AttachmentTable where requestID= :requestID ";
   public static final String FILINGREQUEST_SQLDELETE_REQID = "delete from ReturnFilingRequestTable where requestID= :requestID ";
   public static final String PARAMETER_DELETEREQUESTID     = "requestID";
 

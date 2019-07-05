@@ -3,6 +3,7 @@ package com.trs.controller;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -24,6 +25,28 @@ import com.trs.model.ReturnFilingList;
 @Path( "/returnfilingrequest" )
 public class FilingRequestController
 {
+	@DELETE
+	  @Produces( { MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON } )
+	  @Path( "/request/{param}" )
+	  public String deleteRequest( @PathParam( "param" ) long ReqID )
+	  {
+
+	    final IReturnFilingRequest requestService = new ReturnFilingService();
+
+	    if(requestService.deleteRequest(ReqID ))
+	    {
+	    
+	    return "Record Deleted Successfully !";
+	    }
+	    else
+	    {
+	    	
+	    	return "Error occured";
+	    }
+	  }	
+	
+	
+	
   @GET
   @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON } )
   @Path( "/requestdetails/{param}" )

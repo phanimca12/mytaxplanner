@@ -1,0 +1,20 @@
+@CHARSET "ISO-8859-1";
+
+#toprow ul li
+{
+float:right;
+
+}
+#rightblock
+{
+	
+	font-family: "Times New Roman", Times, serif;
+}
+#rightblock ul li a
+{
+background-color:#5cb85c;
+
+color: #ffffff;
+    text-align: center;
+	
+}
