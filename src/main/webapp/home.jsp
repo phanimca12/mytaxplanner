@@ -8,6 +8,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <link rel="stylesheet" href="css/global.css">
 <link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/pricing.css">
 
 
 <script src="js/angularexternalJS/angular.min.js"></script>
@@ -85,13 +86,29 @@ session.getAttribute("customerName")
     <li><a data-toggle="tab" href="#menu1">ITR-Request</a></li>
     <li><a data-toggle="tab" href="#menu2" ng-click="getAttachment('<%= session.getAttribute("customerName")%>')">Uploads/Downloads</a></li>
     <li><a data-toggle="tab" href="#menu3" ng-click="getUser('<%= session.getAttribute("customerName")%>')">ITR-Details</a></li>
+     <li><a data-toggle="tab" href="#menu4" >Contact Us</a></li>
+       <li><a data-toggle="tab" href="#menu5" >Pricing & Payments</a></li>
   </ul>
 
   <div class="tab-content">
   
     <div id="home" class="tab-pane fade in active" >
-          <h3>HOME</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+         
+        <!-- Left-aligned media object -->
+        <br>
+        
+  <div class="media">
+    <div class="media-left">
+      <img src="images/avatar.png" class="media-object" style="width:60px">
+    </div>
+    <div class="media-body">
+    
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+  </div>
+  <hr> 
+  <div ng-include="'H_subpage.html'"></div>
+          
     </div>
     <div id="menu1" class="tab-pane fade" >
       <h3>Request Tax-Return Filing</h3>
@@ -109,7 +126,8 @@ session.getAttribute("customerName")
 </select></p>
     
     <p><label for="agent">Upload Form16 & Other:</label>
-   <input type="file" name="files" id="files" class="form-control" multiple />
+   <input type="file" name="files" id="files" class="form-control" multiple style="height:auto" />
+   
    <div id="selectedFiles">
    
    
@@ -148,6 +166,24 @@ session.getAttribute("customerName")
   </tr>
   </tbody>
 </table>
+   
+    </div>
+    <div id="menu4" class="tab-pane fade">
+      
+       
+      <div >
+      <br>
+      <p>Contact us and we'll get back to you within 24 hours.</p>
+      <p><span class="glyphicon glyphicon-map-marker"></span> Hyderabad, India</p>
+      <p><span class="glyphicon glyphicon-phone"></span> +91 9441054052</p>
+      <p><span class="glyphicon glyphicon-envelope"></span> phani.mca12@gmail.com</p>
+    </div>
+   
+    </div>
+    
+       <div id="menu5" class="tab-pane fade">
+         <div ng-include="'pricing.html'"></div>
+       
    
     </div>
     
@@ -211,7 +247,7 @@ session.getAttribute("customerName")
   </div>
   <div class="form-group">
     <p><label for="agent">Upload Form16 & Other:</label>
-   <input type="file" name="files" id="files" class="form-control" multiple />
+   <input type="file" name="files" id="files" class="form-control" multiple  style="height:auto"/>
    <div id="selectedFiles">
    
    

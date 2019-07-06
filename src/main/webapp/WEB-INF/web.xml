@@ -4,7 +4,9 @@
 
 <web-app>
  <welcome-file-list>  
-   <welcome-file>login.html</welcome-file>  
+   <welcome-file>login.html</welcome-file> 
+   <welcome-file>H_subpage.html</welcome-file> 
+    <welcome-file>pricing.html</welcome-file> 
    <welcome-file>home.jsp</welcome-file>  
   </welcome-file-list> 
   <display-name>Archetype Created Web Application</display-name>

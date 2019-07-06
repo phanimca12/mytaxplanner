@@ -7,7 +7,7 @@ $("#modifyRequest").click(function()
 	
 	if(!selected_value.match("undefined") )
 		{
-		alert("Hii");
+		
 		// Get form
         var form = $('#modifyITRForm')[0];
 
@@ -25,7 +25,7 @@ $("#modifyRequest").click(function()
 	           success: function (data) 
 	           {
                alert(data);
-
+               location.reload();
 	            }
 			});
 			
