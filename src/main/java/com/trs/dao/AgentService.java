@@ -1,5 +1,6 @@
 package com.trs.dao;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -15,7 +16,7 @@ import com.trs.util.Utility;
 
 public class AgentService implements IAgentService
 {
-  DBConfig dbConfig = new DBConfig();
+  final DBConfig dbConfig = new DBConfig();
 
   public ResponseModel createNewAgent( final Agent agent ) throws Exception
   {
@@ -62,4 +63,38 @@ public class AgentService implements IAgentService
     final Query query = session.createQuery( "from Agent" );// here persistent class name is Emp
     return query.list();
   }
+
+  public boolean isAuthorizedAgent( final String emailID, final String password )
+  {
+    final Session session = dbConfig.getSessionFactory().openSession();
+
+    final Query query = session.createSQLQuery( MyTaxReturnConstants.AUTHORIZEDAGENT_SQL )
+                               .addEntity( Agent.class )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_AGENTEMAILID, emailID )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_AGENTPASSWORD, password );
+
+    return query.getResultList().size() > 0 ? true : false;
+  }
+
+  public String getAgentID( final String emailID )
+  {
+    final Session session = dbConfig.getSessionFactory().openSession();
+
+    final Query query = session.createSQLQuery( MyTaxReturnConstants.GETAGENTID_SQL )
+                               .addEntity( Agent.class )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_USEREMAILID, emailID );
+    final List list = query.list();
+    String AID = null;
+    final Iterator it = list.iterator();
+
+    while ( it.hasNext() )
+    {
+      final Object object = it.next();
+      final Agent agent = (Agent)object;
+      AID = agent.getAgentCode();
+    }
+    session.close();
+    return AID;
+  }
+
 }

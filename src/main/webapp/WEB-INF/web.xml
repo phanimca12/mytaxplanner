@@ -5,9 +5,11 @@
 <web-app>
  <welcome-file-list>  
    <welcome-file>login.html</welcome-file> 
+   <welcome-file>agentlogin.html</welcome-file> 
    <welcome-file>H_subpage.html</welcome-file> 
     <welcome-file>pricing.html</welcome-file> 
    <welcome-file>home.jsp</welcome-file>  
+   <welcome-file>agenthome.jsp</welcome-file> 
   </welcome-file-list> 
   <display-name>Archetype Created Web Application</display-name>
   <session-config>
@@ -35,6 +37,22 @@
 	<url-pattern>/createuser</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+	<servlet-name>AgentLoginServlet</servlet-name>
+	<servlet-class>com.trs.servlet.agentloginservlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	<servlet-name>AgentLoginServlet</servlet-name>
+	<url-pattern>/agentlogin</url-pattern>
+	</servlet-mapping>
+		<servlet>
+	<servlet-name>AgentLogoutServlet</servlet-name>
+	<servlet-class>com.trs.servlet.AgentLogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	<servlet-name>AgentLogoutServlet</servlet-name>
+	<url-pattern>/agentlogout</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 	<servlet-name>LoginServlet</servlet-name>

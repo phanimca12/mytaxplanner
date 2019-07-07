@@ -7,28 +7,35 @@ public class MyTaxReturnConstants
   public static final String HIBERNATE_CONFIG_FILE         = "hibernate.cfg.xml";
 
   // SQL QUERIES
-  
-  public static final String MODIFYITR_SQL = "update ReturnFilingRequestTable set filingYear=:year where requestID= :requestID ";
-  public static final String PARAMETER_UPDATEYEAR    = "year";
-  public static final String PARAMETER_FORREQID    = "requestID";
-  
-  public static final String ASSESMENTYEAR_SQL                = "select * from ReturnFilingRequestTable where filingYear= :year and userID=:uid";
-  public static final String PARAMETER_YEAR              = "year";
-  public static final String PARAMETER_UID              = "uid";
-  
-  
+
+  public static final String MODIFYITR_SQL                 = "update ReturnFilingRequestTable set filingYear=:year where requestID= :requestID ";
+  public static final String PARAMETER_UPDATEYEAR          = "year";
+  public static final String PARAMETER_FORREQID            = "requestID";
+
+  public static final String ASSESMENTYEAR_SQL             = "select * from ReturnFilingRequestTable where filingYear= :year and userID=:uid";
+  public static final String PARAMETER_YEAR                = "year";
+  public static final String PARAMETER_UID                 = "uid";
+
   public static final String ATTACHMENT_SQL                = "select * from AttachmentTable where userID= :userID ";
 
+  public static final String GETAGENTID_SQL                = "select * from AgentDetailsTable  where emailID= :email ";
   public static final String GETUSERID_SQL                 = "select * from UserTable  where emailID= :email ";
   public static final String PARAMETER_USEREMAILID         = "email";
 
-  public static final String ATTACHMENT_SQLDELETE_REQID = "delete from AttachmentTable where requestID= :requestID ";
+  public static final String ATTACHMENT_SQLDELETE_REQID    = "delete from AttachmentTable where requestID= :requestID ";
   public static final String FILINGREQUEST_SQLDELETE_REQID = "delete from ReturnFilingRequestTable where requestID= :requestID ";
   public static final String PARAMETER_DELETEREQUESTID     = "requestID";
 
+  public static final String FILINGREQUEST_AGENTSTATUSSQL  = "select * from ReturnFilingRequestTable where agentCode= :agentCode  and status=:status";
+  public static final String FILINGREQUEST_AGENTSQL        = "select * from ReturnFilingRequestTable where agentCode= :agentCode ";
   public static final String FILINGREQUEST_SQL             = "select * from ReturnFilingRequestTable where userID= :userID ";
   public static final String PARAMETER_REQUESTID           = "userID";
   public static final String PARAMETER_AGENTCODE           = "agentCode";
+  public static final String PARAMETER_REQSTATUS           = "status";
+
+  public static final String AUTHORIZEDAGENT_SQL           = "select * from AgentDetailsTable where emailID= :email and password= :password";
+  public static final String PARAMETER_AGENTEMAILID        = "email";
+  public static final String PARAMETER_AGENTPASSWORD       = "password";
 
   public static final String AUTHORIZEDUSER_SQL            = "select * from UserTable where emailID= :email and password= :password";
   public static final String PARAMETER_EMAILID             = "email";

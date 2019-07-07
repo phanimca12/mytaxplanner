@@ -13,8 +13,11 @@ public interface IReturnFilingRequest
 
   public List<ReturnFiling> getAllRequest( final int userID );
 
-  public boolean isAssementYearExist( String year ,int userID);
-  
-  public boolean modifyITR( String year, long reqID);
-  public boolean deleteRequest(long reqID );
+  public List<ReturnFiling> getAgentProcessingRequest( String agentCode, String status );
+
+  public boolean isAssementYearExist( String year, int userID );
+
+  public boolean modifyITR( String year, long reqID );
+
+  public boolean deleteRequest( long reqID );
 }

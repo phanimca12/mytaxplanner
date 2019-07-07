@@ -20,7 +20,20 @@ public class Agent
 {
   @Id
   @GeneratedValue( strategy = GenerationType.AUTO )
-  private int    id;
+  @XmlAttribute
+  @JsonProperty
+  private int id;
+
+  public int getId()
+  {
+    return id;
+  }
+
+  public void setId( final int id )
+  {
+    this.id = id;
+  }
+
   @XmlAttribute
   @JsonProperty
   private String name;

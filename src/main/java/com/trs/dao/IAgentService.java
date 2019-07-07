@@ -13,4 +13,7 @@ public interface IAgentService
 
   public boolean isAgentrExist( String email, String mobile );
 
+  public boolean isAuthorizedAgent( String emailID, String password );
+
+  public String getAgentID( String emailID );
 }

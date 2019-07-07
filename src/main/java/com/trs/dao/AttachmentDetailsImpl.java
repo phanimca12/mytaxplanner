@@ -13,7 +13,6 @@ import com.trs.util.Utility;
 public class AttachmentDetailsImpl implements IAttachmentDetails
 {
 
-  @Override
   public ResponseModel createNewAttachment( final AttachmentDetails attachmentDetails ) throws Exception
   {
 
@@ -22,7 +21,6 @@ public class AttachmentDetailsImpl implements IAttachmentDetails
     return md;
   }
 
-  @Override
   public List<AttachmentDetails> getAllRequest( final int userID )
   {
     final Utility util = new Utility();

@@ -12,14 +12,13 @@ import com.trs.config.DBConfig;
 import com.trs.constant.MyTaxReturnConstants;
 import com.trs.model.ResponseModel;
 import com.trs.model.ReturnFiling;
-import com.trs.model.User;
 import com.trs.util.IUtility;
 import com.trs.util.Utility;
 
 public class ReturnFilingService implements IReturnFilingRequest
 {
-	  DBConfig dbConfig = new DBConfig();
-  @Override
+  DBConfig dbConfig = new DBConfig();
+
   public ResponseModel createNewReturnRequest( final ReturnFiling returnFiling ) throws Exception
   {
     final IUtility util = new Utility();
@@ -44,7 +43,6 @@ public class ReturnFilingService implements IReturnFilingRequest
     return model;
   }
 
-  @Override
   public List<ReturnFiling> getAllRequest( final int userID )
   {
     final Utility util = new Utility();
@@ -57,7 +55,7 @@ public class ReturnFilingService implements IReturnFilingRequest
   }
 
   @Transactional
-  public boolean deleteRequest( long reqID )
+  public boolean deleteRequest( final long reqID )
   {
     final Utility util = new Utility();
     final Session session = util.getHibernateSessionObj();
@@ -65,10 +63,10 @@ public class ReturnFilingService implements IReturnFilingRequest
     final Query query = session.createSQLQuery( MyTaxReturnConstants.FILINGREQUEST_SQLDELETE_REQID )
                                .addEntity( ReturnFiling.class )
                                .setParameter( MyTaxReturnConstants.PARAMETER_DELETEREQUESTID, reqID );
-    
+
     final Query query2 = session.createSQLQuery( MyTaxReturnConstants.ATTACHMENT_SQLDELETE_REQID )
-            .addEntity( ReturnFiling.class )
-            .setParameter( MyTaxReturnConstants.PARAMETER_DELETEREQUESTID, reqID );
+                                .addEntity( ReturnFiling.class )
+                                .setParameter( MyTaxReturnConstants.PARAMETER_DELETEREQUESTID, reqID );
     query2.executeUpdate();
     final int result = query.executeUpdate();
     tx.commit();
@@ -84,28 +82,27 @@ public class ReturnFilingService implements IReturnFilingRequest
 
   }
 
-@Override
-public boolean isAssementYearExist(String year,int UserID) {
-	 final Session session = dbConfig.getSessionFactory().openSession();
+  public boolean isAssementYearExist( final String year, final int UserID )
+  {
+    final Session session = dbConfig.getSessionFactory().openSession();
 
-	    final Query query = session.createSQLQuery( MyTaxReturnConstants.ASSESMENTYEAR_SQL)
-	                               .addEntity( ReturnFiling.class )
-	                               .setParameter( MyTaxReturnConstants.PARAMETER_YEAR, year )
-	                               .setParameter( MyTaxReturnConstants.PARAMETER_UID, UserID );
-	                              
+    final Query query = session.createSQLQuery( MyTaxReturnConstants.ASSESMENTYEAR_SQL )
+                               .addEntity( ReturnFiling.class )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_YEAR, year )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_UID, UserID );
 
-	    return query.getResultList().size() > 0 ? true : false;
-}
+    return query.getResultList().size() > 0 ? true : false;
+  }
 
-@Override
-public boolean modifyITR(String year, long reqID) {
-	final Utility util = new Utility();
+  public boolean modifyITR( final String year, final long reqID )
+  {
+    final Utility util = new Utility();
     final Session session = util.getHibernateSessionObj();
     final Transaction tx = session.beginTransaction();
     final Query query = session.createSQLQuery( MyTaxReturnConstants.MODIFYITR_SQL )
                                .addEntity( ReturnFiling.class )
                                .setParameter( MyTaxReturnConstants.PARAMETER_UPDATEYEAR, year )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_FORREQID , reqID );
+                               .setParameter( MyTaxReturnConstants.PARAMETER_FORREQID, reqID );
 
     final int result = query.executeUpdate();
     tx.commit();
@@ -118,6 +115,32 @@ public boolean modifyITR(String year, long reqID) {
       return false;
 
     }
-}
+  }
+
+  public List<ReturnFiling> getAgentProcessingRequest( final String agentCode, final String status )
+  {
+    final Utility util = new Utility();
+    final Session session = util.getHibernateSessionObj();
+    Query query = null;
+
+    if ( status.equalsIgnoreCase( "all" ) )
+    {
+      query = session.createSQLQuery( MyTaxReturnConstants.FILINGREQUEST_AGENTSQL )
+                     .addEntity( ReturnFiling.class )
+                     .setParameter( MyTaxReturnConstants.PARAMETER_AGENTCODE, agentCode );
+
+      return query.list();
+    }
+    else
+    {
+      query = session.createSQLQuery( MyTaxReturnConstants.FILINGREQUEST_AGENTSTATUSSQL )
+                     .addEntity( ReturnFiling.class )
+                     .setParameter( MyTaxReturnConstants.PARAMETER_AGENTCODE, agentCode )
+                     .setParameter( MyTaxReturnConstants.PARAMETER_REQSTATUS, status );
+
+      return query.list();
+
+    }
+  }
 
 }

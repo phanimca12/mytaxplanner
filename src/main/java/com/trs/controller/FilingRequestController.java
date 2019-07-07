@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.trs.constant.MyTaxReturnConstants;
+import com.trs.dao.AgentService;
 import com.trs.dao.IReturnFilingRequest;
 import com.trs.dao.ReturnFilingService;
 import com.trs.dao.UserService;
@@ -25,28 +26,26 @@ import com.trs.model.ReturnFilingList;
 @Path( "/returnfilingrequest" )
 public class FilingRequestController
 {
-	@DELETE
-	  @Produces( { MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON } )
-	  @Path( "/request/{param}" )
-	  public String deleteRequest( @PathParam( "param" ) long ReqID )
-	  {
+  @DELETE
+  @Produces( { MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON } )
+  @Path( "/request/{param}" )
+  public String deleteRequest( @PathParam( "param" ) final long ReqID )
+  {
 
-	    final IReturnFilingRequest requestService = new ReturnFilingService();
+    final IReturnFilingRequest requestService = new ReturnFilingService();
 
-	    if(requestService.deleteRequest(ReqID ))
-	    {
-	    
-	    return "Record Deleted Successfully !";
-	    }
-	    else
-	    {
-	    	
-	    	return "Error occured";
-	    }
-	  }	
-	
-	
-	
+    if ( requestService.deleteRequest( ReqID ) )
+    {
+
+      return "Record Deleted Successfully !";
+    }
+    else
+    {
+
+      return "Error occured";
+    }
+  }
+
   @GET
   @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON } )
   @Path( "/requestdetails/{param}" )
@@ -60,6 +59,24 @@ public class FilingRequestController
     final int UserID = service.getUserID( uid );
 
     filingList.setReturnFilingList( requestService.getAllRequest( UserID ) );
+    return filingList.getReturnFilingList();
+
+  }
+
+  @GET
+  @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON } )
+  @Path( "/requestdetails/{param}/{status}" )
+  public List<ReturnFiling> getResponse( @PathParam( "param" ) final String uid,
+                                         @PathParam( "status" ) final String status )
+  {
+
+    final IReturnFilingRequest requestService = new ReturnFilingService();
+
+    final ReturnFilingList filingList = new ReturnFilingList();
+    final AgentService service = new AgentService();
+    final String agentID = service.getAgentID( uid );
+
+    filingList.setReturnFilingList( requestService.getAgentProcessingRequest( agentID, status ) );
     return filingList.getReturnFilingList();
 
   }
