@@ -94,6 +94,14 @@
 	<servlet-name>ModifyITRFilingRequest</servlet-name>
 	<url-pattern>/modifyITR</url-pattern>
 	</servlet-mapping>
+	<servlet>
+	<servlet-name>ModifyAgentITRRequestServlet</servlet-name>
+	<servlet-class>com.trs.servlet.ModifyAgentITRRequestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	<servlet-name>ModifyAgentITRRequestServlet</servlet-name>
+	<url-pattern>/modifyAgentITR</url-pattern>
+	</servlet-mapping>
 	<context-param>
 	<param-name>Cache-Control</param-name>
 	<param-value>no-cache,no-store,must-revalidate</param-value>

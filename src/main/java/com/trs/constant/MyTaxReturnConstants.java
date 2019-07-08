@@ -8,6 +8,13 @@ public class MyTaxReturnConstants
 
   // SQL QUERIES
 
+  public static final String FILING_USERID                 = "select * from ReturnFilingRequestTable where requestID= :requestID ";
+  public static final String PARAMETER_FILINGREQUESTID     = "requestID";
+
+  public static final String MODIFYITRAGENT_SQL            = "update ReturnFilingRequestTable set status=:year and agentComments=:agentComments where requestID= :requestID ";
+  public static final String PARAMETER_STATUS              = "status";
+  public static final String PARAMETER_COMMENT             = "agentComments";
+
   public static final String MODIFYITR_SQL                 = "update ReturnFilingRequestTable set filingYear=:year where requestID= :requestID ";
   public static final String PARAMETER_UPDATEYEAR          = "year";
   public static final String PARAMETER_FORREQID            = "requestID";

@@ -1,5 +1,6 @@
 package com.trs.dao;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -115,6 +116,51 @@ public class ReturnFilingService implements IReturnFilingRequest
       return false;
 
     }
+  }
+
+  public boolean modifyAgentITR( final String status, final String comments, final long ReqID )
+  {
+    final Utility util = new Utility();
+    final Session session = util.getHibernateSessionObj();
+    final Transaction tx = session.beginTransaction();
+    final Query query = session.createSQLQuery( MyTaxReturnConstants.MODIFYITRAGENT_SQL )
+                               .addEntity( ReturnFiling.class )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_STATUS, status )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_FORREQID, ReqID )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_COMMENT, comments );
+
+    final int result = query.executeUpdate();
+    tx.commit();
+    if ( result > 0 )
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+
+    }
+  }
+
+  public long getReqUserID( final long RequestID )
+  {
+    final Session session = dbConfig.getSessionFactory().openSession();
+
+    final Query query = session.createSQLQuery( MyTaxReturnConstants.FILING_USERID )
+                               .addEntity( ReturnFiling.class )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_FILINGREQUESTID, RequestID );
+    final List list = query.list();
+    long UID = 0;
+    final Iterator it = list.iterator();
+
+    while ( it.hasNext() )
+    {
+      final Object object = it.next();
+      final ReturnFiling user = (ReturnFiling)object;
+      UID = user.getUserID();
+    }
+    session.close();
+    return UID;
   }
 
   public List<ReturnFiling> getAgentProcessingRequest( final String agentCode, final String status )

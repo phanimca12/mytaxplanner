@@ -26,7 +26,7 @@
  <script src="js/jqueryinternalJS/agentlogout.js"></script>
  <script src="js/jqueryinternalJS/screensize.js"></script>
   <script src="js/jqueryinternalJS/fileupload.js"></script>
-<script src="js/jqueryinternalJS/PageLoad.js"></script>
+<script src="js/jqueryinternalJS/agenthomejquery.js"></script>
 
 <title>mytaxplanner-Agent Home</title>
 
@@ -162,19 +162,23 @@ session.getAttribute("AgentName")
           </p>
         </div>
         <div class="modal-body">
-          <form id="modifyITRForm">
+          <form id="modifyAgentITRForm">
            <div class="form-group">
     <p><label for="agent">RequestID:</label>
    <input type="text" ng-model="requestID" id="requestID" name="requestID">
       </p>
    
   </div><div class="form-group">
-   <p><label for="agent">Assessment Year:</label>
-   <select ng-model="selectedYear"  class="form-control" name="mfileyear" id="mfileyear" >
-   <option ng-repeat="year  in Years" value="{{year}}">{{year}}</option>
+    <p><label for="agent">Select Status:</label>
+   <select ng-model="MySelectedStatus"   name="mystatus" id="mystatus" >
+   <option ng-repeat="mystat  in mystatus" value="{{mystat}}">{{mystat}}</option>
 </select></p>
-   
   </div>
+   <div class="form-group">
+  <label for="comment">Comment:</label>
+  <textarea class="form-control" rows="5" id="comment"></textarea>
+</div> 
+
   <div class="form-group">
     <p><label for="agent">Upload Form16 & Other:</label>
    <input type="file" name="files" id="files" class="form-control" multiple  style="height:auto"/>
@@ -186,8 +190,8 @@ session.getAttribute("AgentName")
 
   </div>
               
-   <p><input type="hidden"   name="userID" id="userID" value="<%= session.getAttribute("customerName")%>"   >
-    <input type="submit" value="Submit"  class="btn btn-primary" id="modifyRequest" />   
+   <p><input type="hidden"   name="userID" id="userID" value="<%= session.getAttribute("AgentName")%>"   >
+    <input type="submit" value="Submit"  class="btn btn-primary" id="updateRequest" />   
   </form>
         </div>
         <div class="modal-footer">
