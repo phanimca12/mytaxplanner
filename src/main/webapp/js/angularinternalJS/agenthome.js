@@ -39,11 +39,12 @@ app.controller('agenthomeCTRL',  [ '$scope', '$http', '$window',function($scope,
 	};
 	
 	
-	$scope.getAttachment=function(customerName)
+	$scope.getAttachment=function(requestID)
 	{
-	        
+	     
+	      
 		 $http({
-             url : '/MyTaxReturn/v1/attachments/download/'+ customerName,
+             url : '/MyTaxReturn/v1/attachments/downloadbyreqID/'+ requestID,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",

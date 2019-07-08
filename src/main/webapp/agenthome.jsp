@@ -128,6 +128,8 @@ session.getAttribute("AgentName")
         <th>Assessment Year</th>
         <th>Status</th>
         <th>Comments</th>
+        <th style="color:blue;font-style:bold">View Attachments</th>
+        <th style="color:orange;font-style:bold">Edit</th>
         
       </tr>
     </thead>
@@ -137,13 +139,63 @@ session.getAttribute("AgentName")
     <td>{{ request.req_Date }}</td>
     <td>{{ request.filingYear }}</td>
     <td>{{ request.status }}</td>
-    <td>{{ request.agentComments }}</td>
-    <td><span class="glyphicon glyphicon-trash"></span> <input type="button" class="btn btn-danger" value="Delete" ng-click="GetDetails($index)" /></td>
-    <td><input type="button" value="Edit" class="btn btn-info btn" data-toggle="modal" data-target="#myModal" ng-click="getReqestID($index)" /><span class="glyphicon glyphicon-edit"></span></td>
+    <td style="word-break:break-all;">{{ request.agentComments }}</td>
+    <td><a class="glyphicon glyphicon-paperclip" href="#" title="Click to View Attachments" data-toggle="modal" data-target="#myModalAttachment" ng-click="getAttachment(request.requestID)"> </a></td>
+    <td><a class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#myModal" ng-click="getReqestID($index)"  href="#"></a>  </td>
   </tr>
   </tbody>
 </table>
 
+<!-- Modal-Attachments -->
+  <div class="modal fade" id="myModalAttachment" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+        <p>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </p>
+          
+          <br>
+          <p>
+          <h1 class="modal-title"><centre>Attachments<centre></h1>
+          </p>
+        </div>
+        <div class="modal-body">
+          <table class="table">
+<thead class="thead-dark">
+      <tr>
+        <th>RequestID</th>
+        <th>File Name</th>
+       <!--  <th>Document Type</th> -->
+        <th>Upload Date</th>
+         <th style="color:blue;font-style:bold">Download</th>
+               
+      </tr>
+    </thead>
+    <tbody>
+  <tr ng-repeat="attachment in Attachments">
+    <td>{{ attachment.requestID}}</td>
+    <td>{{ attachment.file_name }}</td>
+    <!-- <td>{{ attachment.file_type }}</td> -->
+    <td>{{ attachment.req_Date }}</td>
+    
+     
+  <td><a title="download" class="glyphicon glyphicon-download-alt" ng-click="GetAttachDownload($index)" ng-href="download?filename={{attachment.file_name }}&filepath={{attachment.file_path}}" ></a></td>
+  </tr>
+  </tbody>
+</table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+<!-- Modal Attachments -->
 
 <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -176,7 +228,7 @@ session.getAttribute("AgentName")
   </div>
    <div class="form-group">
   <label for="comment">Comment:</label>
-  <textarea class="form-control" rows="5" id="comment"></textarea>
+  <textarea class="form-control" ng-model="agentcomment" rows="5" name="agentcomments" id="agentcomments" ></textarea>
 </div> 
 
   <div class="form-group">

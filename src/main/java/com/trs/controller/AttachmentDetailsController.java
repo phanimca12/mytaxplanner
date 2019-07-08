@@ -36,4 +36,19 @@ public class AttachmentDetailsController
 
   }
 
+  @GET
+  @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON } )
+  @Path( "/downloadbyreqID/{param}" )
+  public List<AttachmentDetails> getAttachmentByReqID( @PathParam( "param" ) final long ReqID )
+  {
+
+    final IAttachmentDetails attachments = new AttachmentDetailsImpl();
+
+    final AttachmentDetailList attachList = new AttachmentDetailList();
+
+    attachList.setAttachmentDetailsList( attachments.getAllAttachmentByReqID( ReqID ) );
+
+    return attachList.getAttachmentDetailsList();
+
+  }
 }

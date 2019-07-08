@@ -11,7 +11,7 @@ public class MyTaxReturnConstants
   public static final String FILING_USERID                 = "select * from ReturnFilingRequestTable where requestID= :requestID ";
   public static final String PARAMETER_FILINGREQUESTID     = "requestID";
 
-  public static final String MODIFYITRAGENT_SQL            = "update ReturnFilingRequestTable set status=:year and agentComments=:agentComments where requestID= :requestID ";
+  public static final String MODIFYITRAGENT_SQL            = "update ReturnFilingRequestTable set status=:status , agentComments= :agentComments where requestID= :requestID ";
   public static final String PARAMETER_STATUS              = "status";
   public static final String PARAMETER_COMMENT             = "agentComments";
 
@@ -24,6 +24,7 @@ public class MyTaxReturnConstants
   public static final String PARAMETER_UID                 = "uid";
 
   public static final String ATTACHMENT_SQL                = "select * from AttachmentTable where userID= :userID ";
+  public static final String ATTACHMENT_REQUESTID_SQL      = "select * from AttachmentTable where requestID= :requestID";
 
   public static final String GETAGENTID_SQL                = "select * from AgentDetailsTable  where emailID= :email ";
   public static final String GETUSERID_SQL                 = "select * from UserTable  where emailID= :email ";

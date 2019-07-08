@@ -32,4 +32,14 @@ public class AttachmentDetailsImpl implements IAttachmentDetails
     return query.list();
   }
 
+  public List<AttachmentDetails> getAllAttachmentByReqID( final long REQID )
+  {
+    final Utility util = new Utility();
+    final Session session = util.getHibernateSessionObj();
+    final Query query = session.createSQLQuery( MyTaxReturnConstants.ATTACHMENT_REQUESTID_SQL )
+                               .addEntity( AttachmentDetails.class )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_DELETEREQUESTID, REQID );
+
+    return query.list();
+  }
 }

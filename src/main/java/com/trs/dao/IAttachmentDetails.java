@@ -10,4 +10,6 @@ public interface IAttachmentDetails
   public ResponseModel createNewAttachment( final AttachmentDetails attachmentDetails ) throws Exception;
 
   public List<AttachmentDetails> getAllRequest( final int userID );
+
+  public List<AttachmentDetails> getAllAttachmentByReqID( final long REQID );
 }

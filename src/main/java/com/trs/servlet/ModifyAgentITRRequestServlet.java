@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,9 @@ import com.trs.model.AttachmentDetails;
 import com.trs.util.IUtility;
 import com.trs.util.Utility;
 
+@MultipartConfig( fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+    maxFileSize = 1024 * 1024 * 10, // 10MB
+    maxRequestSize = 1024 * 1024 * 50 ) // 50MB
 public class ModifyAgentITRRequestServlet extends HttpServlet
 {
   private static final long serialVersionUID = 1L;
@@ -34,7 +38,7 @@ public class ModifyAgentITRRequestServlet extends HttpServlet
     final Properties p = getProperties();
 
     final String status = request.getParameter( "mystatus" );
-    final String comment = request.getParameter( "comment" );
+    final String comment = request.getParameter( "agentcomments" );
     final long REQID = Long.parseLong( request.getParameter( "requestID" ) );
     final long UserId = ITR.getReqUserID( REQID );
 
