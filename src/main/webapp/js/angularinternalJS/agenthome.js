@@ -6,6 +6,7 @@ app.controller('agenthomeCTRL',  [ '$scope', '$http', '$window',function($scope,
 	$scope.Agents = [];
 	$scope.Requests = [];
 	$scope.Attachments = [];
+	$scope.UserInfo = [];
 	$scope.status = ["pending", "inprogress","complete", "All"];
 	$scope.mystatus = ["pending", "inprogress","complete"];
 	 $scope.Years = ["2015-2016", "2016-2017","2017-2018", "2018-2019"];
@@ -61,7 +62,30 @@ app.controller('agenthomeCTRL',  [ '$scope', '$http', '$window',function($scope,
          });
 	};
 	
- 
+	$scope.getuserDetails=function(userID)
+	{
+	     
+	      
+		 $http({
+             url : '/MyTaxReturn/v1/user/userDetails/'+ userID,
+             method : "GET",
+             	 headers: {
+             	        "Content-Type": "application/json",
+             	        "Accept": "application/json"
+             	    }
+         }).then(function mySuccess(response) {
+         	
+       	
+         	$scope.UserInfo=response.data;
+         	
+         	$scope.cname=$scope.UserInfo[0].name;
+         	$scope.cmail=$scope.UserInfo[0].emailID;
+         	$scope.cmobile=$scope.UserInfo[0].mobile;
+         }, function myError(response) {
+           $scope.message = response.statusText;
+         });
+	};
+	
 	
     
   

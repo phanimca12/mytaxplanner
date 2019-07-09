@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -18,6 +20,7 @@ import org.hibernate.Transaction;
 import com.trs.dao.IReturnFilingRequest;
 import com.trs.dao.ReturnFilingService;
 import com.trs.dao.UserService;
+import com.trs.logger.FileLogger;
 import com.trs.model.AttachmentDetails;
 import com.trs.util.IUtility;
 import com.trs.util.Utility;
@@ -28,41 +31,52 @@ import com.trs.util.Utility;
 public class ModifyITRReqServlet extends HttpServlet
 {
   private static final long serialVersionUID = 1L;
+  Logger                    m_logger         = FileLogger.getInstance();
 
   @Override
   public void doPost( final HttpServletRequest request, final HttpServletResponse response ) throws IOException,
                                                                                              ServletException
   {
-    final UserService service = new UserService();
-    final IReturnFilingRequest ITR = new ReturnFilingService();
-
-    final int UserID = service.getUserID( request.getParameter( "userID" ) );
-
-    final Properties p = getProperties();
-    final long REQID = Long.parseLong( request.getParameter( "requestID" ) );
-    final String FilingYear = request.getParameter( "mfileyear" );
-
-    final String SAVE_DIR = p.getProperty( "UPLOAD_FOLDER" );
-    final String appPath = p.getProperty( "BASE_PATH" );
-
-    if ( ITR.modifyITR( FilingYear, REQID ) )
-
+    try
     {
+      final UserService service = new UserService();
+      final IReturnFilingRequest ITR = new ReturnFilingService();
 
-      final String DOCUMENT_PATH = createFolder( String.valueOf( UserID ), String.valueOf( REQID ), SAVE_DIR, appPath );
+      final int UserID = service.getUserID( request.getParameter( "userID" ) );
 
-      storeDocument( request, response, DOCUMENT_PATH, REQID, UserID );
-      response.setContentType( "text/plain" );
-      response.setCharacterEncoding( "UTF-8" );
-      response.getWriter().write( "Modified ITR Filing Request Year  Successfully !" );
+      final Properties p = getProperties();
+      final long REQID = Long.parseLong( request.getParameter( "requestID" ) );
+      final String FilingYear = request.getParameter( "mfileyear" );
+
+      final String SAVE_DIR = p.getProperty( "UPLOAD_FOLDER" );
+      final String appPath = System.getProperty( "catalina.base" ) + "/" + "webapps";
+
+      if ( ITR.modifyITR( FilingYear, REQID ) )
+
+      {
+
+        final String DOCUMENT_PATH = createFolder( String.valueOf( UserID ), String.valueOf( REQID ), SAVE_DIR,
+                                                   appPath );
+
+        storeDocument( request, response, DOCUMENT_PATH, REQID, UserID );
+        response.setContentType( "text/plain" );
+        response.setCharacterEncoding( "UTF-8" );
+        response.getWriter().write( "Modified ITR Filing Request Year  Successfully !" );
+      }
+
+      else
+      {
+        response.setContentType( "text/plain" );
+        response.setCharacterEncoding( "UTF-8" );
+        response.getWriter().write( "ITR Modification failed !" );
+
+      }
     }
-
-    else
+    catch ( final Exception e )
     {
-      response.setContentType( "text/plain" );
-      response.setCharacterEncoding( "UTF-8" );
-      response.getWriter().write( "ITR Modification failed !" );
 
+      m_logger.log( Level.ALL, ModifyITRReqServlet.class.getName() + "\t" + e.getMessage(),
+                    new IOException( "Internal server error" ) );
     }
 
   }
@@ -151,7 +165,8 @@ public class ModifyITRReqServlet extends HttpServlet
 
   public static Properties getProperties() throws IOException
   {
-    final File file = new File( "/Phani_Project/mytaxplanner/Config.properties" );
+
+    final File file = new File( System.getProperty( "catalina.base" ) + "/" + "webapps" + "/" + "Config.properties" );
     final FileReader reader = new FileReader( file );
     final Properties prop = new Properties();
     prop.load( reader );

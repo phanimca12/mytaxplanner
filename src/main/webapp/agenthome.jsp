@@ -128,7 +128,8 @@ session.getAttribute("AgentName")
         <th>Assessment Year</th>
         <th>Status</th>
         <th>Comments</th>
-        <th style="color:blue;font-style:bold">View Attachments</th>
+        <th style="color:#5cb85c;font-style:bold">User Details</th>
+        <th style="color:blue;font-style:bold">Attachments</th>
         <th style="color:orange;font-style:bold">Edit</th>
         
       </tr>
@@ -140,12 +141,60 @@ session.getAttribute("AgentName")
     <td>{{ request.filingYear }}</td>
     <td>{{ request.status }}</td>
     <td style="word-break:break-all;">{{ request.agentComments }}</td>
+    <td><a class="glyphicon glyphicon-user" href="#" title="Click to View UserDetails" data-toggle="modal" data-target="#myModalUserInfo" ng-click="getuserDetails(request.userID)"> </a></td>
     <td><a class="glyphicon glyphicon-paperclip" href="#" title="Click to View Attachments" data-toggle="modal" data-target="#myModalAttachment" ng-click="getAttachment(request.requestID)"> </a></td>
     <td><a class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#myModal" ng-click="getReqestID($index)"  href="#"></a>  </td>
   </tr>
   </tbody>
 </table>
+<!-- Modal-UserDetails -->
+  <div class="modal fade" id="myModalUserInfo" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+        <p>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </p>
+          
+          <br>
+          <p>
+          <h1 class="modal-title"><centre>Customer Information<centre></h1>
+          </p>
+        </div>
+        <div class="modal-body">
+          
+   <div class="form-group">
+    <p><label for="UserName">CustomerName:</label>
+   <p >{{ cname }}</p>
+      </p>
+   
+  </div>
+  <div class="form-group">
+    <p><label for="emailID">Email ID:</label>
+   <p >{{ cmail }}</p>
+      </p>
+   
+  </div>
+   <div class="form-group">
+    <p><label for="mobile">Mobile:</label>
+   <p>{{ cmobile }}</p>
+      </p>
+   
+  </div>
+  
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
+<!-- Modal User Details -->
 <!-- Modal-Attachments -->
   <div class="modal fade" id="myModalAttachment" role="dialog">
     <div class="modal-dialog">

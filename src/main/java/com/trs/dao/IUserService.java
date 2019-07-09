@@ -18,4 +18,6 @@ public interface IUserService
 
   public int getUserID( String emailID );
 
+  public List getUserDetails( String userID );
+
 }

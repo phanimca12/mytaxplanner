@@ -53,6 +53,9 @@ public class MyTaxReturnConstants
   public static final String PARAMETER_EMAIL               = "email";
   public static final String PARAMETER_MOBILE              = "mobile";
 
+  public static final String USERDETAILS_SQL               = "select * from UserTable where id = :userID";
+  public static final String PARAMETER_USERID              = "userID";
+
   // Application Constants
   public static final String AUTHORIZATION_HEADER          = "Authorization";
   public static final String ACCEPT_HEADER                 = "accept";

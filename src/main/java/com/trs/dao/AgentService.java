@@ -2,6 +2,8 @@ package com.trs.dao;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -9,6 +11,7 @@ import org.hibernate.query.Query;
 
 import com.trs.config.DBConfig;
 import com.trs.constant.MyTaxReturnConstants;
+import com.trs.logger.FileLogger;
 import com.trs.model.Agent;
 import com.trs.model.ResponseModel;
 import com.trs.util.IUtility;
@@ -17,30 +20,42 @@ import com.trs.util.Utility;
 public class AgentService implements IAgentService
 {
   final DBConfig dbConfig = new DBConfig();
+  Logger         m_logger = FileLogger.getInstance();
 
   public ResponseModel createNewAgent( final Agent agent ) throws Exception
   {
-    final IUtility util = new Utility();
-    final Agent createAgent = new Agent();
-    createAgent.setName( agent.getName() );
-    createAgent.setEmailID( agent.getEmailID() );
-    createAgent.setPassword( agent.getPassword() );
-    createAgent.setCreationDate( util.getCurrentDateTime() );
-    createAgent.setMobile( agent.getMobile() );
-    createAgent.setCountry( agent.getCountry() );
-    createAgent.setState( agent.getState() );
-    createAgent.setCity( agent.getCity() );
-    createAgent.setAgentDescription( agent.getAgentDescription() );
-    createAgent.setAgentCode( "A" + util.getRandomNumber() );
+    ResponseModel model = null;
+    try
+    {
+      final IUtility util = new Utility();
+      final Agent createAgent = new Agent();
+      createAgent.setName( agent.getName() );
+      createAgent.setEmailID( agent.getEmailID() );
+      createAgent.setPassword( agent.getPassword() );
+      createAgent.setCreationDate( util.getCurrentDateTime() );
+      createAgent.setMobile( agent.getMobile() );
+      createAgent.setCountry( agent.getCountry() );
+      createAgent.setState( agent.getState() );
+      createAgent.setCity( agent.getCity() );
+      createAgent.setAgentDescription( agent.getAgentDescription() );
+      createAgent.setAgentCode( "A" + util.getRandomNumber() );
 
-    final Session session = util.getHibernateSessionObj();
-    final Transaction t = session.beginTransaction();
-    session.save( createAgent );
-    t.commit();
+      final Session session = util.getHibernateSessionObj();
+      final Transaction t = session.beginTransaction();
+      session.save( createAgent );
+      t.commit();
 
-    final ResponseModel model = new ResponseModel();
-    model.setAgent( createAgent );
-    model.setSuccessMessage( "Agent Created Successfully" );
+      model = new ResponseModel();
+      model.setAgent( createAgent );
+      model.setSuccessMessage( "Agent Created Successfully" );
+
+    }
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, AgentService.class.getName() + "\t" + e.getMessage(),
+                    new Exception( "Internal server error" ) );
+
+    }
     return model;
   }
 

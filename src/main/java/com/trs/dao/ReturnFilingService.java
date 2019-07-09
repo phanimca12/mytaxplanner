@@ -2,6 +2,8 @@ package com.trs.dao;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +13,7 @@ import org.hibernate.query.Query;
 
 import com.trs.config.DBConfig;
 import com.trs.constant.MyTaxReturnConstants;
+import com.trs.logger.FileLogger;
 import com.trs.model.ResponseModel;
 import com.trs.model.ReturnFiling;
 import com.trs.util.IUtility;
@@ -19,28 +22,39 @@ import com.trs.util.Utility;
 public class ReturnFilingService implements IReturnFilingRequest
 {
   DBConfig dbConfig = new DBConfig();
+  Logger   m_logger = FileLogger.getInstance();
 
-  public ResponseModel createNewReturnRequest( final ReturnFiling returnFiling ) throws Exception
+  public ResponseModel createNewReturnRequest( final ReturnFiling returnFiling )
   {
-    final IUtility util = new Utility();
-    final ReturnFiling returnFilingRequest = new ReturnFiling();
-    returnFilingRequest.setRequestID( returnFiling.getUserID() + util.getRandomNumber() );
-    returnFilingRequest.setUserID( returnFiling.getUserID() );
-    returnFilingRequest.setAgentCode( returnFiling.getAgentCode() );
-    returnFilingRequest.setReq_Date( util.getCurrentDateTime() );
-    returnFilingRequest.setFilingYear( returnFiling.getFilingYear() );
-    returnFilingRequest.setStatus( returnFiling.getStatus() );
-    returnFilingRequest.setAgentComments( returnFiling.getAgentComments() );
+    ResponseModel model = null;
+    try
+    {
+      final IUtility util = new Utility();
+      final ReturnFiling returnFilingRequest = new ReturnFiling();
+      returnFilingRequest.setRequestID( returnFiling.getUserID() + util.getRandomNumber() );
+      returnFilingRequest.setUserID( returnFiling.getUserID() );
+      returnFilingRequest.setAgentCode( returnFiling.getAgentCode() );
+      returnFilingRequest.setReq_Date( util.getCurrentDateTime() );
+      returnFilingRequest.setFilingYear( returnFiling.getFilingYear() );
+      returnFilingRequest.setStatus( returnFiling.getStatus() );
+      returnFilingRequest.setAgentComments( returnFiling.getAgentComments() );
 
-    final Session session = util.getHibernateSessionObj();
-    final Transaction t = session.beginTransaction();
-    session.save( returnFilingRequest );
-    t.commit();
+      final Session session = util.getHibernateSessionObj();
+      final Transaction t = session.beginTransaction();
+      session.save( returnFilingRequest );
+      t.commit();
 
-    final ResponseModel model = new ResponseModel();
-    // model.setReturnFilingRequest( returnFilingRequest );
+      model = new ResponseModel();
+      // model.setReturnFilingRequest( returnFilingRequest );
 
-    model.setSuccessMessage( "Request Created Successfully" );
+      model.setSuccessMessage( "Request Created Successfully" );
+    }
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, ReturnFilingService.class.getName() + "\t" + e.getMessage(),
+                    new Exception( "Internal server error" ) );
+
+    }
     return model;
   }
 

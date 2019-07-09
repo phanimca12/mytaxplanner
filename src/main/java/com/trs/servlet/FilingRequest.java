@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -19,6 +21,7 @@ import org.hibernate.Transaction;
 import com.trs.dao.IReturnFilingRequest;
 import com.trs.dao.ReturnFilingService;
 import com.trs.dao.UserService;
+import com.trs.logger.FileLogger;
 import com.trs.model.AttachmentDetails;
 import com.trs.model.ReturnFiling;
 import com.trs.util.IUtility;
@@ -29,47 +32,56 @@ import com.trs.util.Utility;
     maxRequestSize = 1024 * 1024 * 50 ) // 50MB
 public class FilingRequest extends HttpServlet
 {
-
+  Logger                    m_logger         = FileLogger.getInstance();
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void doPost( final HttpServletRequest request, final HttpServletResponse response ) throws IOException,
-                                                                                             ServletException
+  public void doPost( final HttpServletRequest request, final HttpServletResponse response )
   {
 
-    final UserService service = new UserService();
-    final IReturnFilingRequest ITR = new ReturnFilingService();
-
-    final int UserID = service.getUserID( request.getParameter( "userID" ) );
-
-    final Properties p = getProperties();
-
-    final String AgentCode = request.getParameter( "agcode" );
-    final String FilingYear = request.getParameter( "fileyear" );
-
-    final String SAVE_DIR = p.getProperty( "UPLOAD_FOLDER" );
-    final String appPath = p.getProperty( "BASE_PATH" );
-
-    if ( !ITR.isAssementYearExist( FilingYear, UserID ) )
+    try
     {
-      final long REQID = saveRecord( AgentCode, FilingYear, UserID );
+      final UserService service = new UserService();
+      final IReturnFilingRequest ITR = new ReturnFilingService();
 
-      /*final String ENCODE_USERID = encodeString( String.valueOf( UserID ) );
-      final String ENCODE_REQID = encodeString( String.valueOf( REQID ) );*/
+      final int UserID = service.getUserID( request.getParameter( "userID" ) );
 
-      final String DOCUMENT_PATH = createFolder( String.valueOf( UserID ), String.valueOf( REQID ), SAVE_DIR, appPath );
+      final Properties p = getProperties();
 
-      storeDocument( request, response, DOCUMENT_PATH, REQID, UserID );
-      response.setContentType( "text/plain" );
-      response.setCharacterEncoding( "UTF-8" );
-      response.getWriter().write( "ITR Filing Request Submitted Successfully !" );
+      final String AgentCode = request.getParameter( "agcode" );
+      final String FilingYear = request.getParameter( "fileyear" );
+
+      final String SAVE_DIR = p.getProperty( "UPLOAD_FOLDER" );
+      final String appPath = System.getProperty( "catalina.base" ) + "/" + "webapps";
+
+      if ( !ITR.isAssementYearExist( FilingYear, UserID ) )
+      {
+        final long REQID = saveRecord( AgentCode, FilingYear, UserID );
+
+        /*final String ENCODE_USERID = encodeString( String.valueOf( UserID ) );
+        final String ENCODE_REQID = encodeString( String.valueOf( REQID ) );*/
+
+        final String DOCUMENT_PATH = createFolder( String.valueOf( UserID ), String.valueOf( REQID ), SAVE_DIR,
+                                                   appPath );
+
+        storeDocument( request, response, DOCUMENT_PATH, REQID, UserID );
+        response.setContentType( "text/plain" );
+        response.setCharacterEncoding( "UTF-8" );
+        response.getWriter().write( "ITR Filing Request Submitted Successfully !" );
+      }
+      else
+      {
+        response.setContentType( "text/plain" );
+        response.setCharacterEncoding( "UTF-8" );
+        response.getWriter().write( "Filing For Given Assesment Year already Exist !" );
+
+      }
     }
-    else
+    catch ( final Exception e )
     {
-      response.setContentType( "text/plain" );
-      response.setCharacterEncoding( "UTF-8" );
-      response.getWriter().write( "Filing For Given Assesment Year already Exist !" );
 
+      m_logger.log( Level.ALL, FilingRequest.class.getName() + "\t" + e.getMessage(),
+                    new IOException( "Internal server error" ) );
     }
   }
 
@@ -105,7 +117,8 @@ public class FilingRequest extends HttpServlet
 
   public static Properties getProperties() throws IOException
   {
-    final File file = new File( "/Phani_Project/mytaxplanner/Config.properties" );
+
+    final File file = new File( System.getProperty( "catalina.base" ) + "/" + "webapps" + "/" + "Config.properties" );
 
     final FileReader reader = new FileReader( file );
     final Properties prop = new Properties();

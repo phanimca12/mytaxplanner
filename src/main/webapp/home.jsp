@@ -198,6 +198,8 @@ session.getAttribute("customerName")
         <th>Assessment Year</th>
         <th>Status</th>
         <th>Comments</th>
+        <th style="color:blue;font-style:bold">Delete</th>
+        <th style="color:orange;font-style:bold">Edit</th>
         
       </tr>
     </thead>
@@ -208,8 +210,8 @@ session.getAttribute("customerName")
     <td>{{ request.filingYear }}</td>
     <td>{{ request.status }}</td>
     <td>{{ request.agentComments }}</td>
-    <td><span class="glyphicon glyphicon-trash"></span> <input type="button" class="btn btn-danger" value="Delete" ng-click="GetDetails($index)" /></td>
-    <td><input type="button" value="Edit" class="btn btn-info btn" data-toggle="modal" data-target="#myModal" ng-click="getReqestID($index)" /><span class="glyphicon glyphicon-edit"></span></td>
+    <td><a class="glyphicon glyphicon-trash" href="#"   title="Click to Delete" ng-click="GetDetails($index)"></a> </td>
+    <td><a class="glyphicon glyphicon-edit"  title="Click to Edit" data-toggle="modal" data-target="#myModal" ng-click="getReqestID($index)"  href="#"></a></td>
   </tr>
   </tbody>
 </table>

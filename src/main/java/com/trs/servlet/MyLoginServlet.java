@@ -2,6 +2,8 @@ package com.trs.servlet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +15,7 @@ import org.json.JSONObject;
 
 import com.trs.dao.IUserService;
 import com.trs.dao.UserService;
+import com.trs.logger.FileLogger;
 
 public class MyLoginServlet extends HttpServlet
 {
@@ -21,46 +24,54 @@ public class MyLoginServlet extends HttpServlet
    * 
    */
   private static final long serialVersionUID = 1L;
+  Logger                    m_logger         = FileLogger.getInstance();
 
   @Override
   public void doPost( final HttpServletRequest request, final HttpServletResponse response ) throws IOException,
                                                                                              ServletException
   {
-    final StringBuilder sb = new StringBuilder();
-
-    final BufferedReader br = request.getReader();
-    String str = null;
-    while ( ( str = br.readLine() ) != null )
+    try
     {
-      sb.append( str );
+      final StringBuilder sb = new StringBuilder();
+
+      final BufferedReader br = request.getReader();
+      String str = null;
+      while ( ( str = br.readLine() ) != null )
+      {
+        sb.append( str );
+      }
+      final JSONObject jObj = new JSONObject( sb.toString() );
+      final String name = jObj.getString( "name" );
+      final String pass = jObj.getString( "pass" );
+      /*System.out.println( "name=" + name );
+      System.out.println( "password=" + pass )*/;
+
+      final IUserService validate = new UserService();
+
+      if ( validate.isAuthorizedUser( name, pass ) )
+      {
+        final HttpSession session = request.getSession();
+        session.setAttribute( "customerName", name );
+        response.setContentType( "text/plain" );
+        response.setCharacterEncoding( "UTF-8" );
+        response.getWriter().write( "Pass" );
+
+      }
+
+      else
+      {
+
+        response.setContentType( "text/plain" );
+        response.setCharacterEncoding( "UTF-8" );
+        response.getWriter().write( "Fail" );
+
+      }
     }
-    final JSONObject jObj = new JSONObject( sb.toString() );
-    final String name = jObj.getString( "name" );
-    final String pass = jObj.getString( "pass" );
-    /*System.out.println( "name=" + name );
-    System.out.println( "password=" + pass )*/;
-
-    final IUserService validate = new UserService();
-
-    if ( validate.isAuthorizedUser( name, pass ) )
+    catch ( final Exception e )
     {
-      final HttpSession session = request.getSession();
-      session.setAttribute( "customerName", name );
-      response.setContentType( "text/plain" );
-      response.setCharacterEncoding( "UTF-8" );
-      response.getWriter().write( "Pass" );
-
+      m_logger.log( Level.ALL, MyLoginServlet.class.getName() + "\t" + e.getMessage(),
+                    new IOException( "Internal server error" ) );
     }
-
-    else
-    {
-
-      response.setContentType( "text/plain" );
-      response.setCharacterEncoding( "UTF-8" );
-      response.getWriter().write( "Fail" );
-
-    }
-
   }
 
 }
