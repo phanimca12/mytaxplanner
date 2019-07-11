@@ -49,7 +49,7 @@ if(session.getAttribute("AgentName")==null)
 %>
 <body  ng-app="agenthomeApp" ng-controller="agenthomeCTRL">
 
-<div class="jumbotron-fluid"  id="header"><h1><a class="w3schools-logo notranslate" href="//www.mytaxplanner.com">mytaxplanner<span class="dotcom">.com</span></a></h1>
+<div class="jumbotron-fluid"  id="header"><h1><a class="w3schools-logo notranslate" href="www.mytaxfiler.co.in">mytaxfiler<span class="dotcom">.co.in</span></a></h1>
 
 </div>
 <div class="container-fluid">
@@ -314,7 +314,7 @@ session.getAttribute("AgentName")
 
 
 
-<div class="jumbotron-fluid"  id="footer"><p class="copyright">Copyright © 2019 mytaxplanner.com</p>
+<div class="jumbotron-fluid"  id="footer"><p class="copyright">Copyright © 2019 mytaxfiler.co.in</p>
 </div>
 
 </body>

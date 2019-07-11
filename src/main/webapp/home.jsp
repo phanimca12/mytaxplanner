@@ -49,7 +49,7 @@ if(session.getAttribute("customerName")==null)
 %>
 <body  ng-app="homeApp" ng-controller="homeCTRL">
 
-<div class="jumbotron-fluid"  id="header"><h1><a class="w3schools-logo notranslate" href="//www.mytaxplanner.com">mytaxplanner<span class="dotcom">.com</span></a></h1>
+<div class="jumbotron-fluid"  id="header"><h1><a class="w3schools-logo notranslate" href="www.mytaxfiler.co.in">mytaxfiler<span class="dotcom">.co.in</span></a></h1>
 
 </div>
 <div class="container-fluid">
@@ -126,7 +126,7 @@ session.getAttribute("customerName")
 </select></p>
     
     <p><label for="agent">Upload Form16 & Other:</label>
-   <input type="file" name="files" id="files" class="form-control" multiple style="height:auto" />
+   <input type="file" name="files" id="files" class="form-control"  title="Select multiple files at a time" multiple style="height:auto" />
    
    <div id="selectedFiles">
    
@@ -151,7 +151,7 @@ session.getAttribute("customerName")
         <th>File Name</th>
        <!--  <th>Document Type</th> -->
         <th>Upload Date</th>
-               
+            <th style="color:blue;font-style:bold">Downloads</th>   
       </tr>
     </thead>
     <tbody>
@@ -281,7 +281,7 @@ session.getAttribute("customerName")
 
 
 
-<div class="jumbotron-fluid"  id="footer"><p class="copyright">Copyright © 2019 mytaxplanner.com</p>
+<div class="jumbotron-fluid"  id="footer"><p class="copyright">Copyright © 2019 mytaxfiler.co.in</p>
 </div>
 
 </body>
