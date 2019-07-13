@@ -110,6 +110,16 @@
 	<servlet-name>ModifyAgentITRRequestServlet</servlet-name>
 	<url-pattern>/modifyAgentITR</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>ForgotPasswordServlet</servlet-name>
+	<servlet-class>com.trs.servlet.ForgotPasswordServlet</servlet-class>
+	<load-on-startup>8</load-on-startup> 
+	</servlet>
+	<servlet-mapping>
+	<servlet-name>ForgotPasswordServlet</servlet-name>
+	<url-pattern>/forgotpassword</url-pattern>
+	</servlet-mapping>
 	<context-param>
 	<param-name>Cache-Control</param-name>
 	<param-value>no-cache,no-store,must-revalidate</param-value>

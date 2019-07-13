@@ -60,7 +60,7 @@ public class MyLoginServlet extends HttpServlet
 
       else
       {
-
+        // JavaMail.sendMail();
         response.setContentType( "text/plain" );
         response.setCharacterEncoding( "UTF-8" );
         response.getWriter().write( "Fail" );

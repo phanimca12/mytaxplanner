@@ -11,7 +11,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
 	{
 	        
 		 $http({
-             url : '/MyTaxReturn/v1/returnfilingrequest/requestdetails/'+ customerName,
+             url : '/v1/returnfilingrequest/requestdetails/'+ customerName,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",
@@ -33,7 +33,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
 	{
 	        
 		 $http({
-             url : '/MyTaxReturn/v1/attachments/download/'+ customerName,
+             url : '/v1/attachments/download/'+ customerName,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",
@@ -57,7 +57,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
     //HTTP GET- get all countries collection
     function _refreshAgentData() {
     	  $http({
-              url : '/MyTaxReturn/v1/agent/agentdetails',
+              url : '/v1/agent/agentdetails',
               method : "GET",
               	 headers: {
               	        "Content-Type": "application/json",
@@ -83,7 +83,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
         var reqID = $scope.Requests[index].requestID;
         $http({
             method : "DELETE",
-            url : "/MyTaxReturn/v1/returnfilingrequest/request/" + reqID,
+            url : "/v1/returnfilingrequest/request/" + reqID,
             data : angular.toJson(reqID),
            headers: {
               	        "Content-Type": "application/json",

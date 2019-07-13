@@ -98,5 +98,46 @@ app.controller("signonController", [ '$scope', '$http','$location','$window', fu
 
     };
 	
+    
+    $scope.getPassword=function(forgot)
+	{
+    	
+		 $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+		        
+		
+         $http({
+             url : 'forgotpassword',
+             method : "POST",
+             data : {
+                 'emailID' : $scope.forgot.emailID,
+                 
+             }
+         }).then(function(response) {
+        	 
+        	 
+        	 if(response.data=="Pass")
+        		 {
+        
+        		 alert("Password has been sent to your Email ID !");
+        		 var host = $window.location.host;
+      	        var landingUrl = "login.html";
+      	       $window.location.href = landingUrl;
+        		 }
+        	 else
+        		 {
+        		 alert("Invalid Email Id!");
+        		 
+        		 }
+        	
+             console.log(response.data);
+             
+         }, function(response) {
+             //fail case
+             console.log(response);
+            
+         });
+		
+
+    };
   
 } ]);

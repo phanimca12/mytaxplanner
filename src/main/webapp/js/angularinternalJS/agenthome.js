@@ -22,7 +22,7 @@ app.controller('agenthomeCTRL',  [ '$scope', '$http', '$window',function($scope,
 	{
 	       //alert(AgentName +"status="+$scope.selectedStatus);
 		 $http({
-             url : '/MyTaxReturn/v1/returnfilingrequest/requestdetails/'+ AgentName+'/'+$scope.selectedStatus,
+             url : '/v1/returnfilingrequest/requestdetails/'+ AgentName+'/'+$scope.selectedStatus,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",
@@ -45,7 +45,7 @@ app.controller('agenthomeCTRL',  [ '$scope', '$http', '$window',function($scope,
 	     
 	      
 		 $http({
-             url : '/MyTaxReturn/v1/attachments/downloadbyreqID/'+ requestID,
+             url : '/v1/attachments/downloadbyreqID/'+ requestID,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",
@@ -67,7 +67,7 @@ app.controller('agenthomeCTRL',  [ '$scope', '$http', '$window',function($scope,
 	     
 	      
 		 $http({
-             url : '/MyTaxReturn/v1/user/userDetails/'+ userID,
+             url : '/v1/user/userDetails/'+ userID,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",

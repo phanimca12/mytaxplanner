@@ -128,4 +128,24 @@ public class UserService implements IUserService
     return query.list();
   }
 
+  public String getUserPassword( final String emailID )
+  {
+    final Session session = dbConfig.getSessionFactory().openSession();
+
+    final Query query = session.createSQLQuery( MyTaxReturnConstants.GETUSERID_SQL )
+                               .addEntity( User.class )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_USEREMAILID, emailID );
+    final List list = query.list();
+    String password = null;
+    final Iterator it = list.iterator();
+
+    while ( it.hasNext() )
+    {
+      final Object object = it.next();
+      final User user = (User)object;
+      password = user.getPassword();
+    }
+    session.close();
+    return password;
+  }
 }
