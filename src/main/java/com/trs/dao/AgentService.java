@@ -63,10 +63,9 @@ public class AgentService implements IAgentService
   {
     final Session session = dbConfig.getSessionFactory().openSession();
 
-    final Query query = session.createSQLQuery( MyTaxReturnConstants.USEREXISTS_SQL )
+    final Query query = session.createSQLQuery( MyTaxReturnConstants.AGENTEXISTS_SQL )
                                .addEntity( Agent.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_EMAIL, email )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_MOBILE, mobile );
+                               .setParameter( MyTaxReturnConstants.PARAMETER_AEMAIL, email );
 
     return query.getResultList().size() > 0 ? true : false;
   }

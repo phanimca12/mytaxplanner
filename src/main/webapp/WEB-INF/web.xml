@@ -39,6 +39,16 @@
 	</servlet-mapping>
 	
 	<servlet>
+	<servlet-name>CreateAgentServlet</servlet-name>
+	<servlet-class>com.trs.servlet.CreateAgentServlet</servlet-class>
+	<load-on-startup>10</load-on-startup> 
+	</servlet>
+	<servlet-mapping>
+	<servlet-name>CreateAgentServlet</servlet-name>
+	<url-pattern>/createagent</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 	<servlet-name>AgentLoginServlet</servlet-name>
 	<servlet-class>com.trs.servlet.agentloginservlet</servlet-class>
 	<load-on-startup>1</load-on-startup> 

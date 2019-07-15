@@ -30,6 +30,9 @@ public class MyTaxReturnConstants
   public static final String GETUSERID_SQL                 = "select * from UserTable  where emailID= :email ";
   public static final String PARAMETER_USEREMAILID         = "email";
 
+  public static final String GETEMAILID_SQL                = "select * from UserTable  where id= :id ";
+  public static final String PARAMETER_iID                 = "id";
+
   public static final String ATTACHMENT_SQLDELETE_REQID    = "delete from AttachmentTable where requestID= :requestID ";
   public static final String FILINGREQUEST_SQLDELETE_REQID = "delete from ReturnFilingRequestTable where requestID= :requestID ";
   public static final String PARAMETER_DELETEREQUESTID     = "requestID";
@@ -52,6 +55,9 @@ public class MyTaxReturnConstants
   public static final String USEREXISTS_SQL                = "select * from UserTable where emailID= :email";
   public static final String PARAMETER_EMAIL               = "email";
   public static final String PARAMETER_MOBILE              = "mobile";
+
+  public static final String AGENTEXISTS_SQL               = "select * from AgentDetailsTable where emailID= :email";
+  public static final String PARAMETER_AEMAIL              = "email";
 
   public static final String USERDETAILS_SQL               = "select * from UserTable where id = :userID";
   public static final String PARAMETER_USERID              = "userID";

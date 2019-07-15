@@ -4,14 +4,14 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
 	$scope.Agents = [];
 	$scope.Requests = [];
 	$scope.Attachments = [];
-	 $scope.Years = ["2015-2016", "2016-2017","2017-2018", "2018-2019"];
+	 $scope.Years = ["2015-2016", "2016-2017","2017-2018", "2018-2019","2019-2020"];
 	 _refreshAgentData();
 	
 	$scope.getUser=function(customerName)
 	{
 	        
 		 $http({
-             url : '/v1/returnfilingrequest/requestdetails/'+ customerName,
+             url : '/MyTaxReturn/v1/returnfilingrequest/requestdetails/'+ customerName,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",
@@ -33,7 +33,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
 	{
 	        
 		 $http({
-             url : '/v1/attachments/download/'+ customerName,
+             url : '/MyTaxReturn/v1/attachments/download/'+ customerName,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",
@@ -57,7 +57,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
     //HTTP GET- get all countries collection
     function _refreshAgentData() {
     	  $http({
-              url : '/v1/agent/agentdetails',
+              url : '/MyTaxReturn/v1/agent/agentdetails',
               method : "GET",
               	 headers: {
               	        "Content-Type": "application/json",

@@ -76,7 +76,7 @@ public class IMailimpl implements IMailCommunication
 
         // creates message part
         final MimeBodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setContent( message + "</b>" + userPassword, "text/html" );
+        messageBodyPart.setContent( message + "-" + userPassword, "text/html" );
 
         // creates multi-part
         final Multipart multipart = new MimeMultipart();
@@ -102,6 +102,119 @@ public class IMailimpl implements IMailCommunication
       /* m_logger.log( Level.ALL, IMailimpl.class.getName() + "\t" + e.getMessage(),
                     new IOException( "Internal server error" ) );*/
     }
+  }
+
+  public void sendRequestEmail( final Long ReqID,
+                                final String custemailID,
+                                final String cname,
+                                final String filingYear,
+                                final String fromEmailID )
+  {
+    final Session session = getEmailSession();
+
+    // creates a new e-mail message
+    final String subject = "ITR Request Submitted by Customer-" + cname;
+    final String message = "<HTML><BODY><h1>The Follow User has submitted new ITR Request</h1><br><br>Customer Name:"
+        + cname + "<br>" + "Filing Year:" + filingYear + "<br>" + "Request ID:" + ReqID + "<br></BODY></HTML>";
+    final Message msg = new MimeMessage( session );
+    final UserService userService = new UserService();
+    final String userPassword = userService.getUserPassword( custemailID );
+    try
+    {
+      if ( userPassword != null )
+      {
+
+        msg.setFrom( new InternetAddress( fromEmailID ) );
+        final InternetAddress[] toAddresses = { new InternetAddress( IMailCommunication.TOADDRESS ) };
+        msg.setRecipients( Message.RecipientType.TO, toAddresses );
+        msg.setSubject( subject );
+        msg.setSentDate( new Date() );
+
+        // creates message part
+        final MimeBodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setContent( message, "text/html" );
+
+        // creates multi-part
+        final Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart( messageBodyPart );
+        // sets the multi-part as e-mail's content
+        msg.setContent( multipart );
+
+        // sends the e-mail
+        Transport.send( msg );
+
+      }
+
+    }
+    catch ( final Exception e )
+    {
+      /* m_logger.log( Level.ALL, IMailimpl.class.getName() + "\t" + e.getMessage(),
+                    new IOException( "Internal server error" ) );*/
+    }
+
+  }
+
+  public void sendITRUpdateMail( final Long ReqID,
+                                 final String custemailID,
+
+                                 final String status,
+                                 final String comments,
+                                 final String fromEmailID )
+  {
+    final Session session = getEmailSession();
+
+    // creates a new e-mail message
+    final String subject = "ITR has been modified by Agent";
+    final String message = "<HTML><BODY><h3>ITR Request has been updated by Agent</h3><br><br>" + "<br>"
+
+        + "<p>Request ID:"
+        + ReqID
+        + "</p"
+        + "<br>"
+        + "<p>Status:"
+        + status
+        + "</p>"
+        + "<br>"
+        + "<p>Comments:"
+        + comments
+        + "</p>"
+        + "</BODY></HTML>";
+    final Message msg = new MimeMessage( session );
+    final UserService userService = new UserService();
+    final String userPassword = userService.getUserPassword( custemailID );
+    try
+    {
+      if ( userPassword != null )
+      {
+
+        msg.setFrom( new InternetAddress( fromEmailID ) );
+        final InternetAddress[] toAddresses = { new InternetAddress( IMailCommunication.TOADDRESS ) };
+        msg.setRecipients( Message.RecipientType.TO, toAddresses );
+        msg.setSubject( subject );
+        msg.setSentDate( new Date() );
+
+        // creates message part
+        final MimeBodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setContent( message, "text/html" );
+
+        // creates multi-part
+        final Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart( messageBodyPart );
+        // sets the multi-part as e-mail's content
+        msg.setContent( multipart );
+
+        // sends the e-mail
+        Transport.send( msg );
+
+      }
+
+    }
+    catch ( final Exception e )
+    {
+      /* m_logger.log( Level.ALL, IMailimpl.class.getName() + "\t" + e.getMessage(),
+                    new IOException( "Internal server error" ) );*/
+    }
+
   }
 
 }

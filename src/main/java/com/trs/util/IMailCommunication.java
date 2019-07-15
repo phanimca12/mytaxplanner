@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface IMailCommunication
 {
-  String USERNAME = "noreply@mytaxfiler.co.in";
-  String PASSWORD = "Tharuni_12#";
-  String HOST     = "mail.mytaxfiler.co.in";
-  String PORT     = "587";
+  String USERNAME  = "noreply@mytaxfiler.co.in";
+  String PASSWORD  = "Tharuni_12#";
+  String HOST      = "mail.mytaxfiler.co.in";
+  String PORT      = "587";
+  String TOADDRESS = "sridharcfp@gmail.com";
 
   public Properties getEmailSMTPSettings();
 
@@ -22,5 +23,20 @@ public interface IMailCommunication
                                  final String fromEmailIDfinal,
                                  HttpServletRequest request,
                                  final HttpServletResponse respone );
+
+  public void sendRequestEmail( Long ReqID,
+                                String custemailID,
+                                String cname,
+                                String filingYear,
+
+                                final String fromEmailID );
+
+  public void sendITRUpdateMail( final Long ReqID,
+                                 final String custemailID,
+
+                                 String status,
+                                 String comments,
+
+                                 final String fromEmailID );
 
 }

@@ -118,6 +118,48 @@ public class UserService implements IUserService
     return UID;
   }
 
+  public String getUserName( final String emailID )
+  {
+    final Session session = dbConfig.getSessionFactory().openSession();
+
+    final Query query = session.createSQLQuery( MyTaxReturnConstants.GETUSERID_SQL )
+                               .addEntity( User.class )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_USEREMAILID, emailID );
+    final List list = query.list();
+    String UserName = null;
+    final Iterator it = list.iterator();
+
+    while ( it.hasNext() )
+    {
+      final Object object = it.next();
+      final User user = (User)object;
+      UserName = user.getName();
+    }
+    session.close();
+    return UserName;
+  }
+
+  public String getUserEmailID( final long userID )
+  {
+    final Session session = dbConfig.getSessionFactory().openSession();
+
+    final Query query = session.createSQLQuery( MyTaxReturnConstants.GETEMAILID_SQL )
+                               .addEntity( User.class )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_iID, userID );
+    final List list = query.list();
+    String UserName = null;
+    final Iterator it = list.iterator();
+
+    while ( it.hasNext() )
+    {
+      final Object object = it.next();
+      final User user = (User)object;
+      UserName = user.getEmailID();
+    }
+    session.close();
+    return UserName;
+  }
+
   public List getUserDetails( final String userID )
   {
     final Utility util = new Utility();

@@ -24,6 +24,8 @@ import com.trs.dao.UserService;
 import com.trs.logger.FileLogger;
 import com.trs.model.AttachmentDetails;
 import com.trs.model.ReturnFiling;
+import com.trs.util.IMailCommunication;
+import com.trs.util.IMailimpl;
 import com.trs.util.IUtility;
 import com.trs.util.Utility;
 
@@ -44,6 +46,8 @@ public class FilingRequest extends HttpServlet
       final UserService service = new UserService();
       final IReturnFilingRequest ITR = new ReturnFilingService();
 
+      final String UserEmailID = request.getParameter( "userID" );
+      final String UserName = service.getUserName( request.getParameter( "userID" ) );
       final int UserID = service.getUserID( request.getParameter( "userID" ) );
 
       final Properties p = getProperties();
@@ -65,6 +69,11 @@ public class FilingRequest extends HttpServlet
                                                    appPath );
 
         storeDocument( request, response, DOCUMENT_PATH, REQID, UserID );
+
+        final IMailCommunication icom = new IMailimpl();
+
+        icom.sendRequestEmail( REQID, UserEmailID, UserName, FilingYear, icom.USERNAME );
+
         response.setContentType( "text/plain" );
         response.setCharacterEncoding( "UTF-8" );
         response.getWriter().write( "ITR Filing Request Submitted Successfully !" );

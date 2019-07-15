@@ -103,7 +103,10 @@ session.getAttribute("customerName")
     </div>
     <div class="media-body">
     
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p>Dear Customer !</p>
+      <br>
+      <p>We are pleased to inform you that "mytaxfiler.co.in" is ready to provide ITR Filing services to all this year.</p>
+      <p>Just  raise the ITR-Request and upload Form 16 and leave the rest to qualified Tax Expert!!</p>
     </div>
   </div>
   <hr> 

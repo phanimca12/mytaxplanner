@@ -21,6 +21,8 @@ import com.trs.dao.ReturnFilingService;
 import com.trs.dao.UserService;
 import com.trs.logger.FileLogger;
 import com.trs.model.AttachmentDetails;
+import com.trs.util.IMailCommunication;
+import com.trs.util.IMailimpl;
 import com.trs.util.IUtility;
 import com.trs.util.Utility;
 
@@ -48,6 +50,7 @@ public class ModifyAgentITRRequestServlet extends HttpServlet
       final String comment = request.getParameter( "agentcomments" );
       final long REQID = Long.parseLong( request.getParameter( "requestID" ) );
       final long UserId = ITR.getReqUserID( REQID );
+      final String UserEmailID = service.getUserEmailID( UserId );
 
       final String SAVE_DIR = p.getProperty( "UPLOAD_FOLDER" );
       final String appPath = System.getProperty( "catalina.base" ) + "/" + "webapps";
@@ -55,6 +58,9 @@ public class ModifyAgentITRRequestServlet extends HttpServlet
       if ( ITR.modifyAgentITR( status, comment, REQID ) )
 
       {
+        final IMailCommunication icom = new IMailimpl();
+
+        icom.sendITRUpdateMail( REQID, UserEmailID, status, comment, icom.USERNAME );
 
         final String DOCUMENT_PATH = createFolder( String.valueOf( UserId ), String.valueOf( REQID ), SAVE_DIR,
                                                    appPath );
