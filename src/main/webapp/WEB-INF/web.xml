@@ -8,6 +8,7 @@
    <welcome-file>agentlogin.html</welcome-file> 
    <welcome-file>H_subpage.html</welcome-file> 
     <welcome-file>pricing.html</welcome-file> 
+    <welcome-file>home_menu.jsp</welcome-file> 
    <welcome-file>home.jsp</welcome-file>  
    <welcome-file>agenthome.jsp</welcome-file> 
   </welcome-file-list> 

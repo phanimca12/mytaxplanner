@@ -78,17 +78,11 @@ session.getAttribute("customerName")
 
 </div>
 <div class="row">
+ <div ng-include="'home_menu.jsp'"></div>
 
 <div class="col-sm-12" id="rightblock">
 
- <ul class="nav nav-tabs" id="myTab">
-    <li class="active" ><a data-toggle="tab" href="#home">Home</a></li>
-    <li><a data-toggle="tab" href="#menu1">ITR-Request</a></li>
-    <li><a data-toggle="tab" href="#menu2" ng-click="getAttachment('<%= session.getAttribute("customerName")%>')">Uploads/Downloads</a></li>
-    <li><a data-toggle="tab" href="#menu3" ng-click="getUser('<%= session.getAttribute("customerName")%>')">ITR-Details</a></li>
-     <li><a data-toggle="tab" href="#menu4" >Contact Us</a></li>
-       <li><a data-toggle="tab" href="#menu5" >Pricing & Payments</a></li>
-  </ul>
+ 
 
   <div class="tab-content">
   

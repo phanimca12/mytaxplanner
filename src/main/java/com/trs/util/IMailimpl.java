@@ -188,7 +188,7 @@ public class IMailimpl implements IMailCommunication
       {
 
         msg.setFrom( new InternetAddress( fromEmailID ) );
-        final InternetAddress[] toAddresses = { new InternetAddress( IMailCommunication.TOADDRESS ) };
+        final InternetAddress[] toAddresses = { new InternetAddress( custemailID ) };
         msg.setRecipients( Message.RecipientType.TO, toAddresses );
         msg.setSubject( subject );
         msg.setSentDate( new Date() );
