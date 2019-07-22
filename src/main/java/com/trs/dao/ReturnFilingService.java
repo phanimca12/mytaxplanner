@@ -77,11 +77,11 @@ public class ReturnFilingService implements IReturnFilingRequest
     final Transaction tx = session.beginTransaction();
     final Query query = session.createSQLQuery( MyTaxReturnConstants.FILINGREQUEST_SQLDELETE_REQID )
                                .addEntity( ReturnFiling.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_DELETEREQUESTID, reqID );
+                               .setParameter( MyTaxReturnConstants.PARAMETER_REQUESTID, reqID );
 
     final Query query2 = session.createSQLQuery( MyTaxReturnConstants.ATTACHMENT_SQLDELETE_REQID )
                                 .addEntity( ReturnFiling.class )
-                                .setParameter( MyTaxReturnConstants.PARAMETER_DELETEREQUESTID, reqID );
+                                .setParameter( MyTaxReturnConstants.PARAMETER_REQUESTID, reqID );
     query2.executeUpdate();
     final int result = query.executeUpdate();
     tx.commit();
@@ -117,7 +117,7 @@ public class ReturnFilingService implements IReturnFilingRequest
     final Query query = session.createSQLQuery( MyTaxReturnConstants.MODIFYITR_SQL )
                                .addEntity( ReturnFiling.class )
                                .setParameter( MyTaxReturnConstants.PARAMETER_UPDATEYEAR, year )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_FORREQID, reqID );
+                               .setParameter( MyTaxReturnConstants.PARAMETER_REQUESTID, reqID );
 
     final int result = query.executeUpdate();
     tx.commit();
@@ -140,7 +140,7 @@ public class ReturnFilingService implements IReturnFilingRequest
     final Query query = session.createSQLQuery( MyTaxReturnConstants.MODIFYITRAGENT_SQL )
                                .addEntity( ReturnFiling.class )
                                .setParameter( MyTaxReturnConstants.PARAMETER_STATUS, status )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_FORREQID, ReqID )
+                               .setParameter( MyTaxReturnConstants.PARAMETER_REQUESTID, ReqID )
                                .setParameter( MyTaxReturnConstants.PARAMETER_COMMENT, comments );
 
     final int result = query.executeUpdate();
@@ -162,7 +162,7 @@ public class ReturnFilingService implements IReturnFilingRequest
 
     final Query query = session.createSQLQuery( MyTaxReturnConstants.FILING_USERID )
                                .addEntity( ReturnFiling.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_FILINGREQUESTID, RequestID );
+                               .setParameter( MyTaxReturnConstants.PARAMETER_REQUESTID, RequestID );
     final List list = query.list();
     long UID = 0;
     final Iterator it = list.iterator();
@@ -183,7 +183,7 @@ public class ReturnFilingService implements IReturnFilingRequest
     final Session session = util.getHibernateSessionObj();
     Query query = null;
 
-    if ( status.equalsIgnoreCase( "all" ) )
+    if ( status.equalsIgnoreCase( "All" ) )
     {
       query = session.createSQLQuery( MyTaxReturnConstants.FILINGREQUEST_AGENTSQL )
                      .addEntity( ReturnFiling.class )
@@ -196,7 +196,7 @@ public class ReturnFilingService implements IReturnFilingRequest
       query = session.createSQLQuery( MyTaxReturnConstants.FILINGREQUEST_AGENTSTATUSSQL )
                      .addEntity( ReturnFiling.class )
                      .setParameter( MyTaxReturnConstants.PARAMETER_AGENTCODE, agentCode )
-                     .setParameter( MyTaxReturnConstants.PARAMETER_REQSTATUS, status );
+                     .setParameter( MyTaxReturnConstants.PARAMETER_STATUS, status );
 
       return query.list();
 

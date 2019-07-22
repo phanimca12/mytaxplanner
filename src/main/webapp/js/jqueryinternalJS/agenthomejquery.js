@@ -1,5 +1,26 @@
 
 $(document).ready(function(){
+
+	
+	$(".Section_2").hide();
+
+
+	$("#itr_section").click(function()
+	{
+		$(".Section_1").hide();
+		$(".Section_2").show();
+		
+	}
+	
+	);
+	$("#home_section").click(function()
+					{
+						$(".Section_1").show();
+						$(".Section_2").hide();
+						
+					}
+					
+					);
 	
 $("#updateRequest").click(function()
 		{

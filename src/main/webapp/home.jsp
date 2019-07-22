@@ -53,6 +53,7 @@ if(session.getAttribute("customerName")==null)
 
 </div>
 <div class="container-fluid">
+<!-- Mail Row 1 -->
 <div class="row">
 <div class="col-sm-12" id="toprow">
 
@@ -77,21 +78,45 @@ session.getAttribute("customerName")
 </div>
 
 </div>
+
+<!-- Mail Row 2 -->
+
 <div class="row">
- <div ng-include="'home_menu.jsp'"></div>
+<nav class="navbar navbar-inverse"  id="mynav">
+  <div class="container-fluid">
+    <div class="navbar-header" >
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+     <a class="navbar-brand" id="home_section"  href="#" style="color:#f4511e;"><span class="glyphicon glyphicon-home"></span> Home</a> 
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+     
+  <ul class="nav navbar-nav" id="myTab">
+
+    <li><a id="itr_section"  href="#">ITR-Request</a></li>
+    <li><a id="download_section"  href="#" ng-click="getAttachment('<%= session.getAttribute("customerName")%>')">Uploads/Downloads</a></li>
+    <li><a  id="it_details" href="#" ng-click="getUser('<%= session.getAttribute("customerName")%>')">ITR-Details</a></li>
+    <!--  <li><a id="contact_section" href="#" >Pricing & Payments</a></li> -->
+       <li><a id="pricing_section" href="#" >Contact Us</a></li>
+  </ul>
+    </div>
+  </div>
+</nav>
+</div>
+<!-- end-->
+
+<div class=row>
 
 <div class="col-sm-12" id="rightblock">
 
- 
-
-  <div class="tab-content">
+ <!-- Section-1-->
+  <div class="Section_1">
+  <div class="container-fluid">
   
-    <div id="home" class="tab-pane fade in active" >
-         
-        <!-- Left-aligned media object -->
-        <br>
-        
-  <div class="media">
+ <div class="media">
     <div class="media-left">
       <img src="images/avatar.png" class="media-object" style="width:60px">
     </div>
@@ -107,8 +132,16 @@ session.getAttribute("customerName")
   <div ng-include="'H_subpage.html'"></div>
           
     </div>
-    <div id="menu1" class="tab-pane fade" >
-      <h3>Request Tax-Return Filing</h3>
+ 
+ </div>
+ </div>
+  <!-- Section-2-->  
+    
+     <div class="Section_2">
+  <div class="container-fluid">
+  
+ 
+ <h3>Request Tax-Return Filing</h3>
       
      <form  id="ITR_Submit_Form" >
     
@@ -134,14 +167,22 @@ session.getAttribute("customerName")
     <input type="button" value="Submit" id="submitRequest"  onclick="submitRequest()"  />            
                 
       </form> 
-      
-      
-    </div>
+ 
+ 
+ 
+ 
+ 
+ </div>
+ </div>
     
-    <div id="menu2" class="tab-pane fade">
+    
+     <!-- Section-3-->  
       
-       
-       <table class="table">
+   <div class="Section_3"  >
+  <div class="container-fluid">
+  <br>
+   <div class="table-responsive">
+  <table class="table">
 <thead class="thead-dark">
       <tr>
         <th>RequestID</th>
@@ -163,31 +204,19 @@ session.getAttribute("customerName")
   </tr>
   </tbody>
 </table>
-   
-    </div>
-    <div id="menu4" class="tab-pane fade">
-      
-       
-      <div >
-      <br>
-      <p>Contact us and we'll get back to you within 24 hours.</p>
-      <p><span class="glyphicon glyphicon-map-marker"></span> Hyderabad, India</p>
-      <p><span class="glyphicon glyphicon-phone"></span> +91 9441054052</p>
-      <p><span class="glyphicon glyphicon-envelope"></span> phani.mca12@gmail.com</p>
-    </div>
-   
-    </div>
-    
-       <div id="menu5" class="tab-pane fade">
-         <div ng-include="'pricing.html'"></div>
-       
-   
-    </div>
-    
-    <div id="menu3" class="tab-pane fade" >
+</div>
 
+  </div>
+ </div>
 
-<table class="table">
+    
+     <!-- Section-4-->  
+    
+     <div class="Section_4">
+  <div class="container-fluid">
+  <br>
+ <div class="table-responsive">
+ <table class="table">
 <thead class="thead-dark">
       <tr>
         <th>RequestID</th>
@@ -212,7 +241,7 @@ session.getAttribute("customerName")
   </tr>
   </tbody>
 </table>
-
+</div>
 
 <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -267,19 +296,52 @@ session.getAttribute("customerName")
     </div>
   </div>
 
-<!-- Modal -->
+<!-- Modal -->  
+    
+ 
+ </div>
+ </div>
+    
+  
+  
+  
+   <!-- Section-5-->   
+   
+   <div class="Section_5">
+  <div class="container-fluid">
+  
+  <div ng-include="'pricing.html'"></div>
+ 
+ </div>
+ </div>
+    
 
-    </div>
-  </div>
-</div>
-</div>
-
-</div>
-
-
+   
+    <!-- Section-6-->   
+   
+   <div class="Section_6">
+  <div class="container-fluid">
+  
+ <br>
+      <p>Contact us and we'll get back to you within 24 hours.</p>
+      <p><span class="glyphicon glyphicon-map-marker"></span> Hyderabad, India</p>
+      <p><span class="glyphicon glyphicon-phone"></span> +91 9441054052</p>
+      <p><span class="glyphicon glyphicon-envelope"></span> phani.mca12@gmail.com</p>
+ 
+ </div>
+ </div>
+    
+  
+  
+  
+   <!-- Section-6--> 
+    <!-- End -->
+    </div></div>
+    
+ <!-- end--><!-- end-->
 
 <div class="jumbotron-fluid"  id="footer"><p class="copyright">Copyright © 2019 mytaxfiler.co.in</p>
 </div>
-
+</div>
 </body>
 </html>

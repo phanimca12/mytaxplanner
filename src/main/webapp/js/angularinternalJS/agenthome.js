@@ -18,11 +18,34 @@ app.controller('agenthomeCTRL',  [ '$scope', '$http', '$window',function($scope,
 		 alert($scope.selectedStatus);
 		 
 	 };
-	$scope.getAllRequest=function(AgentName)
+	$scope.getRequestByStatus=function(AgentName)
 	{
 	       //alert(AgentName +"status="+$scope.selectedStatus);
 		 $http({
-             url : '/MyTaxReturn/v1/returnfilingrequest/requestdetails/'+ AgentName+'/'+$scope.selectedStatus,
+             url : '/v1/returnfilingrequest/requestdetails/'+ AgentName+'/'+$scope.selectedStatus,
+             method : "GET",
+             	 headers: {
+             	        "Content-Type": "application/json",
+             	        "Accept": "application/json"
+             	    }
+         }).then(function mySuccess(response) {
+         	
+       	
+         	$scope.Requests=response.data;
+         	
+         
+         }, function myError(response) {
+           $scope.message = response.statusText;
+         });
+	};
+	
+	//
+	
+	$scope.getAllRequest=function(AgentName)
+	{
+	    var status="All";
+		 $http({
+             url : '/v1/returnfilingrequest/requestdetails/'+ AgentName+'/'+status,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",
@@ -40,12 +63,16 @@ app.controller('agenthomeCTRL',  [ '$scope', '$http', '$window',function($scope,
 	};
 	
 	
+	
+	
+	
+	//
 	$scope.getAttachment=function(requestID)
 	{
 	     
 	      
 		 $http({
-             url : '/MyTaxReturn/v1/attachments/downloadbyreqID/'+ requestID,
+             url : '/v1/attachments/downloadbyreqID/'+ requestID,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",

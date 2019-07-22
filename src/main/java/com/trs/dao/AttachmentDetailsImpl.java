@@ -38,7 +38,7 @@ public class AttachmentDetailsImpl implements IAttachmentDetails
     final Session session = util.getHibernateSessionObj();
     final Query query = session.createSQLQuery( MyTaxReturnConstants.ATTACHMENT_REQUESTID_SQL )
                                .addEntity( AttachmentDetails.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_DELETEREQUESTID, REQID );
+                               .setParameter( MyTaxReturnConstants.PARAMETER_REQUESTID, REQID );
 
     return query.list();
   }

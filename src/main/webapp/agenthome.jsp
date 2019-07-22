@@ -49,10 +49,14 @@ if(session.getAttribute("AgentName")==null)
 %>
 <body  ng-app="agenthomeApp" ng-controller="agenthomeCTRL">
 
-<div class="jumbotron-fluid"  id="header"><h1><a class="w3schools-logo notranslate" href="www.mytaxfiler.co.in">mytaxfiler<span class="dotcom">.co.in</span></a></h1>
+<div class="jumbotron-fluid"  id="header"><h2><a class="w3schools-logo notranslate" href="www.mytaxfiler.co.in">mytaxfiler<span class="dotcom">.co.in</span></a></h2>
 
 </div>
 <div class="container-fluid">
+<!-- Container-fluid  main -->
+
+<!-- Mail Row 1 -->
+
 <div class="row">
 <div class="col-sm-12" id="toprow">
 
@@ -77,22 +81,44 @@ session.getAttribute("AgentName")
 </div>
 
 </div>
+<!-- End -->
+<!-- Mail Row 2 -->
 <div class="row">
+<nav class="navbar navbar-inverse"  id="mynav">
+  <div class="container-fluid">
+    <div class="navbar-header" >
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+     <a class="navbar-brand" id="home_section"  href="#" style="color:#f4511e;"><span class="glyphicon glyphicon-home"></span> Home</a> 
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+     
+      <ul class="nav navbar-nav" id="myTab" >
+    <li ><a id="itr_section" href="#" ng-click="getAllRequest('<%= session.getAttribute("AgentName")%>')" >ITR Request-Details</a></li>
+  </ul>
+
+     <!--  <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul> -->
+    </div>
+  </div>
+</nav>
+</div>
+<!-- end-->
+<!-- Mail Row 3-->
+
+<div class=row>
 
 <div class="col-sm-12" id="rightblock">
 
- <ul class="nav nav-tabs" id="myTab">
-    <li class="active" ><a data-toggle="tab" href="#home">Home</a></li>
-    <li><a data-toggle="tab" href="#menu3" >ITR Request-Details</a></li>
-     
-  </ul>
-
-  <div class="tab-content">
+ <!-- Section-1-->
+  <div class="Section_1">
+  <div class="container-fluid">
   
-    <div id="home" class="tab-pane fade in active" >
-         
-        <!-- Left-aligned media object -->
-        <br>
         
   <div class="media">
     <div class="media-left">
@@ -107,19 +133,21 @@ session.getAttribute("AgentName")
   <div ng-include="'H_subpage.html'"></div>
           
     </div>
+    </div>
     
     
+   <!-- Section-2-->
    
-    
-    <div id="menu3" class="tab-pane fade" >
-
-<br>
+    <div class="Section_2">
+  <div class="container-fluid">
+   
+   <br>
   <p><label for="agent">Select Status:</label>
-   <select ng-model="selectedStatus"   name="status" id="status" ng-change="getAllRequest('<%= session.getAttribute("AgentName")%>')">
+   <select ng-model="selectedStatus"   name="status" id="status" ng-change="getRequestByStatus('<%= session.getAttribute("AgentName")%>')">
    <option ng-repeat="stat  in status" value="{{stat}}">{{stat}}</option>
 </select></p>
 
-
+ <div class="table-responsive">  
 <table class="table">
 <thead class="thead-dark">
       <tr>
@@ -147,6 +175,8 @@ session.getAttribute("AgentName")
   </tr>
   </tbody>
 </table>
+</div>
+
 <!-- Modal-UserDetails -->
   <div class="modal fade" id="myModalUserInfo" role="dialog">
     <div class="modal-dialog">
@@ -184,7 +214,7 @@ session.getAttribute("AgentName")
    
   </div>
   
-  
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -305,16 +335,22 @@ session.getAttribute("AgentName")
 
 <!-- Modal -->
 
+   
+ <!-- - -->  
+   </div>
     </div>
-  </div>
-</div>
-</div>
-
-</div>
-
+   
+     <!-- Section-3-->
+    
+    </div></div>
+    
+ <!-- End-->   
+ 
 
 
 <div class="jumbotron-fluid"  id="footer"><p class="copyright">Copyright © 2019 mytaxfiler.co.in</p>
+</div>
+
 </div>
 
 </body>
