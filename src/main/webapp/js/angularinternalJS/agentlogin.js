@@ -57,8 +57,9 @@ app.controller("signonController", [ '$scope', '$http','$location','$window', fu
 		
 	};
 	
-	$scope.submitForm=function(user)
+	$scope.submitAgentForm=function(agent)
 	{
+		alert("Hii");
 		
 		 $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
 		        
@@ -67,8 +68,8 @@ app.controller("signonController", [ '$scope', '$http','$location','$window', fu
              url : 'agentlogin',
              method : "POST",
              data : {
-                 'name' : $scope.user.name,
-                 'pass' :$scope.user.pass
+                 'name' : $scope.agent.aname,
+                 'pass' :$scope.agent.apass
              }
          }).then(function(response) {
         	 

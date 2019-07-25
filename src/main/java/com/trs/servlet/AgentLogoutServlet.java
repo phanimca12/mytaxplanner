@@ -17,7 +17,7 @@ public class AgentLogoutServlet extends HttpServlet
     final HttpSession session = request.getSession();
     session.removeAttribute( "AgentName" );
     session.invalidate();
-    response.sendRedirect( "agentlogin.html" );
+    response.sendRedirect( "login.html" );
   }
 
 }

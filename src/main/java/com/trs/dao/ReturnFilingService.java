@@ -64,7 +64,7 @@ public class ReturnFilingService implements IReturnFilingRequest
     final Session session = util.getHibernateSessionObj();
     final Query query = session.createSQLQuery( MyTaxReturnConstants.FILINGREQUEST_SQL )
                                .addEntity( ReturnFiling.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_REQUESTID, userID );
+                               .setParameter( MyTaxReturnConstants.PARAMETER_USERID, userID );
 
     return query.list();
   }

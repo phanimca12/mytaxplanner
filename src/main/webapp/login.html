@@ -19,7 +19,7 @@
  <script src="js/jqueryinternalJS/screensize.js"></script>
  <script src="js/jqueryinternalJS/signup.js"></script>
  <script src="js/angularinternalJS/loginform.js"></script>
- 
+  <!-- <script src="js/angularinternalJS/agentlogin.js"></script> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -53,16 +53,15 @@
   
   </div>
   <div class="modal-footer">
-         <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#demo" style="float:left">Agent Sign-In</button>
+         
           <p>Not a Customer? <a href="#"  data-toggle="modal" data-target="#myModalsign" >Sign Up</a></p>
           <p>Forgot <a href="#" data-toggle="modal" data-target="#myModal" >Password?</a></p>
-        
           
-          <hr>
-        <div id="demo" class="collapse" style="float:left">
-        <p><b><i>Agent -</b></i>  <a href="#"  data-toggle="modal" data-target="#myModalsign" >Sign In</a></p>   
-       <p><b><i>Try as an Agent-</b></i>  <a href="#"  data-toggle="modal" data-target="#myModalsign" >Sign Up</a></p>
-         </div>
+          <div  style="float:left">
+           <p>Agent  <a href="#" data-toggle="modal" data-target="#myAgentSignIn" >Login</a></p>
+          <p>Try as an Agent <a href="#"  data-toggle="modal" data-target="#myAgentSignup" >Sign Up</a></p>
+         
+       </div>
          
         </div>
 
@@ -150,7 +149,94 @@
   </div>
 
 <!-- Modal -->
+<!-- Modal -->
+  <div class="modal fade" id="myAgentSignIn" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="padding:35px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span> Agent-Sign In</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <form role="form"  ng-submit="submitAgentForm(agent)" >
 
+  <div class="form-group">
+      <label for="usrname"><span class="glyphicon glyphicon-envelope"></span> Email Id:</label> 
+	<input type="email" class="form-control" id="aname" placeholder="Enter Email ID" name="aname" required   ng-model="agent.aname" ></p>
+      </div>
+  <div class="form-group">
+     <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password:</label>
+    <input type="password" class="form-control" id="apswd" placeholder="Enter password" name="apswd" required ng-model="agent.apass" ></p>
+   
+  </div>
+ 
+<div class="form-group" >
+    <button type="submit"  class="submit"><span class="glyphicon glyphicon-off"></span> Sign-in</button>
+  
+  </div>
+ <!--  <div class="modal-footer">
+         
+        <p>Not a member? <a href="#"  data-toggle="modal" data-target="#myModalsign" >Sign Up</a></p>
+          <p>Forgot <a href="#" data-toggle="modal" data-target="#myModal" >Password?</a></p>
+          
+          
+        </div> -->
+
+
+</form>
+        </div>
+       
+      </div>
+      
+    </div>
+  </div> 
+  <!-- -  Model Close  -->
+  <!-- Modal -->
+  <div class="modal fade" id="myAgentSignup" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="padding:35px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span> Agent Sign-Up</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <form role="form" ng-submit="createAgent(signup)">
+            <div class="form-group">
+              <label for="username"><span class="glyphicon glyphicon-envelope"></span> Email ID:</label>
+              <input type="email" class="form-control" id="signup.username"  ng-model="signup.username" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="new.mobile"><span class="glyphicon glyphicon-phone"></span> Mobile:</label>
+              <input type="text" class="form-control" id="signup.mobile" ng-model="signup.mobile" placeholder="Enter mobile number">
+            </div>
+             <div class="form-group">
+              <label for="new.name"><span class="glyphicon glyphicon-user"></span> Name:</label>
+              <input type="text" class="form-control" id="signup.name" ng-model="signup.name" placeholder="Enter Name">
+            </div>
+            
+            
+            
+            <div class="form-group">
+              <label for="new.pass"><span class="glyphicon glyphicon-eye-open"></span> Password:</label>
+              <input type="password" class="form-control" id="signup.pass" ng-model="signup.pass"  placeholder="Enter Password">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Confirm Password:</label>
+              <input type="password" class="form-control" id="signup.cpass" ng-model="signup.cpass" placeholder="Enter Confirmed Password">
+            </div>
+              <button type="submit" class="btn btn-success btn-block" ><span class="glyphicon glyphicon-off"></span> Sign-Up</button>
+          </form>
+        </div>
+       
+      </div>
+      
+    </div>
+  </div> 
+  <!-- -  Model Close  -->
 <div class="col-sm-3"></div>
 
 
