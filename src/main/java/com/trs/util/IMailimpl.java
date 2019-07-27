@@ -1,7 +1,10 @@
 package com.trs.util;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -17,10 +20,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.trs.dao.UserService;
+import com.trs.logger.FileLogger;
 
 public class IMailimpl implements IMailCommunication
 {
-  // Logger m_logger = FileLogger.getInstance();
+  Logger m_logger = FileLogger.getInstance();
 
   public Properties getEmailSMTPSettings()
   {
@@ -211,8 +215,69 @@ public class IMailimpl implements IMailCommunication
     }
     catch ( final Exception e )
     {
-      /* m_logger.log( Level.ALL, IMailimpl.class.getName() + "\t" + e.getMessage(),
-                    new IOException( "Internal server error" ) );*/
+      m_logger.log( Level.ALL, IMailimpl.class.getName() + "\t" + e.getMessage(),
+                    new IOException( "Internal server error" ) );
+    }
+
+  }
+
+  public void sendAgentCreatedMail( final String AgentCode,
+                                    final String AgentEmailID,
+                                    final String AgentName,
+                                    final String fromEmailID )
+  {
+    final Session session = getEmailSession();
+
+    // creates a new e-mail message
+    final String subject = "Agent Registered Successfully !";
+    final String message = "<HTML><BODY><p>Dear &nbsp;" + AgentName
+        + ",</p>"
+
+        + "<p>Congratulations ! Your account has been created successfuly.Please find your Agent Code below."
+        + "</p>"
+
+        + "<p>Agent Code:"
+        + AgentCode
+        + "</p>"
+        + "<br>"
+        + "<p>Regards</p>"
+        + "<p>mytaxfiler.co.in</p>"
+
+        + "</BODY></HTML>";
+    final Message msg = new MimeMessage( session );
+    final UserService userService = new UserService();
+
+    try
+    {
+      if ( AgentEmailID != null )
+      {
+
+        msg.setFrom( new InternetAddress( fromEmailID ) );
+        final InternetAddress[] toAddresses = { new InternetAddress( AgentEmailID ) };
+        msg.setRecipients( Message.RecipientType.TO, toAddresses );
+        msg.setSubject( subject );
+        msg.setSentDate( new Date() );
+
+        // creates message part
+        final MimeBodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setContent( message, "text/html" );
+
+        // creates multi-part
+        final Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart( messageBodyPart );
+        // sets the multi-part as e-mail's content
+        msg.setContent( multipart );
+
+        // sends the e-mail
+        Transport.send( msg );
+
+      }
+
+    }
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, IMailimpl.class.getName() + "\t" + e.getMessage(),
+                    new IOException( "Internal server error" ) );
     }
 
   }

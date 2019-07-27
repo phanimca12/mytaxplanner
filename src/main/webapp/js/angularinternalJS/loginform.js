@@ -169,7 +169,7 @@ app.controller("signonController", [ '$scope', '$http','$location','$window', fu
 	        	 
 	        	 if(response.data=="Pass")
 	        		 {
-	        		 alert("Agent Created Successfully !");
+	        		 alert("Agent Created Successfully ! Agent code details has been sent to Registered email address.");
 	        		 var host = $window.location.host;
 	      	        var landingUrl = "login.html";
 	      	       $window.location.href = landingUrl;

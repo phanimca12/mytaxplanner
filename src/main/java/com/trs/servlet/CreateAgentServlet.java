@@ -1,6 +1,9 @@
 package com.trs.servlet;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,12 +15,16 @@ import org.json.JSONObject;
 
 import com.trs.dao.AgentService;
 import com.trs.dao.IAgentService;
+import com.trs.logger.FileLogger;
 import com.trs.model.Agent;
+import com.trs.util.IMailCommunication;
+import com.trs.util.IMailimpl;
 import com.trs.util.IUtility;
 import com.trs.util.Utility;
 
 public class CreateAgentServlet extends HttpServlet
 {
+  Logger m_logger = FileLogger.getInstance();
 
   public static void createAgent( final String aname,
                                   final String aemail,
@@ -30,6 +37,9 @@ public class CreateAgentServlet extends HttpServlet
   {
     final IUtility util = new Utility();
     final Agent createAgent = new Agent();
+    final IMailCommunication imail = new IMailimpl();
+    final String AgentCode = "A" + util.getRandomNumber();
+
     createAgent.setName( aname );
     createAgent.setEmailID( aemail );
     createAgent.setPassword( apassword );
@@ -39,13 +49,13 @@ public class CreateAgentServlet extends HttpServlet
     createAgent.setState( state );
     createAgent.setCity( city );
     createAgent.setAgentDescription( desc );
-    createAgent.setAgentCode( "A" + util.getRandomNumber() );
+    createAgent.setAgentCode( AgentCode );
 
     final Session session = util.getHibernateSessionObj();
     final Transaction t = session.beginTransaction();
     session.save( createAgent );
     t.commit();
-
+    imail.sendAgentCreatedMail( AgentCode, aemail, aname, imail.NOREPLYEMAIL );
   }
 
   @Override
@@ -71,11 +81,6 @@ public class CreateAgentServlet extends HttpServlet
       final String apassword = jObj.getString( "apassword" );
       final String amobile = jObj.getString( "amobile" );
 
-      /* final String country = jObj.getString( "country" );
-      final String state = jObj.getString( "state" );
-      final String city = jObj.getString( "city" );
-      final String desc = jObj.getString( "desc" );*/
-
       final String country = "India";
       final String state = "Telangana";
       final String city = "Hyderabad";
@@ -86,6 +91,7 @@ public class CreateAgentServlet extends HttpServlet
       if ( !user.isAgentrExist( aemail, amobile ) )
       {
         createAgent( aname, aemail, apassword, amobile, country, state, city, desc );
+
         response.setContentType( "text/plain" );
         response.setCharacterEncoding( "UTF-8" );
         response.getWriter().write( "Pass" );
@@ -103,8 +109,8 @@ public class CreateAgentServlet extends HttpServlet
     }
     catch ( final Exception e )
     {
-      /*  m_logger.log( Level.ALL, CreateUserServlet.class.getName() + "\t" + e.getMessage(),
-                    new IOException( "Internal server error" ) );*/
+      m_logger.log( Level.ALL, CreateUserServlet.class.getName() + "\t" + e.getMessage(),
+                    new IOException( "Internal server error" ) );
 
     }
   }
