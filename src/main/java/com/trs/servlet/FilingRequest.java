@@ -18,6 +18,8 @@ import javax.servlet.http.Part;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.trs.dao.AgentService;
+import com.trs.dao.IAgentService;
 import com.trs.dao.IReturnFilingRequest;
 import com.trs.dao.ReturnFilingService;
 import com.trs.dao.UserService;
@@ -49,6 +51,7 @@ public class FilingRequest extends HttpServlet
       final String UserEmailID = request.getParameter( "userID" );
       final String UserName = service.getUserName( request.getParameter( "userID" ) );
       final int UserID = service.getUserID( request.getParameter( "userID" ) );
+      final IAgentService agentService = new AgentService();
 
       final Properties p = getProperties();
 
@@ -57,7 +60,7 @@ public class FilingRequest extends HttpServlet
 
       final String SAVE_DIR = p.getProperty( "UPLOAD_FOLDER" );
       final String appPath = System.getProperty( "catalina.base" ) + "/" + "webapps";
-
+      final String AgentEmailID = agentService.getAgentEmailID( AgentCode );
       if ( !ITR.isAssementYearExist( FilingYear, UserID ) )
       {
         final long REQID = saveRecord( AgentCode, FilingYear, UserID );
@@ -72,7 +75,7 @@ public class FilingRequest extends HttpServlet
 
         final IMailCommunication icom = new IMailimpl();
 
-        icom.sendRequestEmail( REQID, UserEmailID, UserName, FilingYear, icom.USERNAME );
+        icom.sendRequestEmail( REQID, AgentEmailID, UserName, FilingYear );
 
         response.setContentType( "text/plain" );
         response.setCharacterEncoding( "UTF-8" );

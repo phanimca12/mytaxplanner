@@ -38,6 +38,9 @@ public class MyTaxReturnConstants
   public static final String ATTACHMENT_REQUESTID_SQL      = "select * from AttachmentTable where requestID= :requestID";
 
   public static final String GETAGENTID_SQL                = "select * from AgentDetailsTable  where emailID= :email ";
+
+  public static final String GETAGENT_EMAILID              = "select * from AgentDetailsTable  where agentCode= :agentCode ";
+
   public static final String GETUSERID_SQL                 = "select * from UserTable  where emailID= :email ";
 
   public static final String GETEMAILID_SQL                = "select * from UserTable  where id= :id ";

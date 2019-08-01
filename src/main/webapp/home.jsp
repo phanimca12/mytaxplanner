@@ -324,9 +324,9 @@ session.getAttribute("customerName")
   
  <br>
       <p>Contact us and we'll get back to you within 24 hours.</p>
-      <p><span class="glyphicon glyphicon-map-marker"></span> Hyderabad, India</p>
-      <p><span class="glyphicon glyphicon-phone"></span> +91 9441054052</p>
-      <p><span class="glyphicon glyphicon-envelope"></span> phani.mca12@gmail.com</p>
+     <p><span class="glyphicon glyphicon-map-marker"></span> Hyderabad, Telangana</p>
+      <p><span class="glyphicon glyphicon-phone"></span> +91 9885678510</p>
+      <p><span class="glyphicon glyphicon-envelope"></span> sridharcfp@mytaxfiler.co.in</p>
  
  </div>
  </div>

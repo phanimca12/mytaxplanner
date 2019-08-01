@@ -8,7 +8,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <link rel="stylesheet" href="css/global.css">
 <link rel="stylesheet" href="css/home.css">
-<link rel="stylesheet" href="css/pricing.css">
+<link rel="stylesheet" href="css/panel.css">
 
 
 <script src="js/angularexternalJS/angular.min.js"></script>
@@ -71,9 +71,9 @@ if(session.getAttribute("AgentName")==null)
 session.getAttribute("AgentName")
 %><span class="caret"></span></a>
       <ul class="dropdown-menu" role="menu">
-        <li><a href="#"  onclick="doLogout();">logout</a></li>
-       <!--  <li><a href="#">CSS</a></li>
-        <li><a href="#">JavaScript</a></li>  -->                       
+        <p><a href="#"  onclick="doLogout();">logout</a></li>
+       <!--  <p><a href="#">CSS</a></li>
+        <p><a href="#">JavaScript</a></li>  -->                       
       </ul>
     </li>
   </ul>
@@ -98,11 +98,12 @@ session.getAttribute("AgentName")
      
       <ul class="nav navbar-nav" id="myTab" >
     <li ><a id="itr_section" href="#" ng-click="getAllRequest('<%= session.getAttribute("AgentName")%>')" >ITR Request-Details</a></li>
+     <li ><a id="support_section" href="#"  >Support</a></li>
   </ul>
 
      <!--  <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <p><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <p><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul> -->
     </div>
   </div>
@@ -118,19 +119,46 @@ session.getAttribute("AgentName")
  <!-- Section-1-->
   <div class="Section_1">
   <div class="container-fluid">
+  <div class="row">
+  <div class="col-sm-12">
+      <h3>Welcome to Mytaxfiler,</h3>
+     
+      <p style="font-family: Georgia, serif;">MyTaxFiler offers TaxConsultants/ITR-Filing Agents an Interface and record keeping system for their customers to place a request for ITR-Filing through online.</p>
+    <p style="font-family: Georgia, serif;">Agents/Consultants need to sign-up as an Agent to get the registered Agent Code.Agent will be providing the Agent Code to his customers to file a request.</p>
   
-        
-  <div class="media">
-    <div class="media-left">
-      <img src="images/avatar.png" class="media-object" style="width:60px">
-    </div>
-    <div class="media-body">
+     
+     </div></div>
+     <div class="row">
+  <div class="col-sm-6">
     
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <div class="panel panel-default text-center">
+        <div class="panel-heading">
+          <h3>MyTaxFiler provides the following features to its Agents & customers.</h3>
+        </div>
+        <div class="panel-body">
+             
+  <p>Customer can place and upload form 16 through online.</li>
+ <p>Customer can keep track of his ITR-filing request every year.</li>
+ <p>Customer documents are secured in the database with SSL authentication.</li>
+ <p>Customer can see the status of ITR-Filing in the portal and send queries to Agents/Consultants.</li>
+ <p>Customer can find Acknowledgements in the portal once process is completed.</li>
+ <p>Agents/Consultants can keep track of their customer filing process.</li>
+ <p>Agents can send increase their customers through online processing.</li>
+ <p>Agents communication with their customers will be improved.</li>
+ <p>Automatic remainders are send to customers every year for ITR-Filing.</li>
+ <p>Customers can upload and download documents .</li>
+    
     </div>
-  </div>
+    </div>
+        </div>
+        
+      </div>
+    </div>
+ 
+    
+ 
   <hr> 
-  <div ng-include="'H_subpage.html'"></div>
+
           
     </div>
     </div>
@@ -342,6 +370,39 @@ session.getAttribute("AgentName")
    
      <!-- Section-3-->
     
+  <div class="Section_3">
+  <div class="container-fluid bg-grey">
+  <h2 class="text-center">CONTACT</h2>
+  <div class="row">
+    <div class="col-sm-5">
+      <p>Contact us and we'll get back to you within 24 hours.</p>
+      <p><span class="glyphicon glyphicon-map-marker"></span> Hyderabad, Telangana</p>
+      <p><span class="glyphicon glyphicon-phone"></span> +91 9885678510</p>
+      <p><span class="glyphicon glyphicon-envelope"></span> sridharcfp@mytaxfiler.co.in</p>
+    </div>
+    <div class="col-sm-7">
+      <div class="row">
+      <form id="supportForm">
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="sname" name="sname" placeholder="Name" type="text" required>
+        </div>
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="semail" name="semail" placeholder="Email" type="email" required>
+        </div>
+      </div>
+      <textarea class="form-control" id="scomments" name="scomments" placeholder="Comment" rows="5"></textarea><br>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <button class="btn btn-default pull-right" type="submit"  id="supportRequest">Send</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div> 
+    </div>
+    
+    <!-- Section 4 -->
     </div></div>
     
  <!-- End-->   

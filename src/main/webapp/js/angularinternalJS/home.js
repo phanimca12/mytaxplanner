@@ -11,7 +11,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
 	{
 	        
 		 $http({
-             url : '/MyTaxReturn/v1/returnfilingrequest/requestdetails/'+ customerName,
+             url : '/v1/returnfilingrequest/requestdetails/'+ customerName,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",
@@ -33,7 +33,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
 	{
 	        
 		 $http({
-             url : '/MyTaxReturn/v1/attachments/download/'+ customerName,
+             url : '/v1/attachments/download/'+ customerName,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",

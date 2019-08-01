@@ -20,13 +20,16 @@ import com.trs.constant.MyTaxReturnConstants;
 import com.trs.logger.FileLogger;
 import com.trs.model.ResponseModel;
 import com.trs.model.User;
+import com.trs.util.HibernateSessionCnf;
 import com.trs.util.IUtility;
 import com.trs.util.Utility;
 
 public class UserService implements IUserService
 {
-  DBConfig dbConfig = new DBConfig();
-  Logger   m_logger = FileLogger.getInstance();
+  DBConfig      dbConfig  = new DBConfig();
+  Logger        m_logger  = FileLogger.getInstance();
+
+  static String className = UserService.class.getName();
 
   public List<User> getAllUsers()
   {
@@ -65,8 +68,7 @@ public class UserService implements IUserService
     catch ( final Exception e )
     {
 
-      m_logger.log( Level.ALL, UserService.class.getName() + "\t" + e.getMessage(),
-                    new IOException( "Internal server error" ) );
+      m_logger.log( Level.ALL, className + "\t" + e.getMessage(), new IOException( "Internal server error" ) );
     }
     return model;
 
@@ -74,120 +76,191 @@ public class UserService implements IUserService
 
   public boolean isUserExist( final String email, final String mobile )
   {
+    Query query = null;
 
-    final Session session = dbConfig.getSessionFactory().openSession();
+    try
+    {
+      query = HibernateSessionCnf.getSession()
+                                 .createSQLQuery( MyTaxReturnConstants.USEREXISTS_SQL )
+                                 .addEntity( User.class )
+                                 .setParameter( MyTaxReturnConstants.PARAMETER_EMAIL, email );
+    }
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, className + "\t" + e.getMessage(), new IOException( "Internal server error" ) );
 
-    final Query query = session.createSQLQuery( MyTaxReturnConstants.USEREXISTS_SQL )
-                               .addEntity( User.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_EMAIL, email );
-
+    }
     return query.getResultList().size() > 0 ? true : false;
   }
 
   public boolean isAuthorizedUser( final String emailID, final String password )
   {
-    final Session session = dbConfig.getSessionFactory().openSession();
+    // final Session session = dbConfig.getSessionFactory().openSession();
+    m_logger.info( "Session started===" );
+    Query query = null;
 
-    final Query query = session.createSQLQuery( MyTaxReturnConstants.AUTHORIZEDUSER_SQL )
-                               .addEntity( User.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_EMAILID, emailID )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_PASSWORD, password );
+    try
+    {
 
+      query = HibernateSessionCnf.getSession()
+                                 .createSQLQuery( MyTaxReturnConstants.AUTHORIZEDUSER_SQL )
+                                 .addEntity( User.class )
+                                 .setParameter( MyTaxReturnConstants.PARAMETER_EMAILID, emailID )
+                                 .setParameter( MyTaxReturnConstants.PARAMETER_PASSWORD, password );
+
+    }
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, className + "\t" + e.getMessage(), new IOException( "Internal server error" ) );
+
+    }
+    finally
+    {
+
+    }
     return query.getResultList().size() > 0 ? true : false;
 
   }
 
   public int getUserID( final String emailID )
   {
-    final Session session = dbConfig.getSessionFactory().openSession();
 
-    final Query query = session.createSQLQuery( MyTaxReturnConstants.GETUSERID_SQL )
-                               .addEntity( User.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_USEREMAILID, emailID );
-    final List list = query.list();
+    Query query = null;
     int UID = 0;
-    final Iterator it = list.iterator();
-
-    while ( it.hasNext() )
+    try
     {
-      final Object object = it.next();
-      final User user = (User)object;
-      UID = user.getId();
+      query = HibernateSessionCnf.getSession()
+                                 .createSQLQuery( MyTaxReturnConstants.GETUSERID_SQL )
+                                 .addEntity( User.class )
+                                 .setParameter( MyTaxReturnConstants.PARAMETER_USEREMAILID, emailID );
+      final List list = query.list();
+
+      final Iterator it = list.iterator();
+
+      while ( it.hasNext() )
+      {
+        final Object object = it.next();
+        final User user = (User)object;
+        UID = user.getId();
+      }
     }
-    session.close();
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, className + "\t" + e.getMessage(), new IOException( "Internal server error" ) );
+
+    }
     return UID;
   }
 
   public String getUserName( final String emailID )
   {
-    final Session session = dbConfig.getSessionFactory().openSession();
 
-    final Query query = session.createSQLQuery( MyTaxReturnConstants.GETUSERID_SQL )
-                               .addEntity( User.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_USEREMAILID, emailID );
-    final List list = query.list();
+    Query query = null;
     String UserName = null;
-    final Iterator it = list.iterator();
-
-    while ( it.hasNext() )
+    try
     {
-      final Object object = it.next();
-      final User user = (User)object;
-      UserName = user.getName();
+      query = HibernateSessionCnf.getSession()
+                                 .createSQLQuery( MyTaxReturnConstants.GETUSERID_SQL )
+                                 .addEntity( User.class )
+                                 .setParameter( MyTaxReturnConstants.PARAMETER_USEREMAILID, emailID );
+      final List list = query.list();
+
+      final Iterator it = list.iterator();
+
+      while ( it.hasNext() )
+      {
+        final Object object = it.next();
+        final User user = (User)object;
+        UserName = user.getName();
+      }
     }
-    session.close();
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, className + "\t" + e.getMessage(), new IOException( "Internal server error" ) );
+
+    }
     return UserName;
   }
 
   public String getUserEmailID( final long userID )
   {
-    final Session session = dbConfig.getSessionFactory().openSession();
 
-    final Query query = session.createSQLQuery( MyTaxReturnConstants.GETEMAILID_SQL )
-                               .addEntity( User.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_iID, userID );
-    final List list = query.list();
-    String UserName = null;
-    final Iterator it = list.iterator();
+    Query query = null;
+    String UserEmailID = null;
 
-    while ( it.hasNext() )
+    try
     {
-      final Object object = it.next();
-      final User user = (User)object;
-      UserName = user.getEmailID();
+      query = HibernateSessionCnf.getSession()
+                                 .createSQLQuery( MyTaxReturnConstants.GETEMAILID_SQL )
+                                 .addEntity( User.class )
+                                 .setParameter( MyTaxReturnConstants.PARAMETER_iID, userID );
+      final List list = query.list();
+
+      final Iterator it = list.iterator();
+
+      while ( it.hasNext() )
+      {
+        final Object object = it.next();
+        final User user = (User)object;
+        UserEmailID = user.getEmailID();
+
+      }
     }
-    session.close();
-    return UserName;
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, className + "\t" + e.getMessage(), new IOException( "Internal server error" ) );
+
+    }
+    return UserEmailID;
   }
 
   public List getUserDetails( final String userID )
   {
-    final Utility util = new Utility();
-    final Session session = util.getHibernateSessionObj();
-    final Query query = session.createSQLQuery( MyTaxReturnConstants.USERDETAILS_SQL )
-                               .addEntity( User.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_USERID, userID );
+
+    Query query = null;
+
+    try
+    {
+      query = HibernateSessionCnf.getSession()
+                                 .createSQLQuery( MyTaxReturnConstants.USERDETAILS_SQL )
+                                 .addEntity( User.class )
+                                 .setParameter( MyTaxReturnConstants.PARAMETER_USERID, userID );
+    }
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, className + "\t" + e.getMessage(), new IOException( "Internal server error" ) );
+
+    }
     return query.list();
   }
 
   public String getUserPassword( final String emailID )
   {
-    final Session session = dbConfig.getSessionFactory().openSession();
-
-    final Query query = session.createSQLQuery( MyTaxReturnConstants.GETUSERID_SQL )
-                               .addEntity( User.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_USEREMAILID, emailID );
-    final List list = query.list();
+    Query query = null;
     String password = null;
-    final Iterator it = list.iterator();
 
-    while ( it.hasNext() )
+    try
     {
-      final Object object = it.next();
-      final User user = (User)object;
-      password = user.getPassword();
+      query = HibernateSessionCnf.getSession()
+                                 .createSQLQuery( MyTaxReturnConstants.GETUSERID_SQL )
+                                 .addEntity( User.class )
+                                 .setParameter( MyTaxReturnConstants.PARAMETER_USEREMAILID, emailID );
+      final List list = query.list();
+
+      final Iterator it = list.iterator();
+
+      while ( it.hasNext() )
+      {
+        final Object object = it.next();
+        final User user = (User)object;
+        password = user.getPassword();
+      }
     }
-    session.close();
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, className + "\t" + e.getMessage(), new IOException( "Internal server error" ) );
+
+    }
     return password;
   }
 }

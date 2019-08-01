@@ -16,4 +16,6 @@ public interface IAgentService
   public boolean isAuthorizedAgent( String emailID, String password );
 
   public String getAgentID( String emailID );
+
+  public String getAgentEmailID( String AgentCode );
 }

@@ -14,13 +14,15 @@ import com.trs.constant.MyTaxReturnConstants;
 import com.trs.logger.FileLogger;
 import com.trs.model.Agent;
 import com.trs.model.ResponseModel;
+import com.trs.util.HibernateSessionCnf;
 import com.trs.util.IUtility;
 import com.trs.util.Utility;
 
 public class AgentService implements IAgentService
 {
-  final DBConfig dbConfig = new DBConfig();
-  Logger         m_logger = FileLogger.getInstance();
+  final DBConfig       dbConfig  = new DBConfig();
+  Logger               m_logger  = FileLogger.getInstance();
+  public static String classname = AgentService.class.getName();
 
   public ResponseModel createNewAgent( final Agent agent ) throws Exception
   {
@@ -52,8 +54,7 @@ public class AgentService implements IAgentService
     }
     catch ( final Exception e )
     {
-      m_logger.log( Level.ALL, AgentService.class.getName() + "\t" + e.getMessage(),
-                    new Exception( "Internal server error" ) );
+      m_logger.log( Level.ALL, classname + "\t" + e.getMessage(), new Exception( "Internal server error" ) );
 
     }
     return model;
@@ -61,53 +62,116 @@ public class AgentService implements IAgentService
 
   public boolean isAgentrExist( final String email, final String mobile )
   {
-    final Session session = dbConfig.getSessionFactory().openSession();
+    Query query = null;
 
-    final Query query = session.createSQLQuery( MyTaxReturnConstants.AGENTEXISTS_SQL )
-                               .addEntity( Agent.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_AEMAIL, email );
+    try
+    {
+      query = HibernateSessionCnf.getSession()
+                                 .createSQLQuery( MyTaxReturnConstants.AGENTEXISTS_SQL )
+                                 .addEntity( Agent.class )
+                                 .setParameter( MyTaxReturnConstants.PARAMETER_AEMAIL, email );
+    }
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, classname + "\t" + e.getMessage(), new Exception( "Internal server error" ) );
+    }
 
     return query.getResultList().size() > 0 ? true : false;
   }
 
   public List<Agent> getAllAgents()
   {
-    final Utility util = new Utility();
-    final Session session = util.getHibernateSessionObj();
-    final Query query = session.createQuery( "from Agent" );// here persistent class name is Emp
+    Query query = null;
+
+    try
+    {
+      query = HibernateSessionCnf.getSession().createQuery( "from Agent" );// here persistent class name is Emc
+    }
+    catch ( final Exception e )
+    {
+
+      m_logger.log( Level.ALL, classname + "\t" + e.getMessage(), new Exception( "Internal server error" ) );
+    }
     return query.list();
   }
 
   public boolean isAuthorizedAgent( final String emailID, final String password )
   {
-    final Session session = dbConfig.getSessionFactory().openSession();
 
-    final Query query = session.createSQLQuery( MyTaxReturnConstants.AUTHORIZEDAGENT_SQL )
-                               .addEntity( Agent.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_AGENTEMAILID, emailID )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_AGENTPASSWORD, password );
+    Query query = null;
 
+    try
+    {
+      query = HibernateSessionCnf.getSession()
+                                 .createSQLQuery( MyTaxReturnConstants.AUTHORIZEDAGENT_SQL )
+                                 .addEntity( Agent.class )
+                                 .setParameter( MyTaxReturnConstants.PARAMETER_AGENTEMAILID, emailID )
+                                 .setParameter( MyTaxReturnConstants.PARAMETER_AGENTPASSWORD, password );
+    }
+    catch ( final Exception e )
+    {
+
+      m_logger.log( Level.ALL, classname + "\t" + e.getMessage(), new Exception( "Internal server error" ) );
+    }
     return query.getResultList().size() > 0 ? true : false;
   }
 
   public String getAgentID( final String emailID )
   {
-    final Session session = dbConfig.getSessionFactory().openSession();
-
-    final Query query = session.createSQLQuery( MyTaxReturnConstants.GETAGENTID_SQL )
-                               .addEntity( Agent.class )
-                               .setParameter( MyTaxReturnConstants.PARAMETER_USEREMAILID, emailID );
-    final List list = query.list();
+    Query query = null;
     String AID = null;
-    final Iterator it = list.iterator();
-
-    while ( it.hasNext() )
+    try
     {
-      final Object object = it.next();
-      final Agent agent = (Agent)object;
-      AID = agent.getAgentCode();
+      query = HibernateSessionCnf.getSession()
+                                 .createSQLQuery( MyTaxReturnConstants.GETAGENTID_SQL )
+                                 .addEntity( Agent.class )
+                                 .setParameter( MyTaxReturnConstants.PARAMETER_USEREMAILID, emailID );
+      final List list = query.list();
+
+      final Iterator it = list.iterator();
+
+      while ( it.hasNext() )
+      {
+        final Object object = it.next();
+        final Agent agent = (Agent)object;
+        AID = agent.getAgentCode();
+      }
     }
-    session.close();
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, classname + "\t" + e.getMessage(), new Exception( "Internal server error" ) );
+
+    }
+    return AID;
+  }
+
+  public String getAgentEmailID( final String AgentCode )
+  {
+
+    Query query = null;
+    String AID = null;
+    try
+    {
+      query = HibernateSessionCnf.getSession()
+                                 .createSQLQuery( MyTaxReturnConstants.GETAGENT_EMAILID )
+                                 .addEntity( Agent.class )
+                                 .setParameter( MyTaxReturnConstants.PARAMETER_AGENTCODE, AgentCode );
+      final List list = query.list();
+
+      final Iterator it = list.iterator();
+
+      while ( it.hasNext() )
+      {
+        final Object object = it.next();
+        final Agent agent = (Agent)object;
+        AID = agent.getEmailID();
+      }
+    }
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, classname + "\t" + e.getMessage(), new Exception( "Internal server error" ) );
+
+    }
     return AID;
   }
 

@@ -25,12 +25,7 @@ public interface IMailCommunication
                                  HttpServletRequest request,
                                  final HttpServletResponse respone );
 
-  public void sendRequestEmail( Long ReqID,
-                                String custemailID,
-                                String cname,
-                                String filingYear,
-
-                                final String fromEmailID );
+  public void sendRequestEmail( Long ReqID, String AgentEmailID, String cname, String filingYear );
 
   public void sendITRUpdateMail( final Long ReqID,
                                  final String custemailID,
@@ -42,4 +37,5 @@ public interface IMailCommunication
 
   public void sendAgentCreatedMail( String AgentCode, String AgentEmailID, String AgentName, String fromEmailID );
 
+  public void sendSupportRequestMail( String name, String FromEmailID, String message, String ToEmailID );
 }

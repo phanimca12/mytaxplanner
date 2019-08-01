@@ -4,12 +4,12 @@ $(document).ready(function(){
 	
 	$(".Section_2").hide();
 
-
+	$(".Section_3").hide();
 	$("#itr_section").click(function()
 	{
 		$(".Section_1").hide();
 		$(".Section_2").show();
-		
+		$(".Section_3").hide();
 	}
 	
 	);
@@ -17,11 +17,19 @@ $(document).ready(function(){
 					{
 						$(".Section_1").show();
 						$(".Section_2").hide();
-						
+						$(".Section_3").hide();
 					}
 					
 					);
 	
+	$("#support_section").click(function()
+					{
+						$(".Section_1").hide();
+						$(".Section_2").hide();
+						$(".Section_3").show();
+					}
+					
+					);
 $("#updateRequest").click(function()
 		{
 	var selected_value = $("#mystatus").val();
@@ -89,6 +97,32 @@ $("#updateRequest").click(function()
 		
 		 		}); 
 	
+$("#supportRequest").click(function(){
+		
+		
+		// Get form
+        var form = $('#supportForm')[0];
+
+		// Create an FormData object 
+        var formdata = new FormData(form);
+        
+		$.ajax({
+			  method: "POST",
+			  url: "supportServ",
+			  enctype: 'multipart/form-data',
+		         
+			  data: formdata,
+			  processData: false,
+	          contentType: false,
+	           success: function (data) 
+	           {
+               alert(data);
+               location.reload();
+	            }
+			});
+			
+		
+		 		}); 
 	
 		$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
 		localStorage.setItem('activeTab', $(e.target).attr('href'));
