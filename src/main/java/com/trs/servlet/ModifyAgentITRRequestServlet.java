@@ -14,13 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.trs.dao.ReturnFilingService;
 import com.trs.dao.UserService;
 import com.trs.logger.FileLogger;
 import com.trs.model.AttachmentDetails;
+import com.trs.util.HibernateSessionCnf;
 import com.trs.util.IMailCommunication;
 import com.trs.util.IMailimpl;
 import com.trs.util.IUtility;
@@ -128,9 +128,8 @@ public class ModifyAgentITRRequestServlet extends HttpServlet
     attachmentDetails.setFile_type( "file_type" );
     attachmentDetails.setFile_path( DOCUMENT_PATH );
 
-    final Session session = util.getHibernateSessionObj();
-    final Transaction t = session.beginTransaction();
-    session.save( attachmentDetails );
+    final Transaction t = HibernateSessionCnf.getSession().beginTransaction();
+    HibernateSessionCnf.getSession().save( attachmentDetails );
     t.commit();
   }
 

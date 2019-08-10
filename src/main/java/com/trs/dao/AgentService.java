@@ -1,5 +1,6 @@
 package com.trs.dao;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,6 +25,7 @@ public class AgentService implements IAgentService
   Logger               m_logger  = FileLogger.getInstance();
   public static String classname = AgentService.class.getName();
 
+  @Override
   public ResponseModel createNewAgent( final Agent agent ) throws Exception
   {
     ResponseModel model = null;
@@ -60,6 +62,7 @@ public class AgentService implements IAgentService
     return model;
   }
 
+  @Override
   public boolean isAgentrExist( final String email, final String mobile )
   {
     Query query = null;
@@ -79,6 +82,7 @@ public class AgentService implements IAgentService
     return query.getResultList().size() > 0 ? true : false;
   }
 
+  @Override
   public List<Agent> getAllAgents()
   {
     Query query = null;
@@ -95,6 +99,7 @@ public class AgentService implements IAgentService
     return query.list();
   }
 
+  @Override
   public boolean isAuthorizedAgent( final String emailID, final String password )
   {
 
@@ -116,6 +121,7 @@ public class AgentService implements IAgentService
     return query.getResultList().size() > 0 ? true : false;
   }
 
+  @Override
   public String getAgentID( final String emailID )
   {
     Query query = null;
@@ -145,6 +151,7 @@ public class AgentService implements IAgentService
     return AID;
   }
 
+  @Override
   public String getAgentEmailID( final String AgentCode )
   {
 
@@ -173,6 +180,39 @@ public class AgentService implements IAgentService
 
     }
     return AID;
+  }
+
+  @Override
+  public List getAgentInfo( final String Para_Name, final String Para_Value )
+  {
+
+    Query query = null;
+    final String param = Para_Name.toLowerCase();
+    try
+    {
+      switch ( param )
+
+      {
+        case "agentcode":
+
+          query = HibernateSessionCnf.getSession()
+                                     .createSQLQuery( MyTaxReturnConstants.AGENTDETAILS_SQL )
+                                     .setParameter( MyTaxReturnConstants.PARAMETER_AGENTCODE, Para_Value );
+          break;
+        case "requestid":
+          query = HibernateSessionCnf.getSession()
+                                     .createSQLQuery( MyTaxReturnConstants.AGENTREQUEST_SQL )
+                                     .setParameter( MyTaxReturnConstants.PARAMETER_REQUESTID, Para_Value );
+          break;
+
+      }
+    }
+    catch ( final Exception e )
+    {
+      m_logger.log( Level.ALL, classname + "\t" + e.getMessage(), new IOException( "Internal server error" ) );
+
+    }
+    return query.list();
   }
 
 }

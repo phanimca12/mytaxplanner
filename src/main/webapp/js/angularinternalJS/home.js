@@ -1,12 +1,55 @@
 var app = angular.module('homeApp', []);
 app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $http,$window) {
 	
+	
+	
+	$scope.myVar = false;
+	 
 	$scope.Agents = [];
 	$scope.Requests = [];
 	$scope.Attachments = [];
 	 $scope.Years = ["2015-2016", "2016-2017","2017-2018", "2018-2019","2019-2020"];
 	 _refreshAgentData();
 	
+	 $scope.getAgentDetails=function(requestID)
+		{
+		   
+			 $http({
+	             url : '/v1/agent/agentData?paraName=requestID&paraValue='+ requestID,
+	             method : "GET",
+	             	 headers: {
+	             	        "Content-Type": "application/json",
+	             	        "Accept": "application/json"
+	             	    }
+	         }).then(function mySuccess(response) {
+	         	
+	       	
+	         	$scope.UserInfo=response.data;
+	         	
+	         	$scope.aname=$scope.UserInfo[0].name;
+	         	$scope.amail=$scope.UserInfo[0].emailID;
+	         	$scope.amobile=$scope.UserInfo[0].mobile;
+	         }, function myError(response) {
+	           $scope.message = response.statusText;
+	         });
+		};
+		
+	 
+		$scope.getAgentSelectedInfo=function(AgentCode)
+		{
+			
+			if(AgentCode !="")
+				{
+						
+		getAgentInfo(AgentCode)
+		$scope.myVar = true;
+		
+		
+				}
+		
+		};
+		
+	 
 	$scope.getUser=function(customerName)
 	{
 	        
@@ -75,7 +118,25 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
     
     //----
     
-  
+    function getAgentInfo(AgentCode) {
+  	  $http({
+            url : '/v1/agent/agentData?paraName=AgentCode&paraValue='+ AgentCode,
+            method : "GET",
+            	 headers: {
+            	        "Content-Type": "application/json",
+            	        "Accept": "application/json"
+            	    }
+        }).then(function mySuccess(response) {
+        	
+     
+        	$scope.AgentName=response.data[0].name;
+        	$scope.AgentMobile=response.data[0].mobile;
+        	$scope.AgentCity=response.data[0].city;
+        
+        }, function myError(response) {
+          $scope.message = response.statusText;
+        });
+  }
     
     //----
     

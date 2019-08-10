@@ -138,17 +138,26 @@ session.getAttribute("customerName")
   <!-- Section-2-->  
     
      <div class="Section_2">
+   
   <div class="container-fluid">
   
- 
+
  <h3>Request Tax-Return Filing</h3>
-      
+ <br>
+     
      <form  id="ITR_Submit_Form" >
-    
+   <div ng-show="myVar" class="container-fluid" style="float:right">
+  <p><span class="glyphicon glyphicon-user"></span> Agent Name:{{ AgentName }}</p>
+  <p><span class="glyphicon glyphicon-phone"></span>Agent Mobile:{{ AgentMobile }}</p>
+ <p>Agent City:{{ AgentCity }}</p>
+</div>
     <p><label for="agent">Select Agent:</label>
-   <select ng-model="selectedName"  class="form-control" name="agcode" id="agcode">
-   <option ng-repeat="Agent in Agents" value="{{Agent.agentCode}}">{{Agent.agentCode}}</option>
+   <select ng-model="selectedName"  class="form-control" name="agcode" id="agcode" ng-change="getAgentSelectedInfo(selectedName)">
+   <option ng-repeat="Agent in Agents"   value="{{Agent.agentCode}}"  >{{Agent.agentCode}}</option>
+   
 </select></p>
+
+
        
     <p><label for="agent">Assessment Year:</label>
    <select ng-model="selectedYear"  class="form-control" name="fileyear" id="fileyear">
@@ -224,6 +233,7 @@ session.getAttribute("customerName")
         <th>Assessment Year</th>
         <th>Status</th>
         <th>Comments</th>
+        <th style="color:#5cb85c;font-style:bold">Agent Details</th>
         <th style="color:blue;font-style:bold">Delete</th>
         <th style="color:orange;font-style:bold">Edit</th>
         
@@ -236,13 +246,61 @@ session.getAttribute("customerName")
     <td>{{ request.filingYear }}</td>
     <td>{{ request.status }}</td>
     <td>{{ request.agentComments }}</td>
+    <td><a class="glyphicon glyphicon-user" href="#" title="Click to View Agent Details" data-toggle="modal" data-target="#myModalUserInfo" ng-click="getAgentDetails(request.requestID)"> </a></td>
     <td><a class="glyphicon glyphicon-trash" href="#"   title="Click to Delete" ng-click="GetDetails($index)"></a> </td>
     <td><a class="glyphicon glyphicon-edit"  title="Click to Edit" data-toggle="modal" data-target="#myModal" ng-click="getReqestID($index)"  href="#"></a></td>
   </tr>
   </tbody>
 </table>
 </div>
+<!-- Modal-AgentDetails -->
+  <div class="modal fade" id="myModalUserInfo" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+        <p>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </p>
+          
+          <br>
+          <p>
+          <h1 class="modal-title"><centre>Agent Information<centre></h1>
+          </p>
+        </div>
+        <div class="modal-body">
+          
+   <div class="form-group">
+    <p><label for="UserName"><span class="glyphicon glyphicon-user"></span>Agent Name:</label>
+   <p >{{ aname }}</p>
+      </p>
+   
+  </div>
+  <div class="form-group">
+    <p><label for="emailID"><span class="glyphicon glyphicon-envelope"></span>Email ID:</label>
+   <p >{{ amail }}</p>
+      </p>
+   
+  </div>
+   <div class="form-group">
+    <p><label for="mobile"><span class="glyphicon glyphicon-phone"></span> Mobile:</label>
+   <p>{{ amobile }}</p>
+      </p>
+   
+  </div>
+  
 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+<!-- Modal Modal-AgentDetails Details -->
 <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">

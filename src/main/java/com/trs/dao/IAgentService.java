@@ -18,4 +18,6 @@ public interface IAgentService
   public String getAgentID( String emailID );
 
   public String getAgentEmailID( String AgentCode );
+
+  public List getAgentInfo( String Para_Name, String Para_Value );
 }

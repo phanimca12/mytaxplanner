@@ -9,19 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.json.JSONObject;
 
 import com.trs.dao.IUserService;
 import com.trs.dao.UserService;
 import com.trs.logger.FileLogger;
 import com.trs.model.User;
+import com.trs.util.HibernateSessionCnf;
 import com.trs.util.IUtility;
 import com.trs.util.Utility;
 
@@ -38,13 +33,9 @@ public class CreateUserServlet extends HttpServlet
     createUser.setPassword( password );
     createUser.setCreationDate( util.getCurrentDateTime() );
     createUser.setMobile( mobile );
-    final StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure( "hibernate.cfg.xml" ).build();
-    final Metadata meta = new MetadataSources( ssr ).getMetadataBuilder().build();
 
-    final SessionFactory factory = meta.getSessionFactoryBuilder().build();
-    final Session session = factory.openSession();
-    final Transaction t = session.beginTransaction();
-    session.save( createUser );
+    final Transaction t = HibernateSessionCnf.getSession().beginTransaction();
+    HibernateSessionCnf.getSession().save( createUser );
     t.commit();
 
   }

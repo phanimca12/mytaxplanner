@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.json.JSONObject;
 
@@ -17,6 +16,7 @@ import com.trs.dao.AgentService;
 import com.trs.dao.IAgentService;
 import com.trs.logger.FileLogger;
 import com.trs.model.Agent;
+import com.trs.util.HibernateSessionCnf;
 import com.trs.util.IMailCommunication;
 import com.trs.util.IMailimpl;
 import com.trs.util.IUtility;
@@ -51,9 +51,8 @@ public class CreateAgentServlet extends HttpServlet
     createAgent.setAgentDescription( desc );
     createAgent.setAgentCode( AgentCode );
 
-    final Session session = util.getHibernateSessionObj();
-    final Transaction t = session.beginTransaction();
-    session.save( createAgent );
+    final Transaction t = HibernateSessionCnf.getSession().beginTransaction();
+    HibernateSessionCnf.getSession().save( createAgent );
     t.commit();
     imail.sendAgentCreatedMail( AgentCode, aemail, aname, imail.NOREPLYEMAIL );
   }
