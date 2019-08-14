@@ -62,9 +62,9 @@ public class MyTaxReturnConstants
 
   public static final String USERDETAILS_SQL               = "select * from UserTable where id = :userID";
 
-  public static final String AGENTDETAILS_SQL              = "select  a.agentCode,a.name,a.mobile,a.emailID,a.city from agentdetailstable a where a.agentCode = :agentCode";
+  public static final String AGENTDETAILS_SQL              = "select  * from AgentDetailsTable  where agentCode= :agentCode";
 
-  public static final String AGENTREQUEST_SQL              = "select a.agentCode,a.name,a.mobile,a.emailID,a.city from agentdetailstable a ,returnfilingrequesttable b where a.agentCode=b.agentCode and b.requestID=:requestID";
+  public static final String AGENTREQUEST_SQL              = "select a.agentCode,a.name,a.mobile,a.emailID,a.city from AgentDetailsTable a ,ReturnFilingRequestTable b where a.agentCode=b.agentCode and b.requestID=:requestID";
 
   // Application Constants
   public static final String AUTHORIZATION_HEADER          = "Authorization";

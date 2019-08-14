@@ -1,6 +1,7 @@
 package com.trs.dao;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -194,15 +195,23 @@ public class AgentService implements IAgentService
 
       {
         case "agentcode":
-
+          /*
           query = HibernateSessionCnf.getSession()
                                      .createSQLQuery( MyTaxReturnConstants.AGENTDETAILS_SQL )
-                                     .setParameter( MyTaxReturnConstants.PARAMETER_AGENTCODE, Para_Value );
+                                     .addEntity( Agent.class )
+                                     .setParameter( MyTaxReturnConstants.PARAMETER_AGENTCODE, Para_Value );*/
+          query = HibernateSessionCnf.getSession().createQuery( "from Agent  where agentCode=:agentCode" );
+          query.setParameter( "agentCode", Para_Value );
+
           break;
         case "requestid":
-          query = HibernateSessionCnf.getSession()
+          /* query = HibernateSessionCnf.getSession()
                                      .createSQLQuery( MyTaxReturnConstants.AGENTREQUEST_SQL )
-                                     .setParameter( MyTaxReturnConstants.PARAMETER_REQUESTID, Para_Value );
+                                     .setParameter( MyTaxReturnConstants.PARAMETER_REQUESTID, Para_Value );*/
+          query = HibernateSessionCnf.getSession()
+                                     .createQuery( "select a.agentCode,a.name,a.mobile,a.emailID,a.city from Agent a ,ReturnFiling b where a.agentCode=b.agentCode and b.requestID=:requestID" );
+          query.setParameter( "requestID", Long.parseLong( Para_Value ) );
+
           break;
 
       }
@@ -215,4 +224,28 @@ public class AgentService implements IAgentService
     return query.list();
   }
 
+  public static List<String> getAgentListByCode( final Object object )
+  {
+
+    final List<String> agentList = new ArrayList<String>();
+    final Agent agent = (Agent)object;
+    agentList.add( agent.getName() );
+    agentList.add( agent.getMobile() );
+    agentList.add( agent.getCity() );
+    return agentList;
+
+  }
+
+  public static List<String> getAgentListByReqID( final Object[] object )
+  {
+
+    final List<String> agentList = new ArrayList<String>();
+    for ( int i = 0; i < object.length; i++ )
+    {
+
+      agentList.add( (String)object[ i ] );
+    }
+    return agentList;
+
+  }
 }

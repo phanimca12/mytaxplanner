@@ -15,7 +15,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
 		{
 		   
 			 $http({
-	             url : '/v1/agent/agentData?paraName=requestID&paraValue='+ requestID,
+	             url : '/MyTaxReturn/v1/agent/agentData?paraName=requestID&paraValue='+ requestID,
 	             method : "GET",
 	             	 headers: {
 	             	        "Content-Type": "application/json",
@@ -23,12 +23,14 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
 	             	    }
 	         }).then(function mySuccess(response) {
 	         	
+	        	
 	       	
 	         	$scope.UserInfo=response.data;
-	         	
-	         	$scope.aname=$scope.UserInfo[0].name;
-	         	$scope.amail=$scope.UserInfo[0].emailID;
-	         	$scope.amobile=$scope.UserInfo[0].mobile;
+	         	 alert($scope.UserInfo[1]);
+	         	$scope.aname=$scope.UserInfo[1];
+	         	$scope.amail=$scope.UserInfo[3];
+	         	$scope.amobile=$scope.UserInfo[2];
+	         	$scope.acode=$scope.UserInfo[0];
 	         }, function myError(response) {
 	           $scope.message = response.statusText;
 	         });
@@ -54,7 +56,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
 	{
 	        
 		 $http({
-             url : '/v1/returnfilingrequest/requestdetails/'+ customerName,
+             url : '/MyTaxReturn/v1/returnfilingrequest/requestdetails/'+ customerName,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",
@@ -76,7 +78,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
 	{
 	        
 		 $http({
-             url : '/v1/attachments/download/'+ customerName,
+             url : '/MyTaxReturn/v1/attachments/download/'+ customerName,
              method : "GET",
              	 headers: {
              	        "Content-Type": "application/json",
@@ -100,7 +102,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
     //HTTP GET- get all countries collection
     function _refreshAgentData() {
     	  $http({
-              url : '/v1/agent/agentdetails',
+              url : '/MyTaxReturn/v1/agent/agentdetails',
               method : "GET",
               	 headers: {
               	        "Content-Type": "application/json",
@@ -120,7 +122,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
     
     function getAgentInfo(AgentCode) {
   	  $http({
-            url : '/v1/agent/agentData?paraName=AgentCode&paraValue='+ AgentCode,
+            url : '/MyTaxReturn/v1/agent/agentData?paraName=AgentCode&paraValue='+ AgentCode,
             method : "GET",
             	 headers: {
             	        "Content-Type": "application/json",
@@ -129,9 +131,9 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
         }).then(function mySuccess(response) {
         	
      
-        	$scope.AgentName=response.data[0].name;
-        	$scope.AgentMobile=response.data[0].mobile;
-        	$scope.AgentCity=response.data[0].city;
+        	$scope.AgentName=response.data[0];
+        	$scope.AgentMobile=response.data[1];
+        	$scope.AgentCity=response.data[2];
         
         }, function myError(response) {
           $scope.message = response.statusText;
@@ -144,7 +146,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
         var reqID = $scope.Requests[index].requestID;
         $http({
             method : "DELETE",
-            url : "/v1/returnfilingrequest/request/" + reqID,
+            url : "/MyTaxReturn/v1/returnfilingrequest/request/" + reqID,
             data : angular.toJson(reqID),
            headers: {
               	        "Content-Type": "application/json",
@@ -183,7 +185,7 @@ app.controller('homeCTRL',  [ '$scope', '$http', '$window',function($scope, $htt
         $scope.requestID=reqID;
        /* $http({
             method : "DELETE",
-            url : "/MyTaxReturn/v1/returnfilingrequest/request/" + reqID,
+            url : "/MyTaxReturn/MyTaxReturn/v1/returnfilingrequest/request/" + reqID,
             data : angular.toJson(reqID),
            headers: {
               	        "Content-Type": "application/xml"

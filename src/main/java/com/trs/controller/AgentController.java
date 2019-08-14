@@ -1,6 +1,5 @@
 package com.trs.controller;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,31 +43,33 @@ public class AgentController
   @GET
   @Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON } )
   @Path( "/agentData" )
-  public List<Agent> getAgentData( @QueryParam( "paraName" ) final String para_name,
-                                   @QueryParam( "paraValue" ) final String para_Value )
+  public List<String> getAgentData( @QueryParam( "paraName" ) final String para_name,
+                                    @QueryParam( "paraValue" ) final String para_Value )
   {
 
     final IAgentService agentrService = new AgentService();
 
-    final List<Agent> agentList = new ArrayList<Agent>();
+    List<String> agentList = null;
 
     final List list = agentrService.getAgentInfo( para_name, para_Value );
 
-    final Iterator it = list.iterator();
-    Agent agentObj = null;
-    while ( it.hasNext() )
+    for ( final Iterator iterator1 = list.iterator(); iterator1.hasNext(); )
     {
+      final Object object = iterator1.next();
+      switch ( para_name.toLowerCase() )
+      {
+        case "agentcode":
+          agentList = AgentService.getAgentListByCode( object );
 
-      final Object[] object = (Object[])it.next();
-      agentObj = new Agent();
-      agentObj.setAgentCode( (String)object[ 0 ] );
-      agentObj.setName( (String)object[ 1 ] );
-      agentObj.setMobile( (String)object[ 2 ] );
-      agentObj.setEmailID( (String)object[ 3 ] );
-      agentObj.setCity( (String)object[ 4 ] );
-      agentList.add( agentObj );
+          break;
+        case "requestid":
+          final Object[] objectArray = (Object[])object;
+          agentList = AgentService.getAgentListByReqID( objectArray );
+          break;
+
+      }
+
     }
-
     return agentList;
 
   }
